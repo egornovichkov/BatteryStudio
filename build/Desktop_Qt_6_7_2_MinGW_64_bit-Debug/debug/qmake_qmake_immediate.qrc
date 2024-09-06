@@ -1,0 +1,5 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/">
+<file alias="images/BatteryIcon.png">D:/Qt/Projects/Battery_Studio/images/BatteryIcon.png</file>
+</qresource>
+</RCC>
