@@ -27,3 +27,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     images/BatteryIcon.png
+
+DISTFILES += \
+    fonts/Inter-Regular.ttf
