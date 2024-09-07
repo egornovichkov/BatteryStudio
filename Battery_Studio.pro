@@ -29,4 +29,8 @@ RESOURCES += \
     images/BatteryIcon.png
 
 DISTFILES += \
-    fonts/Inter-Regular.ttf
+    fonts/FiraCode.ttf \
+    fonts/Inter-Regular.otf \
+    fonts/JetBrainsMono-Regular.ttf \
+    fonts/Roboto-Medium.ttf \
+    fonts/Roboto-Regular.ttf

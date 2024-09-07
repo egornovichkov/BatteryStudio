@@ -20,6 +20,11 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="CentralWidget">
+   <property name="font">
+    <font>
+     <family>Fira Code</family>
+    </font>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
      <number>0</number>
@@ -142,6 +147,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
 }</string>
                  </property>
                  <property name="text">
@@ -156,6 +162,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
 }</string>
                  </property>
                  <property name="text">
@@ -170,6 +177,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
 }</string>
                  </property>
                  <property name="text">
@@ -184,6 +192,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
 }</string>
                  </property>
                  <property name="text">
@@ -204,12 +213,13 @@ border: 1px solid rgb(150, 150, 160);
                   <number>0</number>
                  </property>
                  <item>
-                  <widget class="QLabel" name="MaxVoltage">
+                  <widget class="QLabel" name="MaxVoltageLabel">
                    <property name="styleSheet">
                     <string notr="true">QLabel {
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
 }</string>
                    </property>
                    <property name="text">
@@ -222,12 +232,13 @@ border: 1px solid rgb(150, 150, 160);
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="MinVoltage">
+                  <widget class="QLabel" name="MinVoltageLabel">
                    <property name="styleSheet">
                     <string notr="true">QLabel {
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
 }</string>
                    </property>
                    <property name="text">
@@ -241,11 +252,20 @@ border: 1px solid rgb(150, 150, 160);
                  </item>
                  <item>
                   <widget class="QLabel" name="VoltageDIfLabel">
+                   <property name="font">
+                    <font>
+                     <family>Roboto</family>
+                     <pointsize>13</pointsize>
+                     <italic>false</italic>
+                     <bold>false</bold>
+                    </font>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">QLabel {
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
 }</string>
                    </property>
                    <property name="text">
@@ -266,11 +286,20 @@ border: 1px solid rgb(150, 150, 160);
                  </property>
                  <item>
                   <widget class="QLabel" name="MaxTempLabel">
+                   <property name="font">
+                    <font>
+                     <family>Roboto</family>
+                     <pointsize>13</pointsize>
+                     <italic>false</italic>
+                     <bold>false</bold>
+                    </font>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">QLabel {
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
 }</string>
                    </property>
                    <property name="text">
@@ -283,12 +312,21 @@ border: 1px solid rgb(150, 150, 160);
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="MinTempLable">
+                  <widget class="QLabel" name="MinTempLabel">
+                   <property name="font">
+                    <font>
+                     <family>Roboto</family>
+                     <pointsize>13</pointsize>
+                     <italic>false</italic>
+                     <bold>false</bold>
+                    </font>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">QLabel {
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
 }</string>
                    </property>
                    <property name="text">
@@ -307,6 +345,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
 }</string>
                    </property>
                    <property name="text">
@@ -476,7 +515,7 @@ border: 1px solid rgb(150, 150, 160);
      <x>0</x>
      <y>0</y>
      <width>1068</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -485,33 +524,44 @@ border: 1px solid rgb(150, 150, 160);
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(210, 210, 210)</string>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>40</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>8</pointsize>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
    </property>
    <property name="nativeMenuBar">
     <bool>true</bool>
    </property>
    <widget class="QMenu" name="SettingsMenu">
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QMenu {
-	color:rgb(0,0,0)
-}</string>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>8</pointsize>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="title">
      <string>Настройки</string>
     </property>
    </widget>
    <widget class="QMenu" name="ViewMenu">
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QMenu {
-	color:rgb(0,0,0)
-}</string>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>8</pointsize>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="title">
      <string>Вид</string>
