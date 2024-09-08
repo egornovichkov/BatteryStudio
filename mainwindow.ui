@@ -120,85 +120,128 @@ border: 1px solid rgb(150, 150, 160);
 }</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_2">
-             <property name="spacing">
-              <number>3</number>
-             </property>
-             <property name="leftMargin">
-              <number>10</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
              <item>
-              <layout class="QVBoxLayout" name="GenInfoLayout">
-               <property name="spacing">
-                <number>0</number>
-               </property>
+              <layout class="QHBoxLayout" name="GenInfoLayout">
                <item>
-                <widget class="QLabel" name="VoltageLabel">
-                 <property name="autoFillBackground">
-                  <bool>false</bool>
+                <layout class="QVBoxLayout" name="GenInfoTxtLayout">
+                 <property name="spacing">
+                  <number>0</number>
                  </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLabel {
+                 <item>
+                  <widget class="QLabel" name="VoltageLabel">
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QLabel {
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
 	font: 13pt &quot;Roboto&quot;;
 }</string>
+                   </property>
+                   <property name="text">
+                    <string>Напряжение:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="CurrentLabel">
+                   <property name="styleSheet">
+                    <string notr="true">QLabel {
+	color: rgb(25, 25, 25);
+	border: 0px;
+	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
+}</string>
+                   </property>
+                   <property name="text">
+                    <string>Ток:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="CurCapacityLabel">
+                   <property name="styleSheet">
+                    <string notr="true">QLabel {
+	color: rgb(25, 25, 25);
+	border: 0px;
+	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
+}</string>
+                   </property>
+                   <property name="text">
+                    <string>Текущая ёмкость батерии:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="MaxCapacityLabel">
+                   <property name="styleSheet">
+                    <string notr="true">QLabel {
+	color: rgb(25, 25, 25);
+	border: 0px;
+	background-color: transparent;
+	font: 13pt &quot;Roboto&quot;;
+}</string>
+                   </property>
+                   <property name="text">
+                    <string>Максимальная ёмкость батареи:   </string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_3">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Policy::Fixed</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="BatteryStatusIcon">
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+	border: 0px;
+	background-color: transparent;
+}</string>
+                 </property>
+                 <property name="lineWidth">
+                  <number>0</number>
                  </property>
                  <property name="text">
-                  <string>Напряжение:</string>
+                  <string/>
+                 </property>
+                 <property name="pixmap">
+                  <pixmap resource="build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/debug/qmake_qmake_immediate.qrc">:/images/BatteryIcon.png</pixmap>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignmentFlag::AlignCenter</set>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="CurrentLabel">
-                 <property name="styleSheet">
-                  <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
-	border: 0px;
-	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
-}</string>
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
                  </property>
-                 <property name="text">
-                  <string>Ток:</string>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
                  </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="CurCapacityLabel">
-                 <property name="styleSheet">
-                  <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
-	border: 0px;
-	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Текущая ёмкость батерии:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="MaxCapacityLabel">
-                 <property name="styleSheet">
-                  <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
-	border: 0px;
-	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Максимальная ёмкость батареи:</string>
-                 </property>
-                </widget>
+                </spacer>
                </item>
               </layout>
              </item>
@@ -377,8 +420,8 @@ border: 1px solid rgb(150, 150, 160);
             </layout>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QWidget" name="FlagsWidget" native="true">
+          <item row="1" column="0">
+           <widget class="QWidget" name="SignalsWidget" native="true">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -393,8 +436,8 @@ border: 1px solid rgb(150, 150, 160);
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QWidget" name="SignalsWidget" native="true">
+          <item row="1" column="1">
+           <widget class="QWidget" name="FlagsWidget" native="true">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -571,6 +614,8 @@ border: 1px solid rgb(150, 150, 160);
    <addaction name="ViewMenu"/>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/debug/qmake_qmake_immediate.qrc"/>
+ </resources>
  <connections/>
 </ui>

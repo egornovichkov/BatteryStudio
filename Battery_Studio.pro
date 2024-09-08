@@ -26,11 +26,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    images/BatteryIcon.png
+    images/BatteryIcon.png \
+    images/empty-battery.png
 
 DISTFILES += \
     fonts/FiraCode.ttf \
     fonts/Inter-Regular.otf \
     fonts/JetBrainsMono-Regular.ttf \
     fonts/Roboto-Medium.ttf \
-    fonts/Roboto-Regular.ttf
+    fonts/Roboto-Regular.ttf \
+    images/empty-battery.png

@@ -1,5 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/">
 <file alias="images/BatteryIcon.png">D:/Qt/Projects/Battery_Studio/images/BatteryIcon.png</file>
+<file alias="images/empty-battery.png">D:/Qt/Projects/Battery_Studio/images/empty-battery.png</file>
 </qresource>
 </RCC>
