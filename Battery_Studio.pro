@@ -9,12 +9,12 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    batinfowidget.cpp \
+    batterycharge.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
-    batinfowidget.h \
+    batterycharge.h \
     mainwindow.h
 
 FORMS += \
@@ -27,7 +27,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     images/BatteryIcon.png \
-    images/empty-battery.png
 
 DISTFILES += \
     fonts/FiraCode.ttf \
@@ -35,4 +34,3 @@ DISTFILES += \
     fonts/JetBrainsMono-Regular.ttf \
     fonts/Roboto-Medium.ttf \
     fonts/Roboto-Regular.ttf \
-    images/empty-battery.png
