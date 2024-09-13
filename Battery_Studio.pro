@@ -10,11 +10,13 @@ CONFIG += c++17
 
 SOURCES += \
     batterychargeicon.cpp \
+    flag.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     batterychargeicon.h \
+    flag.h \
     mainwindow.h
 
 FORMS += \

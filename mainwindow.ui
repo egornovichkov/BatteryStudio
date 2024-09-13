@@ -151,22 +151,22 @@ background-color: rgb(250, 250, 250);
 border: 1px solid rgb(150, 150, 160);
 }</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout">
+            <layout class="QVBoxLayout" name="BatInfoLayout" stretch="1,1,1,1">
              <property name="topMargin">
               <number>21</number>
              </property>
              <item>
-              <layout class="QHBoxLayout" name="BatteryChargeLayout" stretch="0,0,0">
+              <layout class="QHBoxLayout" name="BatChargeLayout" stretch="0,0,0">
                <property name="spacing">
                 <number>0</number>
                </property>
                <item>
-                <spacer name="horizontalSpacer_3">
+                <spacer name="BatChargeHorizontalSpacerL">
                  <property name="orientation">
                   <enum>Qt::Orientation::Horizontal</enum>
                  </property>
                  <property name="sizeType">
-                  <enum>QSizePolicy::Policy::Expanding</enum>
+                  <enum>QSizePolicy::Policy::Fixed</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -177,7 +177,7 @@ border: 1px solid rgb(150, 150, 160);
                 </spacer>
                </item>
                <item>
-                <widget class="BatteryChargeIcon" name="BatteryChargeWidget" native="true">
+                <widget class="BatteryChargeIcon" name="BatChargeWidget" native="true">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -186,7 +186,7 @@ border: 1px solid rgb(150, 150, 160);
                  </property>
                  <property name="minimumSize">
                   <size>
-                   <width>300</width>
+                   <width>298</width>
                    <height>51</height>
                   </size>
                  </property>
@@ -204,7 +204,7 @@ border: 1px solid rgb(150, 150, 160);
                 </widget>
                </item>
                <item>
-                <spacer name="horizontalSpacer_2">
+                <spacer name="BatChargeHorizontalSpacerR">
                  <property name="orientation">
                   <enum>Qt::Orientation::Horizontal</enum>
                  </property>
@@ -230,7 +230,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
+	font: 13pt &quot;Inter&quot;;
 }</string>
                  </property>
                  <property name="text">
@@ -245,7 +245,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
+	font: 13pt &quot;Inter&quot;;
 }</string>
                  </property>
                  <property name="text">
@@ -260,7 +260,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
+	font: 13pt &quot;Inter&quot;;
 }</string>
                  </property>
                  <property name="text">
@@ -275,7 +275,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
+	font: 13pt &quot;Inter&quot;;
 }</string>
                  </property>
                  <property name="text">
@@ -302,7 +302,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
+	font: 13pt &quot;Inter&quot;;
 }</string>
                    </property>
                    <property name="text">
@@ -321,7 +321,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
+	font: 13pt &quot;Inter&quot;;
 }</string>
                    </property>
                    <property name="text">
@@ -337,7 +337,7 @@ border: 1px solid rgb(150, 150, 160);
                   <widget class="QLabel" name="VoltageDIfLabel">
                    <property name="font">
                     <font>
-                     <family>Roboto</family>
+                     <family>Inter</family>
                      <pointsize>13</pointsize>
                      <italic>false</italic>
                      <bold>false</bold>
@@ -348,7 +348,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
+	font: 13pt &quot;Inter&quot;;
 }</string>
                    </property>
                    <property name="text">
@@ -371,7 +371,7 @@ border: 1px solid rgb(150, 150, 160);
                   <widget class="QLabel" name="MaxTempLabel">
                    <property name="font">
                     <font>
-                     <family>Roboto</family>
+                     <family>Inter</family>
                      <pointsize>13</pointsize>
                      <italic>false</italic>
                      <bold>false</bold>
@@ -382,7 +382,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
+	font: 13pt &quot;Inter&quot;;
 }</string>
                    </property>
                    <property name="text">
@@ -398,7 +398,7 @@ border: 1px solid rgb(150, 150, 160);
                   <widget class="QLabel" name="MinTempLabel">
                    <property name="font">
                     <font>
-                     <family>Roboto</family>
+                     <family>Inter</family>
                      <pointsize>13</pointsize>
                      <italic>false</italic>
                      <bold>false</bold>
@@ -409,7 +409,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
+	font: 13pt &quot;Inter&quot;;
 }</string>
                    </property>
                    <property name="text">
@@ -428,7 +428,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Roboto&quot;;
+	font: 13pt &quot;Inter&quot;;
 }</string>
                    </property>
                    <property name="text">
@@ -443,7 +443,7 @@ border: 1px solid rgb(150, 150, 160);
                 </layout>
                </item>
                <item>
-                <spacer name="horizontalSpacer">
+                <spacer name="VoltageInfoHorizontalSpacer">
                  <property name="orientation">
                   <enum>Qt::Orientation::Horizontal</enum>
                  </property>
@@ -458,7 +458,7 @@ border: 1px solid rgb(150, 150, 160);
               </layout>
              </item>
              <item>
-              <spacer name="verticalSpacer">
+              <spacer name="BatInfoVerticalSpacer">
                <property name="orientation">
                 <enum>Qt::Orientation::Vertical</enum>
                </property>
