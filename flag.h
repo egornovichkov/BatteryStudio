@@ -9,6 +9,9 @@ class Flag : public QWidget
 public:
     explicit Flag(QWidget *parent = nullptr);
 
+private:
+    QString m_label;
+
 signals:
 };
 

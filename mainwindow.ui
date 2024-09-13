@@ -57,7 +57,7 @@
       </property>
       <property name="styleSheet">
        <string notr="true">QWidget {
-background-color: rgb(250, 250, 250); 
+background-color: rgb(244, 244, 244); 
 border: 1px solid rgb(150, 150, 160);
 }</string>
       </property>
@@ -99,22 +99,6 @@ border: 1px solid rgb(150, 150, 160);
           <property name="spacing">
            <number>0</number>
           </property>
-          <item row="1" column="1">
-           <widget class="QWidget" name="FlagsWidget" native="true">
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QWidget {
-background-color: rgb(250, 250, 250); 
-border: 1px solid rgb(150, 150, 160);
-}</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0">
            <widget class="QWidget" name="SignalsWidget" native="true">
             <property name="minimumSize">
@@ -125,7 +109,23 @@ border: 1px solid rgb(150, 150, 160);
             </property>
             <property name="styleSheet">
              <string notr="true">QWidget {
-background-color: rgb(250, 250, 250); 
+background-color: rgb(244, 244, 244); 
+border: 1px solid rgb(150, 150, 160);
+}</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QWidget" name="FlagsWidget" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QWidget {
+background-color: rgb(244, 244, 244); 
 border: 1px solid rgb(150, 150, 160);
 }</string>
             </property>
@@ -147,37 +147,24 @@ border: 1px solid rgb(150, 150, 160);
             </property>
             <property name="styleSheet">
              <string notr="true">QWidget {
-background-color: rgb(250, 250, 250); 
+background-color: rgb(244, 244, 244); 
 border: 1px solid rgb(150, 150, 160);
 }</string>
             </property>
-            <layout class="QVBoxLayout" name="BatInfoLayout" stretch="1,1,1,1">
+            <layout class="QVBoxLayout" name="BatInfoLayout">
+             <property name="leftMargin">
+              <number>14</number>
+             </property>
              <property name="topMargin">
               <number>21</number>
              </property>
              <item>
-              <layout class="QHBoxLayout" name="BatChargeLayout" stretch="0,0,0">
+              <layout class="QHBoxLayout" name="BatChargeLayout" stretch="25,1">
                <property name="spacing">
                 <number>0</number>
                </property>
                <item>
-                <spacer name="BatChargeHorizontalSpacerL">
-                 <property name="orientation">
-                  <enum>Qt::Orientation::Horizontal</enum>
-                 </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::Policy::Fixed</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="BatteryChargeIcon" name="BatChargeWidget" native="true">
+                <widget class="BatChargeImg" name="BatChargeWidget" native="true">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -186,7 +173,13 @@ border: 1px solid rgb(150, 150, 160);
                  </property>
                  <property name="minimumSize">
                   <size>
-                   <width>298</width>
+                   <width>50</width>
+                   <height>51</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>300</width>
                    <height>51</height>
                   </size>
                  </property>
@@ -204,13 +197,16 @@ border: 1px solid rgb(150, 150, 160);
                 </widget>
                </item>
                <item>
-                <spacer name="BatChargeHorizontalSpacerR">
+                <spacer name="BatChargeHorizontalSpacer">
                  <property name="orientation">
                   <enum>Qt::Orientation::Horizontal</enum>
                  </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Policy::Expanding</enum>
+                 </property>
                  <property name="sizeHint" stdset="0">
                   <size>
-                   <width>40</width>
+                   <width>0</width>
                    <height>20</height>
                   </size>
                  </property>
@@ -219,243 +215,199 @@ border: 1px solid rgb(150, 150, 160);
               </layout>
              </item>
              <item>
-              <layout class="QVBoxLayout" name="GenInfoLayout">
-               <item>
-                <widget class="QLabel" name="VoltageLabel">
-                 <property name="autoFillBackground">
-                  <bool>false</bool>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
-	border: 0px;
-	background-color: transparent;
-	font: 13pt &quot;Inter&quot;;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Напряжение:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="CurrentLabel">
-                 <property name="styleSheet">
-                  <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
-	border: 0px;
-	background-color: transparent;
-	font: 13pt &quot;Inter&quot;;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Ток:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="CurCapacityLabel">
-                 <property name="styleSheet">
-                  <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
-	border: 0px;
-	background-color: transparent;
-	font: 13pt &quot;Inter&quot;;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Текущая ёмкость батерии:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="MaxCapacityLabel">
-                 <property name="styleSheet">
-                  <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
-	border: 0px;
-	background-color: transparent;
-	font: 13pt &quot;Inter&quot;;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Максимальная ёмкость батареи:   </string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="VoltageTempInfoLayout">
-               <property name="spacing">
-                <number>20</number>
+              <widget class="QLabel" name="VoltageLabel">
+               <property name="autoFillBackground">
+                <bool>false</bool>
                </property>
-               <item>
-                <layout class="QVBoxLayout" name="VoltageInfoLayout">
-                 <property name="spacing">
-                  <number>0</number>
-                 </property>
-                 <item>
-                  <widget class="QLabel" name="MaxVoltageLabel">
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
+               <property name="styleSheet">
+                <string notr="true">QLabel {
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Inter&quot;;
+	font: 12pt &quot;Roboto&quot;;
 }</string>
-                   </property>
-                   <property name="text">
-                    <string>Текущий max напряжения:
-</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignmentFlag::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="MinVoltageLabel">
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
+               </property>
+               <property name="text">
+                <string>Напряжение:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="CurrentLabel">
+               <property name="styleSheet">
+                <string notr="true">QLabel {
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Inter&quot;;
+	font: 12pt &quot;Roboto&quot;;
 }</string>
-                   </property>
-                   <property name="text">
-                    <string>Текущий min напряжения:
-</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignmentFlag::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="VoltageDIfLabel">
-                   <property name="font">
-                    <font>
-                     <family>Inter</family>
-                     <pointsize>13</pointsize>
-                     <italic>false</italic>
-                     <bold>false</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
+               </property>
+               <property name="text">
+                <string>Ток:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="CurCapacityLabel">
+               <property name="styleSheet">
+                <string notr="true">QLabel {
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Inter&quot;;
+	font: 12pt &quot;Roboto&quot;;
 }</string>
-                   </property>
-                   <property name="text">
-                    <string>Разница напряжений:
-</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignmentFlag::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QVBoxLayout" name="TempInfoLayout">
-                 <property name="spacing">
-                  <number>0</number>
-                 </property>
-                 <item>
-                  <widget class="QLabel" name="MaxTempLabel">
-                   <property name="font">
-                    <font>
-                     <family>Inter</family>
-                     <pointsize>13</pointsize>
-                     <italic>false</italic>
-                     <bold>false</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
+               </property>
+               <property name="text">
+                <string>Текущая ёмкость батерии:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="MaxCapacityLabel">
+               <property name="styleSheet">
+                <string notr="true">QLabel {
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Inter&quot;;
+	font: 12pt &quot;Roboto&quot;;
 }</string>
-                   </property>
-                   <property name="text">
-                    <string>Текущий max температуры:
-</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignmentFlag::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="MinTempLabel">
-                   <property name="font">
-                    <font>
-                     <family>Inter</family>
-                     <pointsize>13</pointsize>
-                     <italic>false</italic>
-                     <bold>false</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
+               </property>
+               <property name="text">
+                <string>Максимальная ёмкость батареи:   </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="MaxVoltageLabel">
+               <property name="styleSheet">
+                <string notr="true">QLabel {
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Inter&quot;;
+	font: 12pt &quot;Roboto&quot;;
 }</string>
-                   </property>
-                   <property name="text">
-                    <string>Текущий min температуры:
-</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignmentFlag::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="TempDifLabel">
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
+               </property>
+               <property name="text">
+                <string>Текущий max напряжения:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="MinVoltageLabel">
+               <property name="styleSheet">
+                <string notr="true">QLabel {
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 13pt &quot;Inter&quot;;
+	font: 12pt &quot;Roboto&quot;;
 }</string>
-                   </property>
-                   <property name="text">
-                    <string>Температурная девиация:
-</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignmentFlag::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <spacer name="VoltageInfoHorizontalSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Orientation::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
+               </property>
+               <property name="text">
+                <string>Текущий min напряжения:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="VoltageDIfLabel">
+               <property name="font">
+                <font>
+                 <family>Roboto</family>
+                 <pointsize>12</pointsize>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLabel {
+	color: rgb(25, 25, 25);
+	border: 0px;
+	background-color: transparent;
+	font: 12pt &quot;Roboto&quot;;
+}</string>
+               </property>
+               <property name="text">
+                <string>Разница напряжений:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="MaxTempLabel">
+               <property name="font">
+                <font>
+                 <family>Roboto</family>
+                 <pointsize>12</pointsize>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLabel {
+	color: rgb(25, 25, 25);
+	border: 0px;
+	background-color: transparent;
+	font: 12pt &quot;Roboto&quot;;
+}</string>
+               </property>
+               <property name="text">
+                <string>Текущий max температуры:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="MinTempLabel">
+               <property name="font">
+                <font>
+                 <family>Roboto</family>
+                 <pointsize>12</pointsize>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLabel {
+	color: rgb(25, 25, 25);
+	border: 0px;
+	background-color: transparent;
+	font: 12pt &quot;Roboto&quot;;
+}</string>
+               </property>
+               <property name="text">
+                <string>Текущий min температуры:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="TempDifLabel">
+               <property name="styleSheet">
+                <string notr="true">QLabel {
+	color: rgb(25, 25, 25);
+	border: 0px;
+	background-color: transparent;
+	font: 12pt &quot;Roboto&quot;;
+}</string>
+               </property>
+               <property name="text">
+                <string>Температурная девиация:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+               </property>
+              </widget>
              </item>
              <item>
               <spacer name="BatInfoVerticalSpacer">
@@ -510,7 +462,7 @@ border: 1px solid rgb(150, 150, 160);
          </property>
          <property name="styleSheet">
           <string notr="true">QWidget {
-background-color: rgb(250, 250, 250); 
+background-color: rgb(244, 244, 244); 
 border: 1px solid rgb(150, 150, 160);
 }</string>
          </property>
@@ -530,7 +482,7 @@ border: 1px solid rgb(150, 150, 160);
          </property>
          <property name="styleSheet">
           <string notr="true">QWidget {
-background-color: rgb(250, 250, 250); 
+background-color: rgb(244, 244, 244); 
 border: 1px solid rgb(150, 150, 160);
 }</string>
          </property>
@@ -567,7 +519,7 @@ border: 1px solid rgb(150, 150, 160);
        </property>
        <property name="styleSheet">
         <string notr="true">QWidget {
-background-color: rgb(250, 250, 250); 
+background-color: rgb(244, 244, 244); 
 border: 1px solid rgb(150, 150, 160);
 }</string>
        </property>
@@ -640,9 +592,9 @@ border: 1px solid rgb(150, 150, 160);
  </widget>
  <customwidgets>
   <customwidget>
-   <class>BatteryChargeIcon</class>
+   <class>BatChargeImg</class>
    <extends>QWidget</extends>
-   <header>batterychargeicon.h</header>
+   <header>batchargeimg.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

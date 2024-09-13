@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "batterychargeicon.h"
+#include "batchargeimg.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -20,6 +20,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    BatteryChargeIcon *BatteryCharge;
+    BatChargeImg *BatteryCharge;
 };
 #endif // MAINWINDOW_H

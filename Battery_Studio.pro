@@ -9,14 +9,16 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    batterychargeicon.cpp \
+    batchargeimg.cpp \
     flag.cpp \
+    led.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
-    batterychargeicon.h \
+    batchargeimg.h \
     flag.h \
+    led.h \
     mainwindow.h
 
 FORMS += \

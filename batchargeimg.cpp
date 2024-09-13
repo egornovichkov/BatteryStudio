@@ -1,19 +1,18 @@
-#include "batterychargeicon.h"
+#include "batchargeimg.h"
 #include <QPainter>
 
-BatteryChargeIcon::BatteryChargeIcon(QWidget *parent)
+BatChargeImg::BatChargeImg(QWidget *parent)
     : QWidget{parent}
 {
 }
 
 
-void BatteryChargeIcon::paintEvent(QPaintEvent *event)
+void BatChargeImg::paintEvent(QPaintEvent *event)
 {
 
-    QSize itemSize = this->size();
     const int margin = 4;//The margin of the outer frame
-    int w = itemSize.width();
-    int h = itemSize.height();
+    int w = this->size().width();
+    int h = this->size().height();
 
     int x0, y0, w0, h0;//Outer frame data
     int x1, y1, w1, h1;//Inner frame data-battery
@@ -38,7 +37,7 @@ void BatteryChargeIcon::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     QPen pen;
 
-    painter.setPen(m_frame_color);//The color of the frame
+    painter.setPen(m_border_color);//The color of the frame
     pen = painter.pen();
     pen.setWidth(1);//Set the width of the wireframe
     painter.setPen(pen);
@@ -51,7 +50,7 @@ void BatteryChargeIcon::paintEvent(QPaintEvent *event)
     painter.drawRoundedRect(x2, y2, w2, h2, 2, 2);
 
     // Draw inner rectangle
-    painter.setPen(m_charge_color);
+    painter.setPen(m_charge_border_color);
     painter.setBrush(m_charge_color);
     int w1_current = m_value*0.01*(w1);
     //Set the power according to the value

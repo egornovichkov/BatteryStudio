@@ -10,17 +10,9 @@ MainWindow::MainWindow(QMainWindow *parent)
 {
     ui->setupUi(this);
 
-    // BatChargeIcon initial size
-    int BatChargeLayoutLMargin = ui->BatInfoLayout->contentsMargins().left();
-    int BatChargeLayoutRMargin = ui->BatInfoLayout->contentsMargins().right();
-    int BatChargeWidgetWidth = ui->BatChargeWidget->width();
-    int BatChargeHorizontalSpacerLWidth = (BatChargeWidgetWidth -
-    BatChargeLayoutLMargin - BatChargeLayoutRMargin) / 3;
-    ui->BatChargeHorizontalSpacerL->changeSize(BatChargeHorizontalSpacerLWidth, 20);
-
     // LeftRightPartSplitter initial sizes
     QList<int> LRSplitSizes;
-    LRSplitSizes << 10 << 35;
+    LRSplitSizes << 100 << 350;
     ui->LeftRightPartSplitter->setSizes(LRSplitSizes);
 
     // Adding fonts
