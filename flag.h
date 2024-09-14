@@ -1,6 +1,7 @@
 #ifndef FLAG_H
 #define FLAG_H
 
+#include "ledimg.h"
 #include <QWidget>
 
 class Flag : public QWidget
@@ -11,6 +12,7 @@ public:
 
 private:
     QString m_label;
+    LedImg m_led;
 
 signals:
 };

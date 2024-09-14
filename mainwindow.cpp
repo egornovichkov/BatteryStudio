@@ -3,6 +3,7 @@
 #include <QFontDatabase>
 #include <QFileInfo>
 #include <QImage>
+#include <QPushButton>
 
 MainWindow::MainWindow(QMainWindow *parent)
     : QMainWindow(parent)
@@ -19,6 +20,7 @@ MainWindow::MainWindow(QMainWindow *parent)
     int id = QFontDatabase::addApplicationFont("D:/Qt/Projects/Battery_Studio/fonts/Roboto-Medium.ttf");
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont f(family);
+    f.setHintingPreference(QFont::HintingPreference::PreferFullHinting);
 }
 
 MainWindow::~MainWindow()

@@ -129,6 +129,21 @@ background-color: rgb(244, 244, 244);
 border: 1px solid rgb(150, 150, 160);
 }</string>
             </property>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="LedImg" name="widget" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
           <item row="0" column="0" colspan="2">
@@ -224,7 +239,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 12pt &quot;Roboto&quot;;
+	font: 11pt &quot;Roboto&quot;;
 }</string>
                </property>
                <property name="text">
@@ -239,7 +254,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 12pt &quot;Roboto&quot;;
+	font: 11pt &quot;Roboto&quot;;
 }</string>
                </property>
                <property name="text">
@@ -254,7 +269,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 12pt &quot;Roboto&quot;;
+	font: 11pt &quot;Roboto&quot;;
 }</string>
                </property>
                <property name="text">
@@ -269,7 +284,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 12pt &quot;Roboto&quot;;
+	font: 11pt &quot;Roboto&quot;;
 }</string>
                </property>
                <property name="text">
@@ -284,7 +299,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 12pt &quot;Roboto&quot;;
+	font: 11pt &quot;Roboto&quot;;
 }</string>
                </property>
                <property name="text">
@@ -302,7 +317,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 12pt &quot;Roboto&quot;;
+	font: 11pt &quot;Roboto&quot;;
 }</string>
                </property>
                <property name="text">
@@ -318,7 +333,7 @@ border: 1px solid rgb(150, 150, 160);
                <property name="font">
                 <font>
                  <family>Roboto</family>
-                 <pointsize>12</pointsize>
+                 <pointsize>11</pointsize>
                  <italic>false</italic>
                  <bold>false</bold>
                 </font>
@@ -328,7 +343,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 12pt &quot;Roboto&quot;;
+	font: 11pt &quot;Roboto&quot;;
 }</string>
                </property>
                <property name="text">
@@ -344,7 +359,7 @@ border: 1px solid rgb(150, 150, 160);
                <property name="font">
                 <font>
                  <family>Roboto</family>
-                 <pointsize>12</pointsize>
+                 <pointsize>11</pointsize>
                  <italic>false</italic>
                  <bold>false</bold>
                 </font>
@@ -354,7 +369,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 12pt &quot;Roboto&quot;;
+	font: 11pt &quot;Roboto&quot;;
 }</string>
                </property>
                <property name="text">
@@ -370,7 +385,7 @@ border: 1px solid rgb(150, 150, 160);
                <property name="font">
                 <font>
                  <family>Roboto</family>
-                 <pointsize>12</pointsize>
+                 <pointsize>11</pointsize>
                  <italic>false</italic>
                  <bold>false</bold>
                 </font>
@@ -380,7 +395,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 12pt &quot;Roboto&quot;;
+	font: 11pt &quot;Roboto&quot;;
 }</string>
                </property>
                <property name="text">
@@ -398,7 +413,7 @@ border: 1px solid rgb(150, 150, 160);
 	color: rgb(25, 25, 25);
 	border: 0px;
 	background-color: transparent;
-	font: 12pt &quot;Roboto&quot;;
+	font: 11pt &quot;Roboto&quot;;
 }</string>
                </property>
                <property name="text">
@@ -595,6 +610,12 @@ border: 1px solid rgb(150, 150, 160);
    <class>BatChargeImg</class>
    <extends>QWidget</extends>
    <header>batchargeimg.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LedImg</class>
+   <extends>QWidget</extends>
+   <header>ledimg.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

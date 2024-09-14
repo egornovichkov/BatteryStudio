@@ -11,14 +11,14 @@ CONFIG += c++17
 SOURCES += \
     batchargeimg.cpp \
     flag.cpp \
-    led.cpp \
+    ledimg.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     batchargeimg.h \
     flag.h \
-    led.h \
+    ledimg.h \
     mainwindow.h
 
 FORMS += \
