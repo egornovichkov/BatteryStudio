@@ -21,7 +21,6 @@ private:
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
 
-signals:
 };
 
 #endif // BATCHARGEIMG_H
