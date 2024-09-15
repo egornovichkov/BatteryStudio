@@ -11,15 +11,16 @@ MainWindow::MainWindow(QMainWindow *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QGridLayout *FlagsLayout = new QGridLayout(ui->FlagsWidget);
+    QVBoxLayout *FlagsLayout = new QVBoxLayout(ui->FlagsWidget);
+    // FlagsLayout->setSpacing(0);
+    // FlagsLayout->setObjectName("FlagsLayout");
+    // FlagsLayout->setContentsMargins(0, 0, 0, 0);
     Flag *F1 = new Flag("Flag1", 0, ui->FlagsWidget);
     Flag *F2 = new Flag("Flag2", 0, ui->FlagsWidget);
     Flag *F3 = new Flag("Flag3", 0, ui->FlagsWidget);
-    FlagsLayout->addWidget(F1, 0, 0);
-    FlagsLayout->addWidget(F2, 0, 1);
-    FlagsLayout->addWidget(F3, 1, 1);
-    QPushButton *btn = new QPushButton(ui->FlagsWidget);
-    FlagsLayout->addWidget(btn, 1, 0);
+    FlagsLayout->addWidget(F1);
+    FlagsLayout->addWidget(F2);
+    FlagsLayout->addWidget(F3);
 
 
     // LeftRightPartSplitter initial sizes
