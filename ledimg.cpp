@@ -10,7 +10,7 @@ void LedImg::paintEvent(QPaintEvent *) {
     // Led centered on the parent
     int w = this->width();
     int h = this->height();
-    int x = w/2 - m_size/2;
+    int x = m_size/2;
     int y = h/2 - m_size/2;
 
     QPainter painter(this);
@@ -26,6 +26,11 @@ void LedImg::setSize(int size)
 {
     m_size = size;
     update();
+}
+
+int LedImg::getSize()
+{
+    return m_size;
 }
 
 void LedImg::switchLed()
