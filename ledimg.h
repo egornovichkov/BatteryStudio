@@ -7,7 +7,7 @@ class LedImg : public QWidget
 {
     Q_OBJECT
 public:
-    explicit LedImg(QWidget *parent = nullptr, bool mode = 0, int size = 11);
+    explicit LedImg(int size, bool mode = 0, QWidget *parent = nullptr);
     void setSize(int size);
     int getSize();
 
@@ -20,9 +20,9 @@ public slots:
 private:
     bool m_mode;
     int m_size;
-    QColor m_active_color = QColor(70, 230, 70);
-    QColor m_inactive_color = QColor(220, 220, 225);
-    QColor m_border_color = QColor(150, 150, 160);
+    QColor m_activeColor = QColor(70, 230, 70);
+    QColor m_inactiveColor = QColor(220, 220, 225);
+    QColor m_borderColor = QColor(150, 150, 160);
 
 signals:
 };

@@ -1,9 +1,10 @@
 #ifndef FLAG_H
 #define FLAG_H
 
-#include "ledimg.h"
-#include "qlabel.h"
 #include <QWidget>
+
+class QLabel;
+class LedImg;
 
 class Flag : public QWidget
 {
@@ -13,8 +14,8 @@ public:
     Flag(QString label, bool mode, QWidget *parent = nullptr);
 
 private:
-    QLabel m_label;
-    LedImg m_led;
+    QLabel *m_label;
+    LedImg *m_led;
     bool m_mode;
 
 public slots:

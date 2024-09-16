@@ -64,12 +64,12 @@ void BatChargeImg::paintEvent(QPaintEvent *event)
     {
     case 0:// 0:Show default text
         painter.drawText(x0, y0, w0, h0,
-                         Qt::AlignHCenter | Qt::AlignVCenter,
+                         Qt::AlignCenter,
                          m_showText);
         break;
     case 1:// 1:Show percentage and caption
         painter.drawText(x0, y0, w0, h0,
-                         Qt::AlignHCenter | Qt::AlignVCenter,
+                         Qt::AlignCenter,
                          QString::asprintf("%d%%", m_value));
         break;
     }

@@ -5,12 +5,15 @@
 #include <QImage>
 #include <QPushButton>
 #include "flag.h"
+#include "warning.h"
 
 MainWindow::MainWindow(QMainWindow *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // Flags testing
     QGridLayout *FlagsLayout = new QGridLayout(ui->FlagsWidget);
     FlagsLayout->setSpacing(0);
     FlagsLayout->setContentsMargins(5,0,0,0);
@@ -25,6 +28,14 @@ MainWindow::MainWindow(QMainWindow *parent)
     FlagsLayout->addWidget(F4);
     FlagsLayout->addWidget(F5);
 
+    //Warning testing
+    QVBoxLayout *WarningLayout = new QVBoxLayout(ui->WarningsWidget);
+    Warning *W1 = new Warning("High Voltage", "High Voltage", ui->WarningsWidget);
+    Warning *W3 = new Warning("Low Voltage", "Low Voltage", ui->WarningsWidget);
+    Warning *W2 = new Warning("High Temperature", "High Temperature", ui->WarningsWidget);
+    WarningLayout->addWidget(W1);
+    WarningLayout->addWidget(W2);
+    WarningLayout->addWidget(W3);
 
     // LeftRightPartSplitter initial sizes
     QList<int> LRSplitSizes;
