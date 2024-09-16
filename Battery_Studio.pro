@@ -11,7 +11,6 @@ CONFIG += c++17
 SOURCES += \
     batchargeimg.cpp \
     flag.cpp \
-    flagwidget.cpp \
     ledimg.cpp \
     main.cpp \
     mainwindow.cpp
@@ -19,7 +18,6 @@ SOURCES += \
 HEADERS += \
     batchargeimg.h \
     flag.h \
-    flagwidget.h \
     ledimg.h \
     mainwindow.h
 

@@ -7,7 +7,7 @@ class LedImg : public QWidget
 {
     Q_OBJECT
 public:
-    explicit LedImg(QWidget *parent = nullptr, bool mode = 0, int size = 15);
+    explicit LedImg(QWidget *parent = nullptr, bool mode = 0, int size = 11);
     void setSize(int size);
     int getSize();
 

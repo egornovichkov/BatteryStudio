@@ -4,7 +4,6 @@
 #include "ledimg.h"
 #include "qlabel.h"
 #include <QWidget>
-#include "flagwidget.h"
 
 class Flag : public QWidget
 {
@@ -12,9 +11,6 @@ class Flag : public QWidget
 public:
     explicit Flag(QWidget *parent = nullptr);
     Flag(QString label, bool mode, QWidget *parent = nullptr);
-
-protected:
-    virtual void paintEvent(QPaintEvent *) override;
 
 private:
     QLabel m_label;
