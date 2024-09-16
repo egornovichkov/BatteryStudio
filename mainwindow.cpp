@@ -13,7 +13,7 @@ MainWindow::MainWindow(QMainWindow *parent)
 {
     ui->setupUi(this);
 
-    // Flags testing
+    // Flags demonstration
     QGridLayout *FlagsLayout = new QGridLayout(ui->FlagsWidget);
     FlagsLayout->setSpacing(0);
     FlagsLayout->setContentsMargins(5,0,0,0);
@@ -28,11 +28,13 @@ MainWindow::MainWindow(QMainWindow *parent)
     FlagsLayout->addWidget(F4);
     FlagsLayout->addWidget(F5);
 
-    //Warning testing
+    //Warnings demonstration
     QVBoxLayout *WarningLayout = new QVBoxLayout(ui->WarningsWidget);
+    FlagsLayout->setSpacing(0);
+    FlagsLayout->setContentsMargins(0,0,0,0);
     Warning *W1 = new Warning("High Voltage", "High Voltage", ui->WarningsWidget);
-    Warning *W3 = new Warning("Low Voltage", "Low Voltage", ui->WarningsWidget);
-    Warning *W2 = new Warning("High Temperature", "High Temperature", ui->WarningsWidget);
+    Warning *W2 = new Warning("Low Voltage", "Low Voltage", ui->WarningsWidget);
+    Warning *W3 = new Warning("High Temperature", "High Temperature", ui->WarningsWidget);
     WarningLayout->addWidget(W1);
     WarningLayout->addWidget(W2);
     WarningLayout->addWidget(W3);

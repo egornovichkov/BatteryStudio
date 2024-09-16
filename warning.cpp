@@ -10,7 +10,6 @@ Warning::Warning(QString label, QString type, QWidget *parent)
     m_backgroundColor = warningTypeMap[type];
 
     m_label = new QLabel(label, this);
-    m_label->setGeometry(0, 0, this->width(), this->height());
     m_label->setAlignment(Qt::AlignCenter);
     m_label->setStyleSheet(QString::fromUtf8("QLabel { \n"
                                              "color: rgb(25, 25, 25);\n"
@@ -22,12 +21,22 @@ Warning::Warning(QString label, QString type, QWidget *parent)
 
 void Warning::paintEvent(QPaintEvent *)
 {
-    // Getting cords for margins
+    // Getting cords for painting warnings
     int x, y, w, h;
-    x = this->x() + 2;
-    y = this->y() + 2;
-    w = this->width() - 4;
-    h = this->height() - 4;
+    if (this->width() > m_maximumWidth)
+    {
+        x = (this->width() / 2) - (m_maximumWidth / 2) + 2;
+        y = 2;
+        w = m_maximumWidth - 4;
+        h = 24;
+    } else {
+        x = 2;
+        y = 2;
+        w = this->width() - 4;
+        h = 24;
+    }
+
+    m_label->setGeometry(x, y, w, h);
 
     QPainter painter(this);
 
