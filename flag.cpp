@@ -1,6 +1,7 @@
 #include "flag.h"
 #include <QLabel>
 #include "ledimg.h"
+#include <QPainter>
 
 Flag::Flag(QWidget *parent)
     : QWidget{parent}
@@ -9,7 +10,7 @@ Flag::Flag(QWidget *parent)
 Flag::Flag(QString label, bool mode, QWidget *parent)
     : QWidget{parent}
 {
-    this->setMinimumWidth(100);
+    this->setMinimumWidth(70);
     m_label = new QLabel(label, this);
     m_led = new LedImg(11, mode, this);
     m_mode = mode;

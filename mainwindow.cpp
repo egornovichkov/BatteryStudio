@@ -14,10 +14,9 @@ MainWindow::MainWindow(QMainWindow *parent)
     ui->setupUi(this);
 
     // Flags demonstration
+    ui->FlagsWidget->setContentsMargins(15, 0, 0, 0);
     QHBoxLayout *FlagsLayout = new QHBoxLayout(ui->FlagsWidget);
     FlagsLayout->setSpacing(0);
-    FlagsLayout->setContentsMargins(15,0,0,0);
-    QSpacerItem *FlagsSpacer = new QSpacerItem(20, 20, QSizePolicy::Policy::Expanding);
     Flag *F1 = new Flag("Flag1", 0, ui->FlagsWidget);
     Flag *F2 = new Flag("Flag2", 0, ui->FlagsWidget);
     Flag *F3 = new Flag("Flag3", 0, ui->FlagsWidget);
@@ -28,6 +27,7 @@ MainWindow::MainWindow(QMainWindow *parent)
     FlagsLayout->addWidget(F3);
     FlagsLayout->addWidget(F4);
     FlagsLayout->addWidget(F5);
+    QSpacerItem *FlagsSpacer = new QSpacerItem(20, 20, QSizePolicy::Policy::Expanding);
     FlagsLayout->addItem(FlagsSpacer);
 
     //Warnings demonstration
@@ -43,8 +43,13 @@ MainWindow::MainWindow(QMainWindow *parent)
 
     // LeftRightPartSplitter initial sizes
     QList<int> LRSplitSizes;
-    LRSplitSizes << 100 << 350;
+    LRSplitSizes << 100 << 300;
     ui->LeftRightPartSplitter->setSizes(LRSplitSizes);
+
+    // BatInfoWarningsSplitter initial sizes
+    QList<int> BatInfoWarningsSizes;
+    BatInfoWarningsSizes << 300 << 100;
+    ui->BatInfoWarningsSplitter->setSizes(BatInfoWarningsSizes);
 
     // Adding fonts
     int id = QFontDatabase::addApplicationFont("D:/Qt/Projects/Battery_Studio/fonts/Roboto-Medium.ttf");
