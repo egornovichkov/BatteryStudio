@@ -14,19 +14,21 @@ MainWindow::MainWindow(QMainWindow *parent)
     ui->setupUi(this);
 
     // Flags demonstration
-    QGridLayout *FlagsLayout = new QGridLayout(ui->FlagsWidget);
+    QHBoxLayout *FlagsLayout = new QHBoxLayout(ui->FlagsWidget);
     FlagsLayout->setSpacing(0);
-    FlagsLayout->setContentsMargins(5,0,0,0);
+    FlagsLayout->setContentsMargins(15,0,0,0);
+    QSpacerItem *FlagsSpacer = new QSpacerItem(20, 20, QSizePolicy::Policy::Expanding);
     Flag *F1 = new Flag("Flag1", 0, ui->FlagsWidget);
     Flag *F2 = new Flag("Flag2", 0, ui->FlagsWidget);
     Flag *F3 = new Flag("Flag3", 0, ui->FlagsWidget);
-    Flag *F4 = new Flag("Flag3", 0, ui->FlagsWidget);
-    Flag *F5 = new Flag("Flag3", 0, ui->FlagsWidget);
-    FlagsLayout->addWidget(F1, 0, 0);
-    FlagsLayout->addWidget(F2, 0, 1);
+    Flag *F4 = new Flag("Flag4", 0, ui->FlagsWidget);
+    Flag *F5 = new Flag("Flag5", 0, ui->FlagsWidget);
+    FlagsLayout->addWidget(F1);
+    FlagsLayout->addWidget(F2);
     FlagsLayout->addWidget(F3);
     FlagsLayout->addWidget(F4);
     FlagsLayout->addWidget(F5);
+    FlagsLayout->addItem(FlagsSpacer);
 
     //Warnings demonstration
     QVBoxLayout *WarningLayout = new QVBoxLayout(ui->WarningsWidget);

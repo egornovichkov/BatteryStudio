@@ -56,7 +56,7 @@ void BatChargeImg::paintEvent(QPaintEvent *event)
     painter.setBrush(m_charge_color);
     int w1_current = m_value*0.01*(w1);
     // Set the power according to the value
-    painter.drawRoundedRect(x1, y1, w1_current, h1, 2, 2);
+    painter.drawRoundedRect(x1, y1, w1_current, h1, 3, 3);
 
     painter.setPen(QColor(0, 0, 0)); // The color of the frame (text)
 

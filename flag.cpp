@@ -9,6 +9,7 @@ Flag::Flag(QWidget *parent)
 Flag::Flag(QString label, bool mode, QWidget *parent)
     : QWidget{parent}
 {
+    this->setMinimumWidth(100);
     m_label = new QLabel(label, this);
     m_led = new LedImg(11, mode, this);
     m_mode = mode;
@@ -21,7 +22,7 @@ Flag::Flag(QString label, bool mode, QWidget *parent)
         "color: rgb(25, 25, 25);\n"
         "border: 0px;\n"
         "background-color: transparent;\n"
-        "font: 9pt \"Roboto\";\n"
+        "font: 9pt \"Inter\";\n"
     "}"));
 }
 

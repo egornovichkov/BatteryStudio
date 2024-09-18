@@ -15,7 +15,7 @@ Warning::Warning(QString label, QString type, QWidget *parent)
                                              "color: rgb(25, 25, 25);\n"
                                              "border: 0px;\n"
                                              "background-color: transparent;\n"
-                                             "font: 8pt \"Roboto\";\n"
+                                             "font: 8pt \"Inter\";\n"
                                              "}"));
 }
 
@@ -44,5 +44,5 @@ void Warning::paintEvent(QPaintEvent *)
 
     painter.setBrush(m_backgroundColor);
     painter.setPen(m_borderColor);
-    painter.drawRoundedRect(x, y, w, h, 5, 5);
+    painter.drawRoundedRect(x, y, w, h, 3, 3);
 }
