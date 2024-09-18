@@ -8,6 +8,7 @@ Warning::Warning(QString label, QString type, QWidget *parent)
 {
     m_type = type;
     m_backgroundColor = warningTypeMap[type];
+    m_group = warningGroupMap[type];
 
     m_label = new QLabel(label, this);
     m_label->setAlignment(Qt::AlignCenter);

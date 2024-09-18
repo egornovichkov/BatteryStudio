@@ -14,14 +14,16 @@ SOURCES += \
     ledimg.cpp \
     main.cpp \
     mainwindow.cpp \
-    warning.cpp
+    warning.cpp \
+    warninggroup.cpp
 
 HEADERS += \
     batchargeimg.h \
     flag.h \
     ledimg.h \
     mainwindow.h \
-    warning.h
+    warning.h \
+    warninggroup.h
 
 FORMS += \
     mainwindow.ui
