@@ -16,10 +16,10 @@ Flag::Flag(QString label, bool mode, QWidget *parent)
 
     // Managing label size and pos
     m_label->setStyleSheet(QString::fromUtf8("QLabel { \n"
-                                             "color: rgb(25, 25, 25);\n"
+                                             "color: rgb(50, 50, 65);\n"
                                              "border: 0px;\n"
                                              "background-color: transparent;\n"
-                                             "font: 9pt \"Inter\";\n"
+                                             "font: 9pt \"Segoe UI\";\n"
                                              "}"));
     int x = (3 * m_led->getSize())/2 + 4; // 4 is margin from led
     m_label->setContentsMargins(x, 0, 0, 0);

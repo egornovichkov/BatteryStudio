@@ -16,13 +16,14 @@ class QLabel;
 class QVBoxLayout;
 class Warning;
 
-class WarningGroup : public QWidget
-{
+class WarningGroup : public QWidget {
     Q_OBJECT
 public:
-    std::map<QString, Warnings::warningGroup> warningGroupMap{{"Low Voltage", Warnings::warningGroup::Voltage},
-                                                    {"High Voltage", Warnings::warningGroup::Voltage},
-                                                    {"High Temperature", Warnings::warningGroup::Temperature}};
+    static inline std::map<QString, Warnings::warningGroup> warningGroupMap{
+        {"Low Voltage", Warnings::warningGroup::Voltage},
+        {"High Voltage", Warnings::warningGroup::Voltage},
+        {"High Temperature", Warnings::warningGroup::Temperature}
+    };
 
     explicit WarningGroup(QString group, QWidget *parent = nullptr);
 
@@ -33,12 +34,11 @@ public slots:
     void addWarning(Warning *warning);
 
 private:
-    QColor m_color = QColor(150, 150, 160);
+    QColor m_color = QColor(180, 180, 190);
     QLabel *m_label;
     Warnings::warningGroup m_group;
     QVBoxLayout *m_WarningGroupLayout;
-    QList<Warning*> m_warnings;
-
+    QList<Warning *> m_warnings;
 
 signals:
 };

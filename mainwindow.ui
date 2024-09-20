@@ -57,7 +57,7 @@
       </property>
       <property name="styleSheet">
        <string notr="true">QWidget {
-background-color: rgb(244, 244, 244); 
+background-color: rgb(244, 244, 249);
 border-top: 1px solid rgb(180, 180, 190);
 border-right: 1px solid rgb(220, 220, 230);
 border-bottom: 1px solid rgb(180, 180, 190);
@@ -82,7 +82,7 @@ border-left: 1px solid rgb(220, 220, 230);
       </property>
       <property name="styleSheet">
        <string notr="true">QWidget {
-background-color: rgb(244, 244, 244); 
+background-color: rgb(244, 244, 249);
 border-top: 0px solid rgb(180, 180, 190);
 border-right: 1px solid rgb(220, 220, 230);
 border-bottom: 1px solid rgb(180, 180, 190);
@@ -121,7 +121,7 @@ border-left: 1px solid rgb(220, 220, 230);
         </property>
         <property name="styleSheet">
          <string notr="true">QWidget {
-background-color: rgb(244, 244, 244); 
+background-color: rgb(244, 244, 249);
 border-top: 0px solid rgb(180, 180, 190);
 border-right: 0px solid rgb(180, 180, 190);
 border-bottom: 1px solid rgb(180, 180, 190);
@@ -207,10 +207,10 @@ border-left: 1px solid rgb(220, 220, 230);
            </property>
            <property name="styleSheet">
             <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
+	color: rgb(50, 50, 65);
 	border: 0px;
 	background-color: transparent;
-	font: 11pt &quot;Roboto&quot;;
+	font: 11pt &quot;Segoe UI&quot;;
 }</string>
            </property>
            <property name="text">
@@ -222,10 +222,10 @@ border-left: 1px solid rgb(220, 220, 230);
           <widget class="QLabel" name="CurrentLabel">
            <property name="styleSheet">
             <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
+	color: rgb(50, 50, 65);
 	border: 0px;
 	background-color: transparent;
-	font: 11pt &quot;Roboto&quot;;
+	font: 11pt &quot;Segoe UI&quot;;
 }</string>
            </property>
            <property name="text">
@@ -237,10 +237,10 @@ border-left: 1px solid rgb(220, 220, 230);
           <widget class="QLabel" name="CurCapacityLabel">
            <property name="styleSheet">
             <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
+	color: rgb(50, 50, 65);
 	border: 0px;
 	background-color: transparent;
-	font: 11pt &quot;Roboto&quot;;
+	font: 11pt &quot;Segoe UI&quot;;
 }</string>
            </property>
            <property name="text">
@@ -252,10 +252,10 @@ border-left: 1px solid rgb(220, 220, 230);
           <widget class="QLabel" name="MaxCapacityLabel">
            <property name="styleSheet">
             <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
+	color: rgb(50, 50, 65);
 	border: 0px;
 	background-color: transparent;
-	font: 11pt &quot;Roboto&quot;;
+	font: 11pt &quot;Segoe UI&quot;;
 }</string>
            </property>
            <property name="text">
@@ -267,10 +267,10 @@ border-left: 1px solid rgb(220, 220, 230);
           <widget class="QLabel" name="MaxVoltageLabel">
            <property name="styleSheet">
             <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
+	color: rgb(50, 50, 65);
 	border: 0px;
 	background-color: transparent;
-	font: 11pt &quot;Roboto&quot;;
+	font: 11pt &quot;Segoe UI&quot;;
 }</string>
            </property>
            <property name="text">
@@ -285,10 +285,10 @@ border-left: 1px solid rgb(220, 220, 230);
           <widget class="QLabel" name="MinVoltageLabel">
            <property name="styleSheet">
             <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
+	color: rgb(50, 50, 65);
 	border: 0px;
 	background-color: transparent;
-	font: 11pt &quot;Roboto&quot;;
+	font: 11pt &quot;Segoe UI&quot;;
 }</string>
            </property>
            <property name="text">
@@ -303,7 +303,7 @@ border-left: 1px solid rgb(220, 220, 230);
           <widget class="QLabel" name="VoltageDIfLabel">
            <property name="font">
             <font>
-             <family>Roboto</family>
+             <family>Segoe UI</family>
              <pointsize>11</pointsize>
              <italic>false</italic>
              <bold>false</bold>
@@ -311,10 +311,10 @@ border-left: 1px solid rgb(220, 220, 230);
            </property>
            <property name="styleSheet">
             <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
+	color: rgb(50, 50, 65);
 	border: 0px;
 	background-color: transparent;
-	font: 11pt &quot;Roboto&quot;;
+	font: 11pt &quot;Segoe UI&quot;;
 }</string>
            </property>
            <property name="text">
@@ -329,7 +329,7 @@ border-left: 1px solid rgb(220, 220, 230);
           <widget class="QLabel" name="MaxTempLabel">
            <property name="font">
             <font>
-             <family>Roboto</family>
+             <family>Segoe UI</family>
              <pointsize>11</pointsize>
              <italic>false</italic>
              <bold>false</bold>
@@ -337,10 +337,10 @@ border-left: 1px solid rgb(220, 220, 230);
            </property>
            <property name="styleSheet">
             <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
+	color: rgb(50, 50, 65);
 	border: 0px;
 	background-color: transparent;
-	font: 11pt &quot;Roboto&quot;;
+	font: 11pt &quot;Segoe UI&quot;;
 }</string>
            </property>
            <property name="text">
@@ -355,7 +355,7 @@ border-left: 1px solid rgb(220, 220, 230);
           <widget class="QLabel" name="MinTempLabel">
            <property name="font">
             <font>
-             <family>Roboto</family>
+             <family>Segoe UI</family>
              <pointsize>11</pointsize>
              <italic>false</italic>
              <bold>false</bold>
@@ -363,10 +363,10 @@ border-left: 1px solid rgb(220, 220, 230);
            </property>
            <property name="styleSheet">
             <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
+	color: rgb(50, 50, 65);
 	border: 0px;
 	background-color: transparent;
-	font: 11pt &quot;Roboto&quot;;
+	font: 11pt &quot;Segoe UI&quot;;
 }</string>
            </property>
            <property name="text">
@@ -381,10 +381,10 @@ border-left: 1px solid rgb(220, 220, 230);
           <widget class="QLabel" name="TempDifLabel">
            <property name="styleSheet">
             <string notr="true">QLabel {
-	color: rgb(25, 25, 25);
+	color: rgb(50, 50, 65);
 	border: 0px;
 	background-color: transparent;
-	font: 11pt &quot;Roboto&quot;;
+	font: 11pt &quot;Segoe UI&quot;;
 }</string>
            </property>
            <property name="text">
@@ -422,7 +422,7 @@ border-left: 1px solid rgb(220, 220, 230);
         </property>
         <property name="styleSheet">
          <string notr="true">QWidget {
-background-color: rgb(244, 244, 244); 
+background-color: rgb(244, 244, 249);
 border-top: 0px solid rgb(180, 180, 190);
 border-right: 0px solid rgb(180, 180, 190);
 border-bottom: 0px solid rgb(180, 180, 190);
@@ -462,7 +462,7 @@ border-left: 1px solid rgb(220, 220, 230);
         </property>
         <property name="styleSheet">
          <string notr="true">QWidget {
-background-color: rgb(244, 244, 244); 
+background-color: rgb(244, 244, 249);
 border-top: 0px solid rgb(180, 180, 190);
 border-right: 1px solid rgb(220, 220, 230);
 border-bottom: 1px solid rgb(180, 180, 190);
@@ -485,7 +485,7 @@ border-left: 1px solid rgb(180, 180, 190);
         </property>
         <property name="styleSheet">
          <string notr="true">QWidget {
-background-color: rgb(244, 244, 244); 
+background-color: rgb(244, 244, 249); 
 border-top: 0px solid rgb(180, 180, 190);
 border-right: 1px solid rgb(220, 220, 230);
 border-bottom: 0px solid rgb(180, 180, 190);
@@ -527,7 +527,7 @@ border-left: 1px solid rgb(180, 180, 190);
       </property>
       <property name="styleSheet">
        <string notr="true">QWidget {
-background-color: rgb(244, 244, 244); 
+background-color: rgb(244, 244, 249); 
 border-top: 1px solid rgb(180, 180, 190);
 border-right: 0px solid rgb(180, 180, 190);
 border-bottom: 0px solid rgb(180, 180, 190);
@@ -572,7 +572,7 @@ border-left: 0px solid rgb(180, 180, 190);
    </property>
    <property name="styleSheet">
     <string notr="true">QMenuBar {
-	background-color: rgb(244, 244, 244); 
+	background-color: rgb(244, 244, 249);
 	border-top: 1px solid rgb(180, 180, 190);
 	border-right: 1px solid rgb(220, 220, 230);
 	border-bottom: 0px solid;

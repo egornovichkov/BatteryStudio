@@ -6,7 +6,7 @@ Warning::Warning(QString label, QString type, QWidget *parent)
     : QWidget{parent} {
     m_type = type;
     m_backgroundColor = warningTypeMap[type];
-    // m_group = parent->warningGroupMap[type];
+    m_group = WarningGroup::warningGroupMap[type];
 
     m_label = new QLabel(label, this);
     m_label->setAlignment(Qt::AlignCenter);
@@ -48,5 +48,5 @@ void Warning::paintEvent(QPaintEvent *) {
 
     painter.setBrush(m_backgroundColor);
     painter.setPen(m_borderColor);
-    painter.drawRoundedRect(x, y, w, h, 3, 3);
+    painter.drawRoundedRect(x, y, w, h, 2, 2);
 }

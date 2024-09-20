@@ -7,7 +7,8 @@
 WarningGroup::WarningGroup(QString group, QWidget *parent) : QWidget{parent} {
     m_label = new QLabel(group, this);
     m_group = warningGroupMap[group];
-    // this->setMinimumSize(100,100);
+
+    // Creating Layout
     m_WarningGroupLayout = new QVBoxLayout(this);
     m_WarningGroupLayout->setContentsMargins(10, 12, 10, 10);
     m_WarningGroupLayout->setSpacing(0);
@@ -25,7 +26,7 @@ void WarningGroup::paintEvent(QPaintEvent *) {
     y = 5;
     w = this->width() - 2 * x;
     h = this->height() - 2 * y;
-    painter.drawRoundedRect(x, y, w, h, 3, 3);
+    painter.drawRoundedRect(x, y, w, h, 2, 2);
 
     // Managing caption style, size and pos
     m_label->setStyleSheet(

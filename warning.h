@@ -1,6 +1,7 @@
 #ifndef WARNING_H
 #define WARNING_H
 
+#include "warninggroup.h"
 #include <QWidget>
 
 class QLabel;
@@ -23,7 +24,10 @@ private:
     QString m_type;
     QColor m_backgroundColor;
     QColor m_borderColor = QColor(150, 150, 160);
+    Warnings::warningGroup m_group;
+    QList<WarningGroup *> m_groups;
     int m_maximumWidth = 120;
+    static bool m_groupMode;
 
 signals:
 };
