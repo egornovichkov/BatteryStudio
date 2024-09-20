@@ -2,15 +2,14 @@
 #include <QPainter>
 
 LedImg::LedImg(int size, bool mode, QWidget *parent)
-    : QWidget{parent}, m_mode(mode), m_size(size)
-{}
+    : QWidget{parent}, m_mode(mode), m_size(size) {}
 
 void LedImg::paintEvent(QPaintEvent *) {
 
-    // Led centered on the parent
+    // Led positioned on parent
     int h = this->height();
-    int x = m_size/2;
-    int y = h/2 - m_size/2;
+    int x = m_size / 2;
+    int y = h / 2 - m_size / 2;
 
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -21,19 +20,14 @@ void LedImg::paintEvent(QPaintEvent *) {
     painter.drawEllipse(x, y, m_size, m_size);
 }
 
-void LedImg::setSize(int size)
-{
+void LedImg::setSize(int size) {
     m_size = size;
     update();
 }
 
-int LedImg::getSize()
-{
-    return m_size;
-}
+int LedImg::getSize() { return m_size; }
 
-void LedImg::switchLed()
-{
+void LedImg::switchLed() {
     m_mode = !m_mode;
     update();
 }

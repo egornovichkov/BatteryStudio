@@ -3,8 +3,7 @@
 
 #include <QApplication>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     MainWindow MainWindow;
     MainWindow.setWindowTitle("Battery Studio 0.0.0");

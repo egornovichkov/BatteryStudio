@@ -1,6 +1,6 @@
 #include "flag.h"
-#include <QLabel>
 #include "ledimg.h"
+#include <QLabel>
 #include <QPainter>
 
 Flag::Flag(QWidget *parent)
@@ -10,21 +10,24 @@ Flag::Flag(QWidget *parent)
 Flag::Flag(QString label, bool mode, QWidget *parent)
     : QWidget{parent}
 {
-    this->setMinimumWidth(70);
     m_label = new QLabel(label, this);
-    m_led = new LedImg(11, mode, this);
+    m_led = new LedImg(12, mode, this);
     m_mode = mode;
 
-    // Setting label coordinates
-    int x = (3 * m_led->getSize())/2 + 4;
-    m_label->setContentsMargins(x, 0, 0, 0);
-    m_label->setGeometry(0, 0, this->width(), this->height());
+    // Managing label size and pos
     m_label->setStyleSheet(QString::fromUtf8("QLabel { \n"
-        "color: rgb(25, 25, 25);\n"
-        "border: 0px;\n"
-        "background-color: transparent;\n"
-        "font: 9pt \"Inter\";\n"
-    "}"));
+                                             "color: rgb(25, 25, 25);\n"
+                                             "border: 0px;\n"
+                                             "background-color: transparent;\n"
+                                             "font: 9pt \"Inter\";\n"
+                                             "}"));
+    int x = (3 * m_led->getSize())/2 + 4; // 4 is margin from led
+    m_label->setContentsMargins(x, 0, 0, 0);
+    QFontMetrics fm(m_label->font());
+    int w = fm.boundingRect(m_label->text()).width();
+    m_label->setGeometry(0, 0, this->width(), this->height());
+    int minWidth = 3 * m_led->getSize() + w;
+    this->setMinimumWidth(minWidth);
 }
 
 void Flag::switchFlag()

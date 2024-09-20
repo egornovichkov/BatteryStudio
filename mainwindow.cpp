@@ -1,20 +1,19 @@
 #include "mainwindow.h"
+#include "flag.h"
 #include "ui_mainwindow.h"
-#include <QFontDatabase>
+#include "warning.h"
+#include "warninggroup.h"
 #include <QFileInfo>
+#include <QFontDatabase>
 #include <QImage>
 #include <QPushButton>
-#include "flag.h"
-#include "warning.h"
 
 MainWindow::MainWindow(QMainWindow *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+    : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    // Flags demonstration
-    ui->FlagsWidget->setContentsMargins(15, 0, 0, 0);
+    // Flags demo
+    ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);
     QHBoxLayout *FlagsLayout = new QHBoxLayout(ui->FlagsWidget);
     FlagsLayout->setSpacing(0);
     Flag *F1 = new Flag("Flag1", 0, ui->FlagsWidget);
@@ -27,19 +26,37 @@ MainWindow::MainWindow(QMainWindow *parent)
     FlagsLayout->addWidget(F3);
     FlagsLayout->addWidget(F4);
     FlagsLayout->addWidget(F5);
-    QSpacerItem *FlagsSpacer = new QSpacerItem(20, 20, QSizePolicy::Policy::Expanding);
+    QSpacerItem *FlagsSpacer =
+        new QSpacerItem(20, 20, QSizePolicy::Policy::Expanding);
     FlagsLayout->addItem(FlagsSpacer);
 
-    //Warnings demonstration
-    QVBoxLayout *WarningLayout = new QVBoxLayout(ui->WarningsWidget);
-    FlagsLayout->setSpacing(0);
-    FlagsLayout->setContentsMargins(0,0,0,0);
-    Warning *W1 = new Warning("High Voltage", "High Voltage", ui->WarningsWidget);
-    Warning *W2 = new Warning("Low Voltage", "Low Voltage", ui->WarningsWidget);
-    Warning *W3 = new Warning("High Temperature", "High Temperature", ui->WarningsWidget);
-    WarningLayout->addWidget(W1);
-    WarningLayout->addWidget(W2);
-    WarningLayout->addWidget(W3);
+    // Warnings demo
+    // QVBoxLayout *WarningLayout = new QVBoxLayout(ui->WarningsWidget);
+    // WarningLayout->setSpacing(0);
+    // WarningLayout->setContentsMargins(0,0,0,0);
+    // Warning *W3 = new Warning("High Temperature", "High Temperature",
+    // ui->WarningsWidget); WarningLayout->addWidget(W1);
+    // WarningLayout->addWidget(W2);
+    // WarningLayout->addWidget(W3);
+
+    // WarningsGroup demo
+    WarningGroup *WVoltageGroup = new WarningGroup("Voltage", ui->WarningsWidget);
+    WarningGroup *WTempGroup =
+        new WarningGroup("Temperature", ui->WarningsWidget);
+    WarningGroup *WCurrentGroup = new WarningGroup("Current", ui->WarningsWidget);
+    WarningGroup *WGeneralGroup = new WarningGroup("General", ui->WarningsWidget);
+    QHBoxLayout *WarningGroupLayout = new QHBoxLayout(ui->WarningsWidget);
+    WarningGroupLayout->setSpacing(5);
+    WarningGroupLayout->setContentsMargins(10, 10, 10, 10);
+    WarningGroupLayout->addWidget(WVoltageGroup);
+    WarningGroupLayout->addWidget(WTempGroup);
+    WarningGroupLayout->addWidget(WCurrentGroup);
+    WarningGroupLayout->addWidget(WGeneralGroup);
+
+    Warning *W2 = new Warning("Low Voltage", "Low Voltage", WVoltageGroup);
+    Warning *W1 = new Warning("High Voltage", "High Voltage", WVoltageGroup);
+    WVoltageGroup->addWarning(W1);
+    WVoltageGroup->addWarning(W2);
 
     // LeftRightPartSplitter initial sizes
     QList<int> LRSplitSizes;
@@ -52,13 +69,13 @@ MainWindow::MainWindow(QMainWindow *parent)
     ui->BatInfoWarningsSplitter->setSizes(BatInfoWarningsSizes);
 
     // Adding fonts
-    int id = QFontDatabase::addApplicationFont("D:/Qt/Projects/Battery_Studio/fonts/Roboto-Medium.ttf");
+    int id = QFontDatabase::addApplicationFont(
+        "D:/Qt/Projects/Battery_Studio/fonts/Roboto-Medium.ttf");
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont f(family);
     f.setHintingPreference(QFont::HintingPreference::PreferFullHinting);
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
