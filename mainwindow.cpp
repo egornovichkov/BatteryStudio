@@ -9,7 +9,8 @@
 #include <QPushButton>
 
 MainWindow::MainWindow(QMainWindow *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
+    : QMainWindow(parent), ui(new Ui::MainWindow)
+{
     ui->setupUi(this);
 
     // Flags demo
@@ -74,8 +75,11 @@ MainWindow::MainWindow(QMainWindow *parent)
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont f(family);
     f.setHintingPreference(QFont::HintingPreference::PreferFullHinting);
+
+    this->setWindowFlag(Qt::FramelessWindowHint);
 }
 
-MainWindow::~MainWindow() {
+MainWindow::~MainWindow()
+{
     delete ui;
 }

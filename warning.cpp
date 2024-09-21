@@ -3,7 +3,8 @@
 #include <QLabel>
 
 Warning::Warning(QString label, QString type, QWidget *parent)
-    : QWidget{parent} {
+    : QWidget{parent}
+{
     m_type = type;
     m_backgroundColor = warningTypeMap[type];
     m_group = WarningGroup::warningGroupMap[type];
@@ -11,15 +12,16 @@ Warning::Warning(QString label, QString type, QWidget *parent)
     m_label = new QLabel(label, this);
     m_label->setAlignment(Qt::AlignCenter);
     m_label->setStyleSheet(QString::fromUtf8("QLabel { \n"
-                                             "color: rgb(25, 25, 25);\n"
-                                             "border: 0px;\n"
-                                             "background-color: transparent;\n"
-                                             "font: 8pt \"Inter\";\n"
-                                             "}"));
+        "color: rgb(25, 25, 25);\n"
+        "border: 0px;\n"
+        "background-color: transparent;\n"
+        "font: 8pt \"Inter\";\n"
+        "}"));
     this->setMinimumHeight(28);
 }
 
-void Warning::paintEvent(QPaintEvent *) {
+void Warning::paintEvent(QPaintEvent*)
+{
     // Calculating minimum width
     int minWidth;
     QFontMetrics fm(m_label->font());
@@ -28,12 +30,15 @@ void Warning::paintEvent(QPaintEvent *) {
 
     // Getting cords for painting warnings
     int x, y, w, h;
-    if (this->width() > m_maximumWidth) {
+    if (this->width() > m_maximumWidth)
+    {
         x = (this->width() / 2) - (m_maximumWidth / 2) + 2;
         y = 2;
         w = m_maximumWidth - 4;
         h = 20;
-    } else {
+    }
+    else
+    {
         x = 2;
         y = 2;
         w = this->width() - 4;

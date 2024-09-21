@@ -13,11 +13,11 @@ public:
     explicit Warning(QString label, QString type, QWidget *parent = nullptr);
 
     std::map<QString, QColor> warningTypeMap{{"Low Voltage", QColor(250, 215, 76)},
-                                             {"High Voltage", QColor(219, 100, 100)},
-                                             {"High Temperature", QColor(219, 100, 100)}};
+        {"High Voltage", QColor(219, 100, 100)},
+        {"High Temperature", QColor(219, 100, 100)}};
 
 protected:
-    virtual void paintEvent(QPaintEvent *) override;
+    virtual void paintEvent(QPaintEvent*) override;
 
 private:
     QLabel *m_label;

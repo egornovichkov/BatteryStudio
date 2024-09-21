@@ -3,23 +3,27 @@
 
 #include <QWidget>
 
-namespace Warnings {
-    enum warningGroup {
-        Voltage = 0,
-        Current = 1,
-        Temperature = 2,
-        Other = 3
-    };
+namespace Warnings
+{
+enum warningGroup
+{
+    Voltage = 0,
+    Current = 1,
+    Temperature = 2,
+    Other = 3
+};
 }
 
 class QLabel;
 class QVBoxLayout;
 class Warning;
 
-class WarningGroup : public QWidget {
+class WarningGroup : public QWidget
+{
     Q_OBJECT
 public:
-    static inline std::map<QString, Warnings::warningGroup> warningGroupMap{
+    static inline std::map<QString, Warnings::warningGroup> warningGroupMap
+    {
         {"Low Voltage", Warnings::warningGroup::Voltage},
         {"High Voltage", Warnings::warningGroup::Voltage},
         {"High Temperature", Warnings::warningGroup::Temperature}
@@ -28,7 +32,7 @@ public:
     explicit WarningGroup(QString group, QWidget *parent = nullptr);
 
 protected:
-    virtual void paintEvent(QPaintEvent *) override;
+    virtual void paintEvent(QPaintEvent*) override;
 
 public slots:
     void addWarning(Warning *warning);

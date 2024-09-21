@@ -12,7 +12,7 @@ public:
     int getSize();
 
 protected:
-    virtual void paintEvent(QPaintEvent *) override;
+    virtual void paintEvent(QPaintEvent*) override;
 
 public slots:
     void switchLed();

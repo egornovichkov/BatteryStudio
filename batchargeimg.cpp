@@ -9,7 +9,6 @@ BatChargeImg::BatChargeImg(QWidget *parent)
 
 void BatChargeImg::paintEvent(QPaintEvent *event)
 {
-
     const int margin = 4;//The margin of the outer frame
     int w = this->size().width();
     int h = this->size().height();
@@ -19,12 +18,14 @@ void BatChargeImg::paintEvent(QPaintEvent *event)
     int x2, y2, w2, h2;// Inner frame data-battery head
 
     // Outer frame
-    x0 = 1; y0 = x0;
+    x0 = 1;
+    y0 = x0;
     w0 = w - 2 * x0 - margin;
     h0 = h - 2 * y0;
 
     // Inner box filling
-    x1 = 5; y1 = x1;
+    x1 = 5;
+    y1 = x1;
     w1 = w - 2 * x1 - 4;
     h1 = h - 2 * y1;
 
@@ -54,7 +55,7 @@ void BatChargeImg::paintEvent(QPaintEvent *event)
     // Draw inner rectangle
     painter.setPen(m_charge_border_color);
     painter.setBrush(m_charge_color);
-    int w1_current = m_value*0.01*(w1);
+    int w1_current = m_value * 0.01 * (w1);
     // Set the power according to the value
     painter.drawRoundedRect(x1, y1, w1_current, h1, 3, 3);
 
@@ -62,16 +63,16 @@ void BatChargeImg::paintEvent(QPaintEvent *event)
 
     switch (m_showTextFlg)
     {
-    case 0:// 0:Show default text
-        painter.drawText(x0, y0, w0, h0,
-                         Qt::AlignCenter,
-                         m_showText);
-        break;
-    case 1:// 1:Show percentage and caption
-        painter.drawText(x0, y0, w0, h0,
-                         Qt::AlignCenter,
-                         QString::asprintf("%d%%", m_value));
-        break;
+        case 0:// 0:Show default text
+            painter.drawText(x0, y0, w0, h0,
+                Qt::AlignCenter,
+                m_showText);
+            break;
+        case 1:// 1:Show percentage and caption
+            painter.drawText(x0, y0, w0, h0,
+                Qt::AlignCenter,
+                QString::asprintf("%d%%", m_value));
+            break;
     }
 
     QWidget::paintEvent(event);

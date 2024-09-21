@@ -4,7 +4,8 @@
 #include <QPainter>
 #include <QVBoxLayout>
 
-WarningGroup::WarningGroup(QString group, QWidget *parent) : QWidget{parent} {
+WarningGroup::WarningGroup(QString group, QWidget *parent) : QWidget{parent}
+{
     m_label = new QLabel(group, this);
     m_group = warningGroupMap[group];
 
@@ -16,7 +17,8 @@ WarningGroup::WarningGroup(QString group, QWidget *parent) : QWidget{parent} {
     m_WarningGroupLayout->addSpacerItem(spacer);
 }
 
-void WarningGroup::paintEvent(QPaintEvent *) {
+void WarningGroup::paintEvent(QPaintEvent*)
+{
     // Drawing frame
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -31,11 +33,11 @@ void WarningGroup::paintEvent(QPaintEvent *) {
     // Managing caption style, size and pos
     m_label->setStyleSheet(
         QString::fromUtf8("QLabel { \n"
-                          "color: rgb(150, 150, 160);\n"
-                          "border: 0px;\n"
-                          "background-color: rgb(244, 244, 244);\n"
-                          "font: 7pt \"Inter\";\n"
-                          "}"));
+        "color: rgb(150, 150, 160);\n"
+        "border: 0px;\n"
+        "background-color: rgb(244, 244, 244);\n"
+        "font: 7pt \"Inter\";\n"
+        "}"));
     QFontMetrics fm(m_label->font());
     QRect rect = fm.boundingRect(m_label->text());
     int x1, y1, w1, h1;
@@ -47,7 +49,8 @@ void WarningGroup::paintEvent(QPaintEvent *) {
     m_label->setGeometry(x1, y1, w1, h1);
 }
 
-void WarningGroup::addWarning(Warning *warning) {
+void WarningGroup::addWarning(Warning *warning)
+{
     m_warnings.append(warning);
     m_WarningGroupLayout->insertWidget(0, warning);
 }

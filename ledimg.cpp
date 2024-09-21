@@ -4,7 +4,8 @@
 LedImg::LedImg(int size, bool mode, QWidget *parent)
     : QWidget{parent}, m_mode(mode), m_size(size) {}
 
-void LedImg::paintEvent(QPaintEvent *) {
+void LedImg::paintEvent(QPaintEvent*)
+{
 
     // Led positioned on parent
     int h = this->height();
@@ -20,14 +21,16 @@ void LedImg::paintEvent(QPaintEvent *) {
     painter.drawEllipse(x, y, m_size, m_size);
 }
 
-void LedImg::setSize(int size) {
+void LedImg::setSize(int size)
+{
     m_size = size;
     update();
 }
 
 int LedImg::getSize() { return m_size; }
 
-void LedImg::switchLed() {
+void LedImg::switchLed()
+{
     m_mode = !m_mode;
     update();
 }

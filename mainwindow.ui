@@ -25,7 +25,7 @@
      <family>Fira Code</family>
     </font>
    </property>
-   <layout class="QVBoxLayout" name="MainLayout">
+   <layout class="QVBoxLayout" name="CentralLayout">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -41,6 +41,31 @@
     <property name="bottomMargin">
      <number>0</number>
     </property>
+    <item>
+     <widget class="QWidget" name="TitleWidget" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QWidget {
+background-color: rgb(244, 244, 249);
+border-top: 1px solid rgb(180, 180, 190);
+border-right: 1px solid rgb(220, 220, 230);
+border-bottom: 0px solid rgb(180, 180, 190);
+border-left: 1px solid rgb(220, 220, 230);
+}</string>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QWidget" name="ControlPanelWidget" native="true">
       <property name="minimumSize">
@@ -537,82 +562,6 @@ border-left: 0px solid rgb(180, 180, 190);
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="MenuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1068</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>16777215</width>
-     <height>40</height>
-    </size>
-   </property>
-   <property name="font">
-    <font>
-     <family>Segoe UI</family>
-     <pointsize>6</pointsize>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QMenuBar {
-	background-color: rgb(244, 244, 249);
-	border-top: 1px solid rgb(180, 180, 190);
-	border-right: 1px solid rgb(220, 220, 230);
-	border-bottom: 0px solid;
-	border-left: 1px solid rgb(220, 220, 230);
-	font: 6pt &quot;Segoe UI&quot;;
-}
-
-QMenuBar::item {
-	color: rgb(25, 25, 25);
-}</string>
-   </property>
-   <property name="nativeMenuBar">
-    <bool>true</bool>
-   </property>
-   <widget class="QMenu" name="SettingsMenu">
-    <property name="font">
-     <font>
-      <family>Roboto</family>
-      <pointsize>8</pointsize>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="title">
-     <string>Настройки</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="ViewMenu">
-    <property name="font">
-     <font>
-      <family>Roboto</family>
-      <pointsize>8</pointsize>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="title">
-     <string>Вид</string>
-    </property>
-   </widget>
-   <addaction name="SettingsMenu"/>
-   <addaction name="ViewMenu"/>
   </widget>
  </widget>
  <customwidgets>
