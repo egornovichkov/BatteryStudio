@@ -35,19 +35,19 @@ protected:
     /// Handler for the mouse double-click event within the window.
     void mouseDoubleClickEvent(QMouseEvent *event) override;
     /// Handler for the native window event.
-    bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
+    bool nativeEvent(const QByteArray &eventType, void *message, qintptr *result) override;
     /// Override event filtering function for the TitleBar class.
     bool eventFilter(QObject *obj, QEvent *event) override;
 
 private slots:
     /// Handler for the "Close" button click signal.
-    void on_close_clicked();
+    void onCloseClicked();
     /// Handler for the "Maximize/Restore" button click signal.
-    void on_maximum_clicked();
+    void onMaximumClicked();
     /// Handler for the "Minimize" button click signal.
-    void on_minimum_clicked();
+    void onMinimumClicked();
     /// Handler for the "Collapse" button click signal.
-    void on_collapse_clicked();
+    void onCollapseClicked();
 
 private:
     /// Pointer to the user interface object.

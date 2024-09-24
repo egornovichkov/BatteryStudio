@@ -42,7 +42,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="TitleBar" name="TitleBar" native="true">
+     <widget class="QWidget" name="TitleBarFrame" native="true">
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -569,12 +569,6 @@ border-left: 0px solid rgb(180, 180, 190);
    <class>BatChargeImg</class>
    <extends>QWidget</extends>
    <header>batchargeimg.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>TitleBar</class>
-   <extends>QWidget</extends>
-   <header>titlebar.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -6,9 +6,9 @@
 #include <windowsx.h>
 
 
-const QString title = "Custom Title Bar";
+QString title = "Custom Title Bar";
 
-const QString headerDefaultStyle = QStringLiteral(
+QString headerDefaultStyle = QStringLiteral(
     "#header {"
     "    background-color: rgb(20, 20, 20);"
     "    border: 1px solid rgb(20, 20, 20);"
@@ -17,7 +17,7 @@ const QString headerDefaultStyle = QStringLiteral(
     "}"
     );
 
-const QString headerCollapseStyle = QStringLiteral(
+QString headerCollapseStyle = QStringLiteral(
     "#header {"
     "    background-color: rgb(20, 20, 20);"
     "    border: 2px solid rgb(20, 20, 20);"
@@ -28,7 +28,7 @@ const QString headerCollapseStyle = QStringLiteral(
     "}"
     );
 
-const QString headerMaximizeStyle = QStringLiteral(
+QString headerMaximizeStyle = QStringLiteral(
     "#header {"
     "    background-color: rgb(20, 20, 20);"
     "    border: 1px solid rgb(20, 20, 20);"
@@ -37,13 +37,13 @@ const QString headerMaximizeStyle = QStringLiteral(
     "}"
     );
 
-const QString appIcon           = ":/recources/icons/icon.png";
-const QString closeIcon         = ":/recources/icons/close_light.png";
-const QString collapseHideIcon  = ":/recources/icons/collapse_hide_light.png";
-const QString collapseShowIcon  = ":/recources/icons/collapse_show_light.png";
-const QString maximizeIcon      = ":/recources/icons/maximize_light.png";
-const QString minimizeIcon      = ":/recources/icons/minimize_light.png";
-const QString defaultSizeIcon   = ":/recources/icons/default_size_light.png";
+const QString appIcon           = ":/images/BatteryIcon.png";
+const QString closeIcon         = ":/images/BatteryIcon.png";
+const QString collapseHideIcon  = ":/images/BatteryIcon.png";
+const QString collapseShowIcon  = ":/images/BatteryIcon.png";
+const QString maximizeIcon      = ":/images/BatteryIcon.png";
+const QString minimizeIcon      = ":/images/BatteryIcon.png";
+const QString defaultSizeIcon   = ":/images/BatteryIcon.png";
 
 
 TitleBar::TitleBar(QWidget *parent, QWidget *child)
@@ -51,6 +51,7 @@ TitleBar::TitleBar(QWidget *parent, QWidget *child)
 {
 
     ui->setupUi(this);
+    connect(ui->close, &QPushButton::clicked, this,  &TitleBar::onCloseClicked);
     mBorderSize = 5;
 
     initIcons();
@@ -58,8 +59,9 @@ TitleBar::TitleBar(QWidget *parent, QWidget *child)
     ui->title->setText(title);
 
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
-    setAttribute(Qt::WA_TranslucentBackground);
-    if(child != nullptr) {
+    // setAttribute(Qt::WA_TranslucentBackground);
+    if (child != nullptr)
+    {
         ui->body->layout()->addWidget(child);
         mMainBody = child;
         mMainBody->installEventFilter(this);
@@ -75,7 +77,8 @@ TitleBar::~TitleBar()
 }
 
 /// @brief Init frame icons.
-void TitleBar::initIcons(){
+void TitleBar::initIcons()
+{
     QPixmap pixmap(appIcon);
     ui->icon->setPixmap(pixmap);
     ui->icon->setScaledContents(true);
@@ -90,7 +93,8 @@ void TitleBar::initIcons(){
 
 /// @brief Show header menu.
 /// @param pos position mouse click.
-void TitleBar::showHeaderContextMenu(const QPoint &pos){
+void TitleBar::showHeaderContextMenu(const QPoint &pos)
+{
     QMenu contextMenu(this);
 
     QAction *exitAction = contextMenu.addAction(tr("&Exit"));
@@ -101,17 +105,22 @@ void TitleBar::showHeaderContextMenu(const QPoint &pos){
 }
 
 /// @brief Handler for the "Close" button click signal.
-void TitleBar::on_close_clicked(){
+void TitleBar::onCloseClicked()
+{
     close();
 }
 
 /// @brief Handler for the "Maximize/Restore" button click signal.
-void TitleBar::on_maximum_clicked(){
-    if(isMaximized()) {
+void TitleBar::onMaximumClicked()
+{
+    if (isMaximized())
+    {
         ui->maximum->setIcon(QIcon(maximizeIcon));
         mIsCollapse ? ui->header->setStyleSheet(headerCollapseStyle) : ui->header->setStyleSheet(headerDefaultStyle);
         showNormal();
-    } else {
+    }
+    else
+    {
         ui->maximum->setIcon(QIcon(defaultSizeIcon));
         ui->header->setStyleSheet(headerMaximizeStyle);
         showMaximized();
@@ -119,18 +128,23 @@ void TitleBar::on_maximum_clicked(){
 }
 
 /// @brief Handler for the "Minimize" button click signal.
-void TitleBar::on_minimum_clicked(){
+void TitleBar::onMinimumClicked()
+{
     showMinimized();
 }
 
 /// @brief Handler for the "Collapse" button click signal.
-void TitleBar::on_collapse_clicked() {
-    if (mIsCollapse) {
+void TitleBar::onCollapseClicked()
+{
+    if (mIsCollapse)
+    {
         ui->body->setVisible(true);
         mIsCollapse = false;
         ui->collapse->setIcon(QIcon(collapseHideIcon));
         isMaximized() ? ui->header->setStyleSheet(headerMaximizeStyle) : ui->header->setStyleSheet(headerDefaultStyle);
-    } else {
+    }
+    else
+    {
         ui->body->setVisible(false);
         mIsCollapse = true;
         ui->collapse->setIcon(QIcon(collapseShowIcon));
@@ -141,17 +155,22 @@ void TitleBar::on_collapse_clicked() {
 
 /// @brief Handler for the mouse press event.
 /// @param event Pointer to the QMouseEvent object containing event information.
-void TitleBar::mousePressEvent(QMouseEvent *event) {
-    if (event->buttons() == Qt::LeftButton) {
-        QWidget* widget = childAt(event->x(), event->y());
-        if(widget == ui->LHeader || widget == ui->title || widget == ui->icon) {
-            mPosition.setX(event->x());
-            mPosition.setY(event->y());
+void TitleBar::mousePressEvent(QMouseEvent *event)
+{
+    if (event->buttons() == Qt::LeftButton)
+    {
+        QWidget* widget = childAt(event->pos().x(), event->pos().y());
+        if (widget == ui->LHeader || widget == ui->title || widget == ui->icon)
+        {
+            mPosition.setX(event->pos().x());
+            mPosition.setY(event->pos().y());
         }
     }
-    if (event->button() == Qt::RightButton ) {
-        QWidget* widget = childAt(event->x(), event->y());
-        if (widget == ui->LHeader || widget == ui->title || widget == ui->icon){
+    if (event->button() == Qt::RightButton)
+    {
+        QWidget* widget = childAt(event->pos().x(), event->pos().y());
+        if (widget == ui->LHeader || widget == ui->title || widget == ui->icon)
+        {
             showHeaderContextMenu(event->pos());
         }
     }
@@ -160,17 +179,21 @@ void TitleBar::mousePressEvent(QMouseEvent *event) {
 /// @brief Handler for the mouse move event within the window.
 /// @param event Pointer to the mouse move event object (QMouseEvent).
 /// @return No return value.
-void TitleBar::mouseMoveEvent(QMouseEvent *event) {
-    if (event->buttons() == Qt::LeftButton) {
-        if (mPosition.x() != 0 || mPosition.y() != 0) {
-            move(event->globalX() - mPosition.x(), event->globalY() - mPosition.y());
+void TitleBar::mouseMoveEvent(QMouseEvent *event)
+{
+    if (event->buttons() == Qt::LeftButton)
+    {
+        if (mPosition.x() != 0 || mPosition.y() != 0)
+        {
+            move(event->globalPosition().x() - mPosition.x(), event->globalPosition().y() - mPosition.y());
         }
     }
 }
 
 /// @brief Handler for the mouse release event within the window.
 /// @param event Pointer to the mouse release event object (QMouseEvent).
-void TitleBar::mouseReleaseEvent(QMouseEvent *event) {
+void TitleBar::mouseReleaseEvent(QMouseEvent *event)
+{
     Q_UNUSED(event);
     mPosition.setX(0);
     mPosition.setY(0);
@@ -178,15 +201,21 @@ void TitleBar::mouseReleaseEvent(QMouseEvent *event) {
 
 /// @brief Handler for the mouse double-click event within the window.
 /// @param event Pointer to the mouse double-click event object (QMouseEvent).
-void TitleBar::mouseDoubleClickEvent(QMouseEvent *event) {
-    if (event->buttons() == Qt::LeftButton) {
-        QWidget* widget = childAt(event->x(), event->y());
-        if(widget == ui->LHeader) {
-            if(isMaximized()) {
+void TitleBar::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    if (event->buttons() == Qt::LeftButton)
+    {
+        QWidget* widget = childAt(event->pos().x(), event->pos().y());
+        if (widget == ui->LHeader)
+        {
+            if (isMaximized())
+            {
                 ui->maximum->setIcon(QIcon(maximizeIcon));
                 ui->header->setStyleSheet(headerDefaultStyle);
                 showNormal();
-            } else {
+            }
+            else
+            {
                 ui->maximum->setIcon(QIcon(defaultSizeIcon));
                 ui->header->setStyleSheet(headerMaximizeStyle);
                 showMaximized();
@@ -200,38 +229,59 @@ void TitleBar::mouseDoubleClickEvent(QMouseEvent *event) {
 /// @param message Pointer to a structure containing event information (void*).
 /// @param result Pointer to a variable for returning the result (long*).
 /// @return The return value, true if the event was handled, otherwise false.
-bool TitleBar::nativeEvent(const QByteArray &eventType, void *message, long *result) {
+bool TitleBar::nativeEvent(const QByteArray &eventType, void *message, qintptr *result)
+{
     Q_UNUSED(eventType)
     MSG *param = static_cast<MSG *>(message);
 
-    if (param->message == WM_NCHITTEST) {
+    if (param->message == WM_NCHITTEST)
+    {
         QPoint globalPos(GET_X_LPARAM(param->lParam), GET_Y_LPARAM(param->lParam));
         QPoint localPos = mapFromGlobal(globalPos);
 
         int nX = localPos.x();
         int nY = localPos.y();
 
-        if (nX >= 0 && nX < mBorderSize) {
-            if (nY >= 0 && nY < mBorderSize) {
+        if (nX >= 0 && nX < mBorderSize)
+        {
+            if (nY >= 0 && nY < mBorderSize)
+            {
                 *result = HTTOPLEFT;
-            } else if (nY >= height() - mBorderSize) {
+            }
+            else if (nY >= height() - mBorderSize)
+            {
                 *result = HTBOTTOMLEFT;
-            } else {
+            }
+            else
+            {
                 *result = HTLEFT;
             }
-        } else if (nX >= width() - mBorderSize) {
-            if (nY >= 0 && nY < mBorderSize) {
+        }
+        else if (nX >= width() - mBorderSize)
+        {
+            if (nY >= 0 && nY < mBorderSize)
+            {
                 *result = HTTOPRIGHT;
-            } else if (nY >= height() - mBorderSize) {
+            }
+            else if (nY >= height() - mBorderSize)
+            {
                 *result = HTBOTTOMRIGHT;
-            } else {
+            }
+            else
+            {
                 *result = HTRIGHT;
             }
-        } else if (nY >= 0 && nY < mBorderSize) {
+        }
+        else if (nY >= 0 && nY < mBorderSize)
+        {
             *result = HTTOP;
-        } else if (nY >= height() - mBorderSize) {
+        }
+        else if (nY >= height() - mBorderSize)
+        {
             *result = HTBOTTOM;
-        } else {
+        }
+        else
+        {
             return QWidget::nativeEvent(eventType, message, result);
         }
 
@@ -243,19 +293,22 @@ bool TitleBar::nativeEvent(const QByteArray &eventType, void *message, long *res
 
 /// @brief Show or hide the window minimization button.
 /// @param enable If true, the button will be shown; if false, it will be hidden.
-void TitleBar::enableMinimum(bool enable) {
+void TitleBar::enableMinimum(bool enable)
+{
     !enable ? ui->minimum->hide() : ui->minimum->show();
 }
 
 /// @brief Show or hide the window maximization button.
 /// @param enable If true, the button will be shown; if false, it will be hidden.
-void TitleBar::enableMaximum(bool enable) {
+void TitleBar::enableMaximum(bool enable)
+{
     !enable ? ui->maximum->hide() : ui->maximum->show();
 }
 
 /// @brief Show or hide the window close button.
 /// @param enable If true, the button will be shown; if false, it will be hidden.
-void TitleBar::enableClose(bool enable) {
+void TitleBar::enableClose(bool enable)
+{
     !enable ? ui->close->hide() : ui->close->show();
 }
 
@@ -263,18 +316,24 @@ void TitleBar::enableClose(bool enable) {
 /// @param obj Pointer to the object for which the event was generated.
 /// @param event Pointer to the QEvent object representing the event.
 /// @return `true` if the event was handled, otherwise `false`.
-bool TitleBar::eventFilter(QObject *obj, QEvent *event) {
-    if(obj == mMainBody) {
-        if(event->type() == QEvent::HideToParent) {
+bool TitleBar::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == mMainBody)
+    {
+        if (event->type() == QEvent::HideToParent)
+        {
             hide();
             return true;
         }
-        if(event->type() == QEvent::ShowToParent) {
+        if (event->type() == QEvent::ShowToParent)
+        {
             show();
             return true;
         }
         return QObject::eventFilter(obj, event);
-    } else {
+    }
+    else
+    {
         return QFrame::eventFilter(obj, event);
     }
     return false;

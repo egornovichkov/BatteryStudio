@@ -78,7 +78,7 @@ MainWindow::MainWindow(QMainWindow *parent)
     QFont f(family);
     f.setHintingPreference(QFont::HintingPreference::PreferFullHinting);
 
-    this->setWindowFlag(Qt::FramelessWindowHint);
+    // this->setWindowFlag(Qt::FramelessWindowHint);
 }
 
 MainWindow::~MainWindow()
