@@ -14,6 +14,7 @@ SOURCES += \
     ledimg.cpp \
     main.cpp \
     mainwindow.cpp \
+    titlebar.cpp \
     warning.cpp \
     warninggroup.cpp
 
@@ -22,11 +23,13 @@ HEADERS += \
     flag.h \
     ledimg.h \
     mainwindow.h \
+    titlebar.h \
     warning.h \
     warninggroup.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    titlebar.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

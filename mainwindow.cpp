@@ -53,11 +53,13 @@ MainWindow::MainWindow(QMainWindow *parent)
     WarningGroupLayout->addWidget(WTempGroup);
     WarningGroupLayout->addWidget(WCurrentGroup);
     WarningGroupLayout->addWidget(WGeneralGroup);
-
     Warning *W2 = new Warning("Low Voltage", "Low Voltage", WVoltageGroup);
     Warning *W1 = new Warning("High Voltage", "High Voltage", WVoltageGroup);
     WVoltageGroup->addWarning(W1);
     WVoltageGroup->addWarning(W2);
+
+    // MenuBar demo
+    // ui->menuBar->
 
     // LeftRightPartSplitter initial sizes
     QList<int> LRSplitSizes;
