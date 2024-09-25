@@ -1,7 +1,9 @@
 #include "titlebar.h"
 #include <QMenu>
+#include "qpainter.h"
 #include "ui_titlebar.h"
 #include <QMouseEvent>
+#include <iostream>
 #include <windows.h>
 #include <windowsx.h>
 
@@ -37,13 +39,13 @@ QString headerMaximizeStyle = QStringLiteral(
     "}"
     );
 
-const QString appIcon           = ":/images/BatteryIcon.png";
-const QString closeIcon         = ":/images/BatteryIcon.png";
-const QString collapseHideIcon  = ":/images/BatteryIcon.png";
-const QString collapseShowIcon  = ":/images/BatteryIcon.png";
-const QString maximizeIcon      = ":/images/BatteryIcon.png";
-const QString minimizeIcon      = ":/images/BatteryIcon.png";
-const QString defaultSizeIcon   = ":/images/BatteryIcon.png";
+QString appIcon           = ":/images/BatteryIcon.png";
+QString closeIcon         = ":/images/BatteryIcon.png";
+QString collapseHideIcon  = ":/images/BatteryIcon.png";
+QString collapseShowIcon  = ":/images/BatteryIcon.png";
+QString maximizeIcon      = ":/images/BatteryIcon.png";
+QString minimizeIcon      = ":/images/BatteryIcon.png";
+QString defaultSizeIcon   = ":/images/BatteryIcon.png";
 
 
 TitleBar::TitleBar(QWidget *parent, QWidget *child)
@@ -51,14 +53,16 @@ TitleBar::TitleBar(QWidget *parent, QWidget *child)
 {
 
     ui->setupUi(this);
-    connect(ui->close, &QPushButton::clicked, this,  &TitleBar::onCloseClicked);
+
+    setMouseTracking(true);
+
     mBorderSize = 5;
 
     initIcons();
 
     ui->title->setText(title);
 
-    setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
+    setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowStaysOnTopHint);
     // setAttribute(Qt::WA_TranslucentBackground);
     if (child != nullptr)
     {
@@ -68,6 +72,11 @@ TitleBar::TitleBar(QWidget *parent, QWidget *child)
         resize(child->size());
     }
     mIsCollapse = false;
+
+    connect(ui->close, SIGNAL(clicked(bool)), this, SLOT(onCloseClicked()));
+    connect(ui->maximum, SIGNAL(clicked(bool)), this,  SLOT(onMaximumClicked()));
+    connect(ui->minimum, SIGNAL(clicked(bool)), this,  SLOT(onMinimumClicked()));
+    // connect(ui->collapse, SIGNAL(clicked(bool)), this,  SLOT(onCollapseClicked()));
 }
 
 /// @brief Destructor for the WindowFrame class.
@@ -75,6 +84,7 @@ TitleBar::~TitleBar()
 {
     delete ui;
 }
+
 
 /// @brief Init frame icons.
 void TitleBar::initIcons()
@@ -103,6 +113,7 @@ void TitleBar::showHeaderContextMenu(const QPoint &pos)
     contextMenu.addAction(exitAction);
     contextMenu.exec(mapToGlobal(pos));
 }
+
 
 /// @brief Handler for the "Close" button click signal.
 void TitleBar::onCloseClicked()
@@ -152,56 +163,45 @@ void TitleBar::onCollapseClicked()
     }
 }
 
+QPoint TitleBar::previousPosition() const
+{
+    return mPosition;
+}
 
-/// @brief Handler for the mouse press event.
-/// @param event Pointer to the QMouseEvent object containing event information.
+void TitleBar::setPreviousPosition(QPoint previousPosition)
+{
+    if (mPosition == previousPosition)
+        return;
+
+    mPosition = previousPosition;
+    emit previousPositionChanged(previousPosition);
+}
+
 void TitleBar::mousePressEvent(QMouseEvent *event)
 {
-    if (event->buttons() == Qt::LeftButton)
+    // При клике левой кнопкой мыши
+    if (event->button() == Qt::LeftButton)
     {
-        QWidget* widget = childAt(event->pos().x(), event->pos().y());
-        if (widget == ui->LHeader || widget == ui->title || widget == ui->icon)
-        {
-            mPosition.setX(event->pos().x());
-            mPosition.setY(event->pos().y());
-        }
+        // Определяем, в какой области произошёл клик
+        m_leftMouseButtonPressed = checkResizableField(event);
+        setPreviousPosition(event->pos()); // и устанавливаем позицию клика
     }
-    if (event->button() == Qt::RightButton)
-    {
-        QWidget* widget = childAt(event->pos().x(), event->pos().y());
-        if (widget == ui->LHeader || widget == ui->title || widget == ui->icon)
-        {
-            showHeaderContextMenu(event->pos());
-        }
-    }
+    return QWidget::mousePressEvent(event);
 }
 
-/// @brief Handler for the mouse move event within the window.
-/// @param event Pointer to the mouse move event object (QMouseEvent).
-/// @return No return value.
-void TitleBar::mouseMoveEvent(QMouseEvent *event)
-{
-    if (event->buttons() == Qt::LeftButton)
-    {
-        if (mPosition.x() != 0 || mPosition.y() != 0)
-        {
-            move(event->globalPosition().x() - mPosition.x(), event->globalPosition().y() - mPosition.y());
-        }
-    }
-}
-
-/// @brief Handler for the mouse release event within the window.
-/// @param event Pointer to the mouse release event object (QMouseEvent).
 void TitleBar::mouseReleaseEvent(QMouseEvent *event)
 {
-    Q_UNUSED(event);
-    mPosition.setX(0);
-    mPosition.setY(0);
+    // При отпускании левой кнопки мыши сбрасываем состояние клика
+    if (event->buttons() == Qt::LeftButton)
+    {
+        m_leftMouseButtonPressed = MouseType::None;
+    }
+    return QWidget::mouseReleaseEvent(event);
 }
 
 /// @brief Handler for the mouse double-click event within the window.
 /// @param event Pointer to the mouse double-click event object (QMouseEvent).
-void TitleBar::mouseDoubleClickEvent(QMouseEvent *event)
+void TitleBar::mouseDoubleClickEvent(QMouseEvent * event)
 {
     if (event->buttons() == Qt::LeftButton)
     {
@@ -224,72 +224,140 @@ void TitleBar::mouseDoubleClickEvent(QMouseEvent *event)
     }
 }
 
-/// @brief Handler for the native window event.
-/// @param eventType The type of event, as a byte array (QByteArray).
-/// @param message Pointer to a structure containing event information (void*).
-/// @param result Pointer to a variable for returning the result (long*).
-/// @return The return value, true if the event was handled, otherwise false.
-bool TitleBar::nativeEvent(const QByteArray &eventType, void *message, qintptr *result)
+void TitleBar::paintEvent(QPaintEvent*)
 {
-    Q_UNUSED(eventType)
-    MSG *param = static_cast<MSG *>(message);
+    QPainter painter(this);
+    painter.setBrush(QBrush(Qt::red));
+    painter.drawRect(x(), y(), width(), height());
 
-    if (param->message == WM_NCHITTEST)
-    {
-        QPoint globalPos(GET_X_LPARAM(param->lParam), GET_Y_LPARAM(param->lParam));
-        QPoint localPos = mapFromGlobal(globalPos);
-
-        int nX = localPos.x();
-        int nY = localPos.y();
-
-        if (nX >= 0 && nX < mBorderSize)
-        {
-            if (nY >= 0 && nY < mBorderSize)
-            {
-                *result = HTTOPLEFT;
-            }
-            else if (nY >= height() - mBorderSize)
-            {
-                *result = HTBOTTOMLEFT;
-            }
-            else
-            {
-                *result = HTLEFT;
-            }
-        }
-        else if (nX >= width() - mBorderSize)
-        {
-            if (nY >= 0 && nY < mBorderSize)
-            {
-                *result = HTTOPRIGHT;
-            }
-            else if (nY >= height() - mBorderSize)
-            {
-                *result = HTBOTTOMRIGHT;
-            }
-            else
-            {
-                *result = HTRIGHT;
-            }
-        }
-        else if (nY >= 0 && nY < mBorderSize)
-        {
-            *result = HTTOP;
-        }
-        else if (nY >= height() - mBorderSize)
-        {
-            *result = HTBOTTOM;
-        }
-        else
-        {
-            return QWidget::nativeEvent(eventType, message, result);
-        }
-
-        return true;
-    }
-
-    return QWidget::nativeEvent(eventType, message, result);
 }
+
+/// @brief Handler for the mouse move event within the window.
+/// @param event Pointer to the mouse move event object (QMouseEvent).
+/// @return No return value.
+void TitleBar::mouseMoveEvent(QMouseEvent *event)
+{
+    checkResizableField(event);
+    // При перемещении мыши, проверяем статус нажатия левой кнопки мыши
+    switch (m_leftMouseButtonPressed)
+    {
+        case MouseType::Move:
+        {
+            if (!isMaximized())
+            {
+                // Если окно не максимизировано, то просто перемещаем его относительно
+                // последней запомненной позиции, пока не отпустим кнопку мыши
+                auto dx = event->position().x() - mPosition.x();
+                auto dy = event->position().y() - mPosition.y();
+                setGeometry(x() + dx, y() + dy, width(), height());
+            }
+            break;
+        }
+        case MouseType::Top:
+        {
+            // Для изменения размеров также проверяем на максимизацию
+            // поскольку мы же не можем изменить размеры у максимизированного окна
+            if (!isMaximized())
+            {
+                auto dy = event->position().y() - mPosition.y();
+                setGeometry(x(), y() + dy, width(), height() - dy);
+            }
+            break;
+        }
+        case MouseType::Bottom:
+        {
+            if (!isMaximized())
+            {
+                auto dy = event->position().y() - mPosition.y();
+                setGeometry(x(), y(), width(), height() + dy);
+                setPreviousPosition(event->pos());
+            }
+            break;
+        }
+        case MouseType::Left:
+        {
+            if (!isMaximized())
+            {
+                auto dx = event->position().x() - mPosition.x();
+                setGeometry(x() + dx, y(), width() - dx, height());
+            }
+            break;
+        }
+        case MouseType::Right:
+        {
+            if (!isMaximized())
+            {
+                auto dx = event->position().x() - mPosition.x();
+                setGeometry(x(), y(), width() + dx, height());
+                setPreviousPosition(event->pos());
+            }
+            break;
+        }
+        default:
+            // Если курсор перемещается по окну без зажатой кнопки,
+            // то просто отслеживаем в какой области он находится
+            // и изменяем его курсор
+            checkResizableField(event);
+            break;
+    }
+    return QWidget::mouseMoveEvent(event);
+}
+
+TitleBar::MouseType TitleBar::checkResizableField(QMouseEvent *event)
+{
+    QPointF position = event->globalPosition();
+    qreal x = this->x();
+    qreal y = this->y();
+    qreal width = this->width();
+    qreal height = this->height();
+    qreal headerheight = ui->header->height();
+
+    qreal fieldSize = 5;
+
+    qreal borderRad = 5; // MUST BE CHANGED!
+
+    // Определяем области, в которых может находиться курсор мыши
+    // По ним будет определён статус клика
+    QRectF rectTop(x + borderRad, y, width - 2 * borderRad, fieldSize);
+    QRectF rectBottom(x + borderRad, y + height - fieldSize, width - 2 * borderRad, fieldSize);
+    QRectF rectLeft(x, y + borderRad, fieldSize, height - 2 * borderRad);
+    QRectF rectRight(x + width - fieldSize, y + borderRad, fieldSize, height - 2 * borderRad);
+    QRectF rectHeader(x, y, width, headerheight);
+
+    // И в зависимости от области, в которой находится курсор
+    // устанавливаем внешний вид курсора и возвращаем его статус
+    if (rectTop.contains(position))
+    {
+        setCursor(Qt::SizeVerCursor);
+        return MouseType::Top;
+    }
+    else if (rectBottom.contains(position))
+    {
+        setCursor(Qt::SizeVerCursor);
+        return MouseType::Bottom;
+    }
+    else if (rectLeft.contains(position))
+    {
+        setCursor(Qt::SizeHorCursor);
+        return MouseType::Left;
+    }
+    else if (rectRight.contains(position))
+    {
+        setCursor(Qt::SizeHorCursor);
+        return MouseType::Right;
+    }
+    else if (rectHeader.contains(position))
+    {
+        setCursor(QCursor(Qt::ArrowCursor));
+        return MouseType::Move;
+    }
+    else
+    {
+        setCursor(QCursor(Qt::ArrowCursor));
+        return MouseType::None;
+    }
+}
+
 
 /// @brief Show or hide the window minimization button.
 /// @param enable If true, the button will be shown; if false, it will be hidden.
@@ -310,31 +378,4 @@ void TitleBar::enableMaximum(bool enable)
 void TitleBar::enableClose(bool enable)
 {
     !enable ? ui->close->hide() : ui->close->show();
-}
-
-/// @brief Override event filtering function for the WindowFrame class.
-/// @param obj Pointer to the object for which the event was generated.
-/// @param event Pointer to the QEvent object representing the event.
-/// @return `true` if the event was handled, otherwise `false`.
-bool TitleBar::eventFilter(QObject *obj, QEvent *event)
-{
-    if (obj == mMainBody)
-    {
-        if (event->type() == QEvent::HideToParent)
-        {
-            hide();
-            return true;
-        }
-        if (event->type() == QEvent::ShowToParent)
-        {
-            show();
-            return true;
-        }
-        return QObject::eventFilter(obj, event);
-    }
-    else
-    {
-        return QFrame::eventFilter(obj, event);
-    }
-    return false;
 }
