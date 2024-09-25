@@ -38,10 +38,14 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     images/BatteryIcon.png \
+    images/CloseIcon.png \
+    images/defaultsizeicon.png \
+    images/maximizeicon.png \
+    images/minimizeicon.png
 
 DISTFILES += \
     fonts/FiraCode.ttf \
     fonts/Inter-Regular.otf \
     fonts/JetBrainsMono-Regular.ttf \
     fonts/Roboto-Medium.ttf \
-    fonts/Roboto-Regular.ttf \
+    fonts/Roboto-Regular.ttf

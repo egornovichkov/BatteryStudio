@@ -12,8 +12,8 @@ QString title = "Custom Title Bar";
 
 QString headerDefaultStyle = QStringLiteral(
     "#header {"
-    "    background-color: rgb(20, 20, 20);"
-    "    border: 1px solid rgb(20, 20, 20);"
+    "    background-color: rgb(244, 244, 249);"
+    "    border: 0px;"
     "    border-top-left-radius: 10px;"
     "    border-top-right-radius: 10px;"
     "}"
@@ -21,8 +21,8 @@ QString headerDefaultStyle = QStringLiteral(
 
 QString headerCollapseStyle = QStringLiteral(
     "#header {"
-    "    background-color: rgb(20, 20, 20);"
-    "    border: 2px solid rgb(20, 20, 20);"
+    "    background-color: rgb(244, 244, 249);"
+    "    border: 0px;"
     "    border-top-left-radius: 10px;"
     "    border-top-right-radius: 10px;"
     "    border-bottom-left-radius: 10px;"
@@ -32,20 +32,18 @@ QString headerCollapseStyle = QStringLiteral(
 
 QString headerMaximizeStyle = QStringLiteral(
     "#header {"
-    "    background-color: rgb(20, 20, 20);"
-    "    border: 1px solid rgb(20, 20, 20);"
+    "    background-color: rgb(244, 244, 249);"
+    "    border: 0px;"
     "    border-top-left-radius: 0px;"
     "    border-top-right-radius: 0px;"
     "}"
     );
 
 QString appIcon           = ":/images/BatteryIcon.png";
-QString closeIcon         = ":/images/BatteryIcon.png";
-QString collapseHideIcon  = ":/images/BatteryIcon.png";
-QString collapseShowIcon  = ":/images/BatteryIcon.png";
-QString maximizeIcon      = ":/images/BatteryIcon.png";
-QString minimizeIcon      = ":/images/BatteryIcon.png";
-QString defaultSizeIcon   = ":/images/BatteryIcon.png";
+QString closeIcon         = ":/images/CloseIcon.png";
+QString maximizeIcon      = ":/images/maximizeicon.png";
+QString minimizeIcon      = ":/images/minimizeicon.png";
+QString defaultSizeIcon   = ":/images/defaultsizeicon.png";
 
 
 TitleBar::TitleBar(QWidget *parent, QWidget *child)
@@ -95,7 +93,6 @@ void TitleBar::initIcons()
     ui->icon->setAlignment(Qt::AlignCenter);
     ui->icon->resize(24, 24);
 
-    ui->collapse->setIcon(QIcon(collapseHideIcon));
     ui->close->setIcon(QIcon(closeIcon));
     ui->maximum->setIcon(QIcon(maximizeIcon));
     ui->minimum->setIcon(QIcon(minimizeIcon));
@@ -151,14 +148,12 @@ void TitleBar::onCollapseClicked()
     {
         ui->body->setVisible(true);
         mIsCollapse = false;
-        ui->collapse->setIcon(QIcon(collapseHideIcon));
         isMaximized() ? ui->header->setStyleSheet(headerMaximizeStyle) : ui->header->setStyleSheet(headerDefaultStyle);
     }
     else
     {
         ui->body->setVisible(false);
         mIsCollapse = true;
-        ui->collapse->setIcon(QIcon(collapseShowIcon));
         isMaximized() ? ui->header->setStyleSheet(headerMaximizeStyle) : ui->header->setStyleSheet(headerCollapseStyle);
     }
 }
