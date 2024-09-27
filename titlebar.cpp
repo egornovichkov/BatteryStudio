@@ -52,7 +52,6 @@ TitleBar::TitleBar(QWidget *parent, QWidget *child)
 
     ui->setupUi(this);
 
-    setMouseTracking(true);
 
     mBorderSize = 5;
 
@@ -62,19 +61,27 @@ TitleBar::TitleBar(QWidget *parent, QWidget *child)
 
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowStaysOnTopHint);
     // setAttribute(Qt::WA_TranslucentBackground);
+
     if (child != nullptr)
     {
         ui->body->layout()->addWidget(child);
         mMainBody = child;
-        mMainBody->installEventFilter(this);
         resize(child->size());
     }
     mIsCollapse = false;
 
+    /// CHANGE
+    ///
+    ///
+    ///
+    ui->header->setMouseTracking(true);
+    ui->bodyFrame->setMouseTracking(true);
+    setMouseTracking(true);
+    mMainBody->setMouseTracking(true);
+
     connect(ui->close, SIGNAL(clicked(bool)), this, SLOT(onCloseClicked()));
     connect(ui->maximum, SIGNAL(clicked(bool)), this,  SLOT(onMaximumClicked()));
     connect(ui->minimum, SIGNAL(clicked(bool)), this,  SLOT(onMinimumClicked()));
-    // connect(ui->collapse, SIGNAL(clicked(bool)), this,  SLOT(onCollapseClicked()));
 }
 
 /// @brief Destructor for the WindowFrame class.
@@ -186,12 +193,13 @@ void TitleBar::mousePressEvent(QMouseEvent *event)
 
 void TitleBar::mouseReleaseEvent(QMouseEvent *event)
 {
-    // При отпускании левой кнопки мыши сбрасываем состояние клика
-    if (event->buttons() == Qt::LeftButton)
+    if (event->button() == Qt::LeftButton)
     {
+        // При отпускании левой кнопки мыши сбрасываем состояние клика
         m_leftMouseButtonPressed = MouseType::None;
+        setPreviousPosition(event->pos());
+        return QWidget::mouseReleaseEvent(event);
     }
-    return QWidget::mouseReleaseEvent(event);
 }
 
 /// @brief Handler for the mouse double-click event within the window.
@@ -232,7 +240,6 @@ void TitleBar::paintEvent(QPaintEvent*)
 /// @return No return value.
 void TitleBar::mouseMoveEvent(QMouseEvent *event)
 {
-    checkResizableField(event);
     // При перемещении мыши, проверяем статус нажатия левой кнопки мыши
     switch (m_leftMouseButtonPressed)
     {
@@ -295,6 +302,8 @@ void TitleBar::mouseMoveEvent(QMouseEvent *event)
             checkResizableField(event);
             break;
     }
+        checkResizableField(event);
+
     return QWidget::mouseMoveEvent(event);
 }
 
@@ -373,4 +382,31 @@ void TitleBar::enableMaximum(bool enable)
 void TitleBar::enableClose(bool enable)
 {
     !enable ? ui->close->hide() : ui->close->show();
+}
+
+/// @brief Override event filtering function for the WindowFrame class.
+/// @param obj Pointer to the object for which the event was generated.
+/// @param event Pointer to the QEvent object representing the event.
+/// @return `true` if the event was handled, otherwise `false`.
+bool TitleBar::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == mMainBody)
+    {
+        if (event->type() == QEvent::HideToParent)
+        {
+            hide();
+            return true;
+        }
+        if (event->type() == QEvent::ShowToParent)
+        {
+            show();
+            return true;
+        }
+        return QObject::eventFilter(obj, event);
+    }
+    else
+    {
+        return QFrame::eventFilter(obj, event);
+    }
+    return false;
 }

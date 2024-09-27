@@ -40,6 +40,8 @@ protected:
     /// Handler for the mouse double-click event within the window.
     void mouseDoubleClickEvent(QMouseEvent *event) override;
 
+    bool eventFilter(QObject *obj, QEvent *event) override;
+
     virtual void paintEvent(QPaintEvent*) override;
 
 private:

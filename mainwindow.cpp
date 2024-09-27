@@ -13,6 +13,8 @@ MainWindow::MainWindow(QMainWindow *parent)
 {
     ui->setupUi(this);
 
+    setMouseTracking(true);
+
     // Flags demo
     ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);
     QHBoxLayout *FlagsLayout = new QHBoxLayout(ui->FlagsWidget);
@@ -57,9 +59,6 @@ MainWindow::MainWindow(QMainWindow *parent)
     Warning *W1 = new Warning("High Voltage", "High Voltage", WVoltageGroup);
     WVoltageGroup->addWarning(W1);
     WVoltageGroup->addWarning(W2);
-
-    // MenuBar demo
-    // ui->menuBar->
 
     // LeftRightPartSplitter initial sizes
     QList<int> LRSplitSizes;
