@@ -3,6 +3,8 @@
 
 #include <QFrame>
 
+class AppWidget;
+
 namespace Ui
 {
 class TitleBar;
@@ -12,9 +14,9 @@ class TitleBar : public QFrame
 {
     Q_OBJECT
 
-    Q_PROPERTY(QPoint previousPosition READ previousPosition WRITE setPreviousPosition NOTIFY previousPositionChanged)
+    // Q_PROPERTY(QPoint previousPosition READ previousPosition WRITE setPreviousPosition NOTIFY previousPositionChanged)
 public:
-    explicit TitleBar(QWidget *parent = nullptr, QWidget *child = nullptr);
+    explicit TitleBar(QWidget *parent = nullptr);
     /// Init frame icons
     void initIcons();
     /// Show header menu.
@@ -31,37 +33,44 @@ public:
     ~TitleBar();
 
 protected:
-    /// Handler for the mouse press event.
-    void mousePressEvent(QMouseEvent *event) override;
-    /// Handler for the mouse move event within the window.
-    void mouseMoveEvent(QMouseEvent *event) override;
-    /// Handler for the mouse release event within the window.
-    void mouseReleaseEvent(QMouseEvent *event) override;
+    // /// Handler for the mouse press event.
+    // void mousePressEvent(QMouseEvent *event) override;
+    // /// Handler for the mouse move event within the window.
+    // void mouseMoveEvent(QMouseEvent *event) override;
+    // /// Handler for the mouse release event within the window.
+    // void mouseReleaseEvent(QMouseEvent *event) override;
     /// Handler for the mouse double-click event within the window.
     void mouseDoubleClickEvent(QMouseEvent *event) override;
 
-    bool eventFilter(QObject *obj, QEvent *event) override;
+    // bool eventFilter(QObject *obj, QEvent *event) override;
 
     virtual void paintEvent(QPaintEvent*) override;
 
 private:
-    /// Mouse type enumeration
-    enum class MouseType
-    {
-        None = 0,
-        Top = 1,
-        Bottom = 2,
-        Left = 3,
-        Right = 4,
-        Move = 5
-    };
-    /// Returnes mouse type
-    MouseType checkResizableField(QMouseEvent *event);
-    /// Sets previous mouse position
-    void setPreviousPosition(QPoint previousPosition);
+    // /// Mouse type enumeration
+    // enum class MouseType
+    // {
+    //     None = 0,
+    //     Top = 1,
+    //     Bottom = 2,
+    //     Left = 3,
+    //     Right = 4,
+    //     Move = 5
+    // };
+    // /// Returnes mouse type
+    // MouseType checkResizableField(QMouseEvent *event);
+    // /// Sets previous mouse position
+    // void setPreviousPosition(QPoint previousPosition);
 
 signals:
-    void previousPositionChanged(QPoint previousPosition);
+    // void previousPositionChanged(QPoint previousPosition);
+
+    /// Signal of "Close" button click
+    void onCloseClickedSignal();
+    /// Signal of "Maximize/Restore" button click
+    void onMaximumClickedSignal();
+    /// Signal of "Minimize" button click
+    void onMinimumClickedSignal();
 
 private slots:
     /// Handler for the "Close" button click signal.
@@ -70,22 +79,18 @@ private slots:
     void onMaximumClicked();
     /// Handler for the "Minimize" button click signal.
     void onMinimumClicked();
-    /// Handler for the "Collapse" button click signal.
-    void onCollapseClicked();
 
 private:
     /// Pointer to the user interface object.
     Ui::TitleBar *ui;
-    /// Pointer to the main widget (child widget).
-    QWidget *mMainBody;
     /// Window mPosition on the screen.
     QPoint mPosition;
     /// Size of the window borders for resize.
     int mBorderSize;
     /// Collapse flag.
     bool mIsCollapse;
-    /// Mouse pressed variable
-    MouseType m_leftMouseButtonPressed;
+    // /// Mouse pressed variable
+    // MouseType m_leftMouseButtonPressed;
 };
 
 #endif // TITLEBAR_H
