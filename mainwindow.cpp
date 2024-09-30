@@ -12,6 +12,7 @@ MainWindow::MainWindow(QMainWindow *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->CentralWidget->setMouseTracking(true);
 
     setMouseTracking(true);
 
@@ -76,6 +77,7 @@ MainWindow::MainWindow(QMainWindow *parent)
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont f(family);
     f.setHintingPreference(QFont::HintingPreference::PreferFullHinting);
+    // this->hide();
 
     // this->setWindowFlag(Qt::FramelessWindowHint);
 }

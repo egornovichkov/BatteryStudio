@@ -4,8 +4,6 @@
 #include "ui_titlebar.h"
 #include <QMouseEvent>
 #include <iostream>
-#include <windows.h>
-#include <windowsx.h>
 
 
 QString title = "Custom Title Bar";
@@ -77,7 +75,7 @@ TitleBar::TitleBar(QWidget *parent, QWidget *child)
     ui->header->setMouseTracking(true);
     ui->bodyFrame->setMouseTracking(true);
     setMouseTracking(true);
-    mMainBody->setMouseTracking(true);
+    // mMainBody->setMouseTracking(true);
 
     connect(ui->close, SIGNAL(clicked(bool)), this, SLOT(onCloseClicked()));
     connect(ui->maximum, SIGNAL(clicked(bool)), this,  SLOT(onMaximumClicked()));
@@ -231,7 +229,9 @@ void TitleBar::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
     painter.setBrush(QBrush(Qt::red));
+    painter.drawRect(ui->body->x(), ui->body->y(), ui->body->width(), ui->body->height());
     painter.drawRect(x(), y(), width(), height());
+    painter.drawRect(mMainBody->x(), mMainBody->y(), mMainBody->width(), mMainBody->height());
 
 }
 
@@ -240,6 +240,7 @@ void TitleBar::paintEvent(QPaintEvent*)
 /// @return No return value.
 void TitleBar::mouseMoveEvent(QMouseEvent *event)
 {
+    std::cout << "MOVE";
     // При перемещении мыши, проверяем статус нажатия левой кнопки мыши
     switch (m_leftMouseButtonPressed)
     {
@@ -302,7 +303,6 @@ void TitleBar::mouseMoveEvent(QMouseEvent *event)
             checkResizableField(event);
             break;
     }
-        checkResizableField(event);
 
     return QWidget::mouseMoveEvent(event);
 }
@@ -358,6 +358,7 @@ TitleBar::MouseType TitleBar::checkResizableField(QMouseEvent *event)
     else
     {
         setCursor(QCursor(Qt::ArrowCursor));
+        std::cout << "None";
         return MouseType::None;
     }
 }
