@@ -56,15 +56,12 @@ TitleBar::TitleBar(QWidget *parent)
 
     ui->title->setText(title);
 
-    setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     // setAttribute(Qt::WA_TranslucentBackground);
 
     mIsCollapse = false;
 
     /// CHANGE
-    ///
-    ///
-    ///
 
     connect(ui->close, SIGNAL(clicked(bool)), this, SLOT(onCloseClicked()));
     connect(ui->maximum, SIGNAL(clicked(bool)), this,  SLOT(onMaximumClicked()));

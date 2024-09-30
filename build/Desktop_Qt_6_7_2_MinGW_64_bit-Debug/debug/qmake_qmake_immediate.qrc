@@ -1,9 +1,0 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="/">
-<file alias="images/BatteryIcon.png">D:/Qt/Projects/Battery_Studio/images/BatteryIcon.png</file>
-<file alias="images/CloseIcon.png">D:/Qt/Projects/Battery_Studio/images/CloseIcon.png</file>
-<file alias="images/defaultsizeicon.png">D:/Qt/Projects/Battery_Studio/images/defaultsizeicon.png</file>
-<file alias="images/maximizeicon.png">D:/Qt/Projects/Battery_Studio/images/maximizeicon.png</file>
-<file alias="images/minimizeicon.png">D:/Qt/Projects/Battery_Studio/images/minimizeicon.png</file>
-</qresource>
-</RCC>
