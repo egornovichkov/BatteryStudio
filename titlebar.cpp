@@ -1,6 +1,5 @@
 #include "titlebar.h"
 #include <QMenu>
-#include "qpainter.h"
 #include "ui_titlebar.h"
 #include <QMouseEvent>
 
@@ -45,7 +44,6 @@ QString defaultSizeIcon   = ":/images/defaultsizeicon.png";
 TitleBar::TitleBar(QWidget *parent)
     : QFrame(parent), ui(new Ui::TitleBar)
 {
-
     ui->setupUi(this);
 
     mBorderSize = 5;
@@ -54,9 +52,10 @@ TitleBar::TitleBar(QWidget *parent)
 
     ui->title->setText(title);
 
-    setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    setWindowFlags(Qt::FramelessWindowHint);
 
     mIsCollapse = false;
+    m_MaximizedFlag = true;
 
     connect(ui->close, SIGNAL(clicked(bool)), this, SLOT(onCloseClicked()));
     connect(ui->maximum, SIGNAL(clicked(bool)), this,  SLOT(onMaximumClicked()));
@@ -80,7 +79,7 @@ void TitleBar::initIcons()
     ui->icon->resize(24, 24);
 
     ui->close->setIcon(QIcon(closeIcon));
-    ui->maximum->setIcon(QIcon(maximizeIcon));
+    ui->maximum->setIcon(QIcon(defaultSizeIcon));
     ui->minimum->setIcon(QIcon(minimizeIcon));
 }
 
@@ -107,17 +106,18 @@ void TitleBar::onCloseClicked()
 /// @brief Handler for the "Maximize/Restore" button click signal.
 void TitleBar::onMaximumClicked()
 {
+    m_MaximizedFlag = !m_MaximizedFlag;
     emit onMaximumClickedSignal();
 
-    if (isMaximized())
-    {
-        ui->maximum->setIcon(QIcon(maximizeIcon));
-        mIsCollapse ? ui->header->setStyleSheet(headerCollapseStyle) : ui->header->setStyleSheet(headerDefaultStyle);
-    }
-    else
+    if (m_MaximizedFlag)
     {
         ui->maximum->setIcon(QIcon(defaultSizeIcon));
         ui->header->setStyleSheet(headerMaximizeStyle);
+    }
+    else
+    {
+        ui->maximum->setIcon(QIcon(maximizeIcon));
+        mIsCollapse ? ui->header->setStyleSheet(headerCollapseStyle) : ui->header->setStyleSheet(headerDefaultStyle);
     }
 }
 
@@ -139,13 +139,4 @@ void TitleBar::mouseDoubleClickEvent(QMouseEvent * event)
             emit onMaximumClickedSignal();
         }
     }
-}
-
-/// @brief paintEvent override for title bar.
-void TitleBar::paintEvent(QPaintEvent*)
-{
-    QPainter painter(this);
-    painter.setBrush(QBrush(Qt::red));
-    painter.drawRect(ui->body->x(), ui->body->y(), ui->body->width(), ui->body->height());
-    painter.drawRect(x(), y(), width(), height());
 }

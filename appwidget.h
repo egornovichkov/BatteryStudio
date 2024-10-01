@@ -31,6 +31,8 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     /// Handler for the mouse release event.
     void mouseReleaseEvent(QMouseEvent *event) override;
+    ///
+    // bool virtual eventFilter(QObject *obj, QEvent *event) override;
 
 private:
     /// Enumeration for mouse type.

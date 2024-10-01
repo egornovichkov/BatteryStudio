@@ -5,21 +5,26 @@
 #include "titlebar.h"
 #include <QMainWindow>
 #include <QWidget>
-#include <iostream>
 
 AppWidget::AppWidget(QWidget *parent)
     : QWidget{parent}
 {
-    setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-    setWindowState(Qt::WindowFullScreen);
-    setMouseTracking(true);
 
     m_mainWindow = new MainWindow();
-    m_titleBar = new TitleBar();
+    m_titleBar = new TitleBar(this);
+
+
+    m_mainWindow->setMouseTracking(true);
+    m_titleBar->setMouseTracking(true);
+    setMouseTracking(true);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_titleBar);
     layout->addWidget(m_mainWindow);
+
+    setWindowFlags(Qt::FramelessWindowHint);
+    showMaximized();
 
     connect(m_titleBar, SIGNAL(onCloseClickedSignal()), this, SLOT(closeApp()));
     connect(m_titleBar, SIGNAL(onMaximumClickedSignal()), this,  SLOT(maximizeApp()));
@@ -201,7 +206,32 @@ AppWidget::MouseType AppWidget::checkResizableField(QMouseEvent *event)
     else
     {
         setCursor(QCursor(Qt::ArrowCursor));
-        std::cout << "None";
         return MouseType::None;
     }
 }
+
+// bool AppWidget::eventFilter(QObject *obj, QEvent *event)
+// {
+//     if (obj == m_mainWindow || obj == m_titleBar)
+//     {
+//         if (event->type() == QEvent::MouseMove)
+//         {
+//             QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+//             mouseMoveEvent(mouseEvent);
+//             return true;
+//         }
+//         else if (event->type() == QEvent::MouseButtonPress)
+//         {
+//             QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+//             mousePressEvent(mouseEvent);
+//             return true;
+//         }
+//         else if (event->type() == QEvent::MouseButtonRelease)
+//         {
+//             QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+//             mouseReleaseEvent(mouseEvent);
+//             return true;
+//         }
+//     }
+//     return QWidget::eventFilter(obj, event);
+// }

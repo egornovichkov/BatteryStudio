@@ -26,8 +26,6 @@ public:
 protected:
     /// Handler for the mouse double-click event within the window.
     void mouseDoubleClickEvent(QMouseEvent *event) override;
-    /// paintEvent override for title bar.
-    virtual void paintEvent(QPaintEvent*) override;
 
 signals:
     /// Signal of "Close" button click.
@@ -52,6 +50,8 @@ private:
     int mBorderSize;
     /// Collapse flag.
     bool mIsCollapse;
+    /// Flag for current appwidget state ("maximized/not maximized")
+    bool m_MaximizedFlag;
 };
 
 #endif // TITLEBAR_H
