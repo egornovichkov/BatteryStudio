@@ -17,6 +17,7 @@ WarningGroup::WarningGroup(QString group, QWidget *parent) : QWidget{parent}
     m_WarningGroupLayout->addSpacerItem(spacer);
 }
 
+/// @brief paintEvent override for warning group.
 void WarningGroup::paintEvent(QPaintEvent*)
 {
     // Drawing frame
@@ -49,6 +50,7 @@ void WarningGroup::paintEvent(QPaintEvent*)
     m_label->setGeometry(x1, y1, w1, h1);
 }
 
+/// Function for adding warning to group
 void WarningGroup::addWarning(Warning *warning)
 {
     m_warnings.append(warning);

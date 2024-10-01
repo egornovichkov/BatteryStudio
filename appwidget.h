@@ -13,17 +13,8 @@ public:
     explicit AppWidget(QWidget *parent = nullptr);
     ~AppWidget();
 
+    /// Getter for previous mouse position within the window.
     QPoint previousPosition() const;
-
-protected:
-    /// Handler for the mouse press event.
-    void mousePressEvent(QMouseEvent *event) override;
-    /// Handler for the mouse move event within the window.
-    void mouseMoveEvent(QMouseEvent *event) override;
-    /// Handler for the mouse release event within the window.
-    void mouseReleaseEvent(QMouseEvent *event) override;
-    /// Handler for the mouse double-click event within the window.
-    // void mouseDoubleClickEvent(QMouseEvent *event) override;
 
 public slots:
     /// Handler for the "Close" button click signal.
@@ -33,8 +24,16 @@ public slots:
     /// Handler for the "Minimize" button click signal.
     void minimizeApp();
 
+protected:
+    /// Handler for the mouse press event.
+    void mousePressEvent(QMouseEvent *event) override;
+    /// Handler for the mouse move event.
+    void mouseMoveEvent(QMouseEvent *event) override;
+    /// Handler for the mouse release event.
+    void mouseReleaseEvent(QMouseEvent *event) override;
+
 private:
-    /// Mouse type enumeration
+    /// Enumeration for mouse type.
     enum class MouseType
     {
         None = 0,
@@ -44,17 +43,20 @@ private:
         Right = 4,
         Move = 5
     };
-    /// Returnes mouse type
+    /// Function which returns mouse type due to its position within the window.
     MouseType checkResizableField(QMouseEvent *event);
-    /// Sets previous mouse position
+    /// Setter for previous mouse position within the window.
     void setPreviousPosition(QPoint previousPosition);
 
+private:
+    /// App body.
     QWidget *m_mainWindow;
+    /// App title bar.
     TitleBar *m_titleBar;
-    /// Mouse pressed variable
+    /// Mouse pressed variable.
     MouseType m_leftMouseButtonPressed;
-    /// Window mPosition on the screen.
-    QPoint mPosition;
+    /// Previous mouse position within the window.
+    QPoint m_Position;
 
 signals:
     void previousPositionChanged(QPoint);

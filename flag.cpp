@@ -31,6 +31,7 @@ Flag::Flag(QString label, bool mode, QWidget *parent)
     this->setMinimumWidth(minWidth);
 }
 
+/// @brief Handler for flag mode switch.
 void Flag::switchFlag()
 {
     m_led->switchLed();

@@ -19,6 +19,7 @@ public:
     ~MainWindow();
 
 private:
+    /// Pointer to the user interface object.
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

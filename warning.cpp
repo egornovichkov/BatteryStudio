@@ -20,6 +20,7 @@ Warning::Warning(QString label, QString type, QWidget *parent)
     this->setMinimumHeight(28);
 }
 
+/// @brief paintEvent override for warning.
 void Warning::paintEvent(QPaintEvent*)
 {
     // Calculating minimum width

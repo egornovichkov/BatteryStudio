@@ -16,8 +16,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     titlebar.cpp \
-    warning.cpp \
-    warninggroup.cpp
+    warninggroup.cpp \
+    warning.cpp
 
 HEADERS += \
     appwidget.h \
@@ -26,8 +26,8 @@ HEADERS += \
     ledimg.h \
     mainwindow.h \
     titlebar.h \
-    warning.h \
-    warninggroup.h
+    warninggroup.h \
+    warning.h
 
 FORMS += \
     mainwindow.ui \

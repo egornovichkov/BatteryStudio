@@ -6,7 +6,7 @@ BatChargeImg::BatChargeImg(QWidget *parent)
 {
 }
 
-
+/// @brief paintEvent override for battery image
 void BatChargeImg::paintEvent(QPaintEvent *event)
 {
     const int margin = 4;//The margin of the outer frame
