@@ -51,3 +51,5 @@ DISTFILES += \
     fonts/JetBrainsMono-Regular.ttf \
     fonts/Roboto-Medium.ttf \
     fonts/Roboto-Regular.ttf
+
+include("/path/install/share/QWindowKit/qmake/QWKWidgets.pri")

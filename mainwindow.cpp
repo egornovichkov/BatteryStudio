@@ -9,10 +9,15 @@
 #include <QPushButton>
 #include <QMouseEvent>
 #include "appwidget.h"
+#include <QWKWidgets/widgetwindowagent.h>
 
 MainWindow::MainWindow(QMainWindow *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
+    setAttribute(Qt::WA_DontCreateNativeAncestors);
+    setWindowFlags(Qt::FramelessWindowHint);
+    auto agent = new QWK::WidgetWindowAgent(this);
+    agent->setup(this);
     setMouseTracking(true);
     ui->setupUi(this);
 
@@ -74,58 +79,3 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-void MainWindow::mouseMoveEvent(QMouseEvent *event)
-{
-    QApplication::postEvent(parent(), event);
-}
-
-/// Handler for the mouse press event.
-void MainWindow::mousePressEvent(QMouseEvent *event)
-{
-    QApplication::postEvent(parent(), event);
-}
-
-/// Handler for the mouse release event.
-void MainWindow::mouseReleaseEvent(QMouseEvent *event)
-{
-    QApplication::postEvent(parent(), event);
-}
-
-// bool MainWindow::eventFilter(QObject *obj, QEvent *event)
-// {
-//     Q_UNUSED(obj);
-
-//     if ((event->type() == QEvent::MouseMove || event->type() == QEvent::MouseButtonPress
-//         || event->type() == QEvent::MouseButtonRelease) && (parent() != nullptr))
-//     {
-//         QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
-//         return checkResizableField(mouseEvent);
-//     }
-//     return true;
-// }
-
-// /// @brief Function which returns mouse type due to its position within the window.
-// bool MainWindow::checkResizableField(QMouseEvent *event)
-// {
-//     QPointF position = event->globalPosition();
-//     qreal x = this->x();
-//     qreal y = this->y();
-//     qreal width = this->width();
-//     qreal height = this->height();
-//     std::cout << x << " " << y << " " << width << " " << height << "\n";
-
-//     qreal fieldSize = 5;
-
-//     qreal borderRad = 5; // MUST BE CHANGED!
-
-//     QRectF rectBottom(x + borderRad, y + height - fieldSize, width - 2 * borderRad, fieldSize);
-//     QRectF rectLeft(x, y + borderRad, fieldSize, height - 2 * borderRad);
-//     QRectF rectRight(x + width - fieldSize, y + borderRad, fieldSize, height - 2 * borderRad);
-
-//     if (rectBottom.contains(position) || rectLeft.contains(position) || rectRight.contains(position))
-//     {
-//         return true;
-//     }
-//     return false;
-// }

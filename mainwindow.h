@@ -16,16 +16,6 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-protected:
-    // bool virtual eventFilter(QObject *obj, QEvent *event) override;
-    /// Handler for the mouse move event.
-    void mouseMoveEvent(QMouseEvent *event) override;
-
-    /// Handler for the mouse press event.
-    void mousePressEvent(QMouseEvent *event) override;
-    /// Handler for the mouse release event.
-    void mouseReleaseEvent(QMouseEvent *event) override;
-
 public:
     MainWindow(QMainWindow *parent = nullptr);
     ~MainWindow();

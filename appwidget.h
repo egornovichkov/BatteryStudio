@@ -3,8 +3,8 @@
 
 #include <QWidget>
 
-class QWidget;
 class TitleBar;
+class MainWindow;
 
 class AppWidget : public QWidget
 {
@@ -31,8 +31,6 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     /// Handler for the mouse release event.
     void mouseReleaseEvent(QMouseEvent *event) override;
-    ///
-    // bool virtual eventFilter(QObject *obj, QEvent *event) override;
 
 private:
     /// Enumeration for mouse type.
@@ -52,7 +50,7 @@ private:
 
 private:
     /// App body.
-    QWidget *m_mainWindow;
+    MainWindow *m_mainWindow;
     /// App title bar.
     TitleBar *m_titleBar;
     /// Mouse pressed variable.

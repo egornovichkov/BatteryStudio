@@ -5,17 +5,18 @@
 #include "titlebar.h"
 #include <QMainWindow>
 #include <QWidget>
+#include <QWKWidgets/widgetwindowagent.h>
 
 AppWidget::AppWidget(QWidget *parent)
     : QWidget{parent}
 {
 
-    m_mainWindow = new MainWindow();
-    m_titleBar = new TitleBar(this);
+    auto agent = new QWK::WidgetWindowAgent(this);
+    agent->setup(this);
 
+    // m_mainWindow = new MainWindow();
+    // m_titleBar = new TitleBar(this);
 
-    m_mainWindow->setMouseTracking(true);
-    m_titleBar->setMouseTracking(true);
     setMouseTracking(true);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -116,6 +117,7 @@ void AppWidget::mouseMoveEvent(QMouseEvent *event)
         {
             if (!isMaximized())
             {
+
                 auto dy = event->position().y() - m_Position.y();
                 setGeometry(x(), y() + dy, width(), height() - dy);
             }
@@ -209,29 +211,3 @@ AppWidget::MouseType AppWidget::checkResizableField(QMouseEvent *event)
         return MouseType::None;
     }
 }
-
-// bool AppWidget::eventFilter(QObject *obj, QEvent *event)
-// {
-//     if (obj == m_mainWindow || obj == m_titleBar)
-//     {
-//         if (event->type() == QEvent::MouseMove)
-//         {
-//             QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
-//             mouseMoveEvent(mouseEvent);
-//             return true;
-//         }
-//         else if (event->type() == QEvent::MouseButtonPress)
-//         {
-//             QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
-//             mousePressEvent(mouseEvent);
-//             return true;
-//         }
-//         else if (event->type() == QEvent::MouseButtonRelease)
-//         {
-//             QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
-//             mouseReleaseEvent(mouseEvent);
-//             return true;
-//         }
-//     }
-//     return QWidget::eventFilter(obj, event);
-// }
