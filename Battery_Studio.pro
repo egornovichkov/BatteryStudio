@@ -12,12 +12,10 @@ SOURCES += \
     MainWindow/mainwindow.cpp \
     WidgetFrame/src/windowbar.cpp \
     WidgetFrame/src/windowbutton.cpp \
-    appwidget.cpp \
     batchargeimg.cpp \
     flag.cpp \
     ledimg.cpp \
     main.cpp \
-    titlebar.cpp \
     warninggroup.cpp \
     warning.cpp
 
@@ -27,17 +25,14 @@ HEADERS += \
     WidgetFrame/src/windowbar_p.h \
     WidgetFrame/src/windowbutton.h \
     WidgetFrame/src/windowbutton_p.h \
-    appwidget.h \
     batchargeimg.h \
     flag.h \
     ledimg.h \
-    titlebar.h \
     warninggroup.h \
     warning.h
 
 FORMS += \
-    MainWindow/mainwindow.ui \
-    titlebar.ui
+    MainWindow/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
