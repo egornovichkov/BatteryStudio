@@ -9,7 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    main.cpp \
+    src/main.cpp \
     src/BatChargeImg/batchargeimg.cpp \
     src/Flag/flag.cpp \
     src/Flag/ledimg.cpp \
@@ -17,7 +17,7 @@ SOURCES += \
     src/Warning/warning.cpp \
     src/Warning/warninggroup.cpp \
     src/WidgetFrame/src/windowbar.cpp \
-    src/WidgetFrame/src/windowbutton.cpp
+    src/WidgetFrame/src/windowbutton.cpp \
 
 HEADERS += \
     src/BatChargeImg/batchargeimg.h \
