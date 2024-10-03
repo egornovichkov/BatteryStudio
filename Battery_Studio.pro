@@ -40,14 +40,17 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    MainWindow/mainwindow.qrc \
     WidgetFrame/resources/shared.qrc \
-    images/BatteryIcon.png \
+    WidgetFrame/resources/shared.qrc \
     images/CloseIcon.png \
     images/defaultsizeicon.png \
     images/maximizeicon.png \
     images/minimizeicon.png
+    styles/TitleBar.qss
 
 DISTFILES += \
+    MainWindow/TitleBar.qss \
     WidgetFrame/resources/app/example.icns \
     WidgetFrame/resources/app/example.ico \
     WidgetFrame/resources/app/example.png \
@@ -61,6 +64,6 @@ DISTFILES += \
     fonts/Inter-Regular.otf \
     fonts/JetBrainsMono-Regular.ttf \
     fonts/Roboto-Medium.ttf \
-    fonts/Roboto-Regular.ttf
+    fonts/Roboto-Regular.ttf \
 
 include("/path/install/share/QWindowKit/qmake/QWKWidgets.pri")

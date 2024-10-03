@@ -8,9 +8,7 @@
 #include <QImage>
 #include <QPushButton>
 #include <QMouseEvent>
-#include "appwidget.h"
 #include <QWKWidgets/widgetwindowagent.h>
-#include "titlebar.h"
 
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
@@ -40,6 +38,7 @@ MainWindow::MainWindow(QMainWindow *parent)
     // m_widgetWindowAgent->setup(this);
     // m_titleBar = new TitleBar(this);
     // ui->CentralLayout->insertWidget(0, m_titleBar);
+    setTitleBarStyleSheet();
 
     // Flags demo
     ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);
@@ -163,6 +162,7 @@ void MainWindow::installWindowAgent() {
     // 1. Setup window agent
     m_widgetWindowAgent = new QWK::WidgetWindowAgent(this);
     m_widgetWindowAgent->setup(this);
+    m_widgetWindowAgent->centralize();
 
     // 2. Construct your title bar
     auto menuBar = [this]() {
@@ -376,6 +376,10 @@ void MainWindow::installWindowAgent() {
 #endif
 }
 
-QWK::WidgetWindowAgent *MainWindow::windowAgent()
-{ return m_widgetWindowAgent; }
-
+void MainWindow::setTitleBarStyleSheet()
+{
+    if (QFile qss(QStringLiteral(":/TitleBar.qss"));
+        qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        setStyleSheet(QString::fromUtf8(qss.readAll()));
+    }
+}

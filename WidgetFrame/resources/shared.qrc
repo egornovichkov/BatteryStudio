@@ -7,5 +7,8 @@
         <file>window-bar/restore.svg</file>
         <file>window-bar/more-line.svg</file>
         <file>app/example.png</file>
+        <file>app/BatteryIcon.png</file>
+        <file>app/example.icns</file>
+        <file>app/example.ico</file>
     </qresource>
 </RCC>
