@@ -1,5 +1,4 @@
-#include "appwidget.h"
-#include "mainwindow.h"
+#include "src/MainWindow/mainwindow.h"
 #include <QPainter>
 
 #include <QApplication>

@@ -1,8 +1,8 @@
 #include "mainwindow.h"
-#include "flag.h"
+#include "../Flag/flag.h"
 #include "ui_mainwindow.h"
-#include "warning.h"
-#include "warninggroup.h"
+#include "../Warning/warning.h"
+#include "../Warning/warninggroup.h"
 #include <QFileInfo>
 #include <QFontDatabase>
 #include <QImage>
@@ -25,8 +25,8 @@
 #  include <QtWidgets/QActionGroup>
 #endif
 
-#include <WidgetFrame/src/windowbar.h>
-#include <WidgetFrame/src/windowbutton.h>
+#include "../WidgetFrame/src/windowbar.h"
+#include "../WidgetFrame/src/windowbutton.h"
 
 MainWindow::MainWindow(QMainWindow *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)

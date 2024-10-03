@@ -543,7 +543,7 @@ border-left: 0px solid rgb(180, 180, 190);
   <customwidget>
    <class>BatChargeImg</class>
    <extends>QWidget</extends>
-   <header>batchargeimg.h</header>
+   <header>src/batchargeimg/batchargeimg.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
