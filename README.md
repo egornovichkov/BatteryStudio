@@ -1,3 +1,2 @@
 ## Current app view:
-![image](https://github.com/user-attachments/assets/0ca482dc-d08d-44e0-8ef2-d169052f8124)
-
+![image](https://github.com/user-attachments/assets/77550599-45e7-4a75-851a-34fdd511e070)
