@@ -1,6 +1,17 @@
-#include "titlebar.h"
-#include <QMenu>
+#include "mainwindow.h"
+#include "flag.h"
+#include "ui_mainwindow.h"
+#include "warning.h"
+#include "warninggroup.h"
+#include <QFileInfo>
+#include <QFontDatabase>
+#include <QImage>
+#include <QPushButton>
 #include <QMouseEvent>
+#include "appwidget.h"
+#include <QWKWidgets/widgetwindowagent.h>
+#include "titlebar.h"
+
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QTime>
@@ -16,11 +27,73 @@
 #  include <QtWidgets/QActionGroup>
 #endif
 
-#include <QWKWidgets/widgetwindowagent.h>
-
 #include <WidgetFrame/src/windowbar.h>
 #include <WidgetFrame/src/windowbutton.h>
-#include "MainWindow/mainwindow.h"
+
+MainWindow::MainWindow(QMainWindow *parent)
+    : QMainWindow(parent), ui(new Ui::MainWindow)
+{
+    setAttribute(Qt::WA_DontCreateNativeAncestors);
+    installWindowAgent();
+    ui->setupUi(this);
+    // m_widgetWindowAgent = new QWK::WidgetWindowAgent(this);
+    // m_widgetWindowAgent->setup(this);
+    // m_titleBar = new TitleBar(this);
+    // ui->CentralLayout->insertWidget(0, m_titleBar);
+
+    // Flags demo
+    ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);
+    QHBoxLayout *FlagsLayout = new QHBoxLayout(ui->FlagsWidget);
+    FlagsLayout->setSpacing(0);
+    Flag *F1 = new Flag("Flag1", 0, ui->FlagsWidget);
+    Flag *F2 = new Flag("Flag2", 0, ui->FlagsWidget);
+    Flag *F3 = new Flag("Flag3", 0, ui->FlagsWidget);
+    Flag *F4 = new Flag("Flag4", 0, ui->FlagsWidget);
+    Flag *F5 = new Flag("Flag5", 0, ui->FlagsWidget);
+    FlagsLayout->addWidget(F1);
+    FlagsLayout->addWidget(F2);
+    FlagsLayout->addWidget(F3);
+    FlagsLayout->addWidget(F4);
+    FlagsLayout->addWidget(F5);
+    QSpacerItem *FlagsSpacer =
+        new QSpacerItem(20, 20, QSizePolicy::Policy::Expanding);
+    FlagsLayout->addItem(FlagsSpacer);
+
+    // WarningsGroup demo
+    WarningGroup *WVoltageGroup = new WarningGroup("Voltage", ui->WarningsWidget);
+    WarningGroup *WTempGroup =
+        new WarningGroup("Temperature", ui->WarningsWidget);
+    WarningGroup *WCurrentGroup = new WarningGroup("Current", ui->WarningsWidget);
+    WarningGroup *WGeneralGroup = new WarningGroup("General", ui->WarningsWidget);
+    QHBoxLayout *WarningGroupLayout = new QHBoxLayout(ui->WarningsWidget);
+    WarningGroupLayout->setSpacing(5);
+    WarningGroupLayout->setContentsMargins(10, 10, 10, 10);
+    WarningGroupLayout->addWidget(WVoltageGroup);
+    WarningGroupLayout->addWidget(WTempGroup);
+    WarningGroupLayout->addWidget(WCurrentGroup);
+    WarningGroupLayout->addWidget(WGeneralGroup);
+    Warning *W2 = new Warning("Low Voltage", "Low Voltage", WVoltageGroup);
+    Warning *W1 = new Warning("High Voltage", "High Voltage", WVoltageGroup);
+    WVoltageGroup->addWarning(W1);
+    WVoltageGroup->addWarning(W2);
+
+    // LeftRightPartSplitter initial sizes
+    QList<int> LRSplitSizes;
+    LRSplitSizes << 100 << 300;
+    ui->LeftRightPartSplitter->setSizes(LRSplitSizes);
+
+    // BatInfoWarningsSplitter initial sizes
+    QList<int> BatInfoWarningsSizes;
+    BatInfoWarningsSizes << 300 << 100;
+    ui->BatInfoWarningsSplitter->setSizes(BatInfoWarningsSizes);
+
+    // Adding fonts
+    int id = QFontDatabase::addApplicationFont(
+        "D:/Qt/Projects/Battery_Studio/fonts/Roboto-Medium.ttf");
+    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+    QFont f(family);
+    f.setHintingPreference(QFont::HintingPreference::PreferFullHinting);
+}
 
 static inline void emulateLeaveEvent(QWidget *widget) {
     Q_ASSERT(widget);
@@ -58,33 +131,38 @@ static inline void emulateLeaveEvent(QWidget *widget) {
     });
 }
 
-TitleBar::TitleBar(MainWindow *parent)
-    : QWidget(parent)/*, ui(new Ui::TitleBar)*/
-{
-    // ui->setupUi(this);
+MainWindow::~MainWindow() = default;
 
-    // mBorderSize = 5;
+bool MainWindow::event(QEvent *event) {
+    switch (event->type()) {
+    case QEvent::WindowActivate: {
+        auto menu = menuWidget();
+        if (menu) {
+            menu->setProperty("bar-active", true);
+            style()->polish(menu);
+        }
+        break;
+    }
 
-    // initIcons();
+    case QEvent::WindowDeactivate: {
+        auto menu = menuWidget();
+        if (menu) {
+            menu->setProperty("bar-active", false);
+            style()->polish(menu);
+        }
+        break;
+    }
 
-    // ui->title->setText(title);
+    default:
+        break;
+    }
+    return QMainWindow::event(event);
+}
 
-    // setWindowFlags(Qt::FramelessWindowHint);
-
-    // mIsCollapse = false;
-    // m_MaximizedFlag = true;
-
-    // connect(ui->close, SIGNAL(clicked(bool)), this, SLOT(onCloseClicked()));
-    // connect(ui->maximum, SIGNAL(clicked(bool)), this,  SLOT(onMaximumClicked()));
-    // connect(ui->minimum, SIGNAL(clicked(bool)), this,  SLOT(onMinimumClicked()));
-
-
-    ////
-    ///
-    ///
-    ///
-
-    m_mainWindow = parent;
+void MainWindow::installWindowAgent() {
+    // 1. Setup window agent
+    m_widgetWindowAgent = new QWK::WidgetWindowAgent(this);
+    m_widgetWindowAgent->setup(this);
 
     // 2. Construct your title bar
     auto menuBar = [this]() {
@@ -145,13 +223,13 @@ TitleBar::TitleBar(MainWindow *parent)
                 if (data.isEmpty() || data == QStringLiteral("none")) {
                     continue;
                 }
-                m_mainWindow->windowAgent()->setWindowAttribute(data, false);
+                m_widgetWindowAgent->setWindowAttribute(data, false);
             }
             const QString data = action->data().toString();
             if (data == QStringLiteral("none")) {
                 setProperty("custom-style", false);
             } else if (!data.isEmpty()) {
-                m_mainWindow->windowAgent()->setWindowAttribute(data, true);
+                m_widgetWindowAgent->setWindowAttribute(data, true);
                 setProperty("custom-style", true);
             }
             style()->polish(this);
@@ -161,7 +239,7 @@ TitleBar::TitleBar(MainWindow *parent)
         auto darkBlurAction = new QAction(tr("Dark blur"), menuBar);
         darkBlurAction->setCheckable(true);
         connect(darkBlurAction, &QAction::toggled, this, [this](bool checked) {
-            if (!m_mainWindow->windowAgent()->setWindowAttribute(QStringLiteral("blur-effect"), "dark")) {
+            if (!windowAgent->setWindowAttribute(QStringLiteral("blur-effect"), "dark")) {
                 return;
             }
             if (checked) {
@@ -173,7 +251,7 @@ TitleBar::TitleBar(MainWindow *parent)
         auto lightBlurAction = new QAction(tr("Light blur"), menuBar);
         lightBlurAction->setCheckable(true);
         connect(lightBlurAction, &QAction::toggled, this, [this](bool checked) {
-            if (!m_mainWindow->windowAgent()->setWindowAttribute(QStringLiteral("blur-effect"), "light")) {
+            if (!windowAgent->setWindowAttribute(QStringLiteral("blur-effect"), "light")) {
                 return;
             }
             if (checked) {
@@ -185,7 +263,7 @@ TitleBar::TitleBar(MainWindow *parent)
         auto noBlurAction = new QAction(tr("No blur"), menuBar);
         noBlurAction->setCheckable(true);
         connect(noBlurAction, &QAction::toggled, this, [this](bool checked) {
-            if (!m_mainWindow->windowAgent()->setWindowAttribute(QStringLiteral("blur-effect"), "none")) {
+            if (!windowAgent->setWindowAttribute(QStringLiteral("blur-effect"), "none")) {
                 return;
             }
             if (checked) {
@@ -261,14 +339,14 @@ TitleBar::TitleBar(MainWindow *parent)
     windowBar->setTitleLabel(titleLabel);
     windowBar->setHostWidget(this);
 
-    m_mainWindow->windowAgent()->setTitleBar(windowBar);
+    m_widgetWindowAgent->setTitleBar(windowBar);
 #ifndef Q_OS_MAC
-    m_mainWindow->windowAgent()->setSystemButton(QWK::WindowAgentBase::WindowIcon, iconButton);
-    m_mainWindow->windowAgent()->setSystemButton(QWK::WindowAgentBase::Minimize, minButton);
-    m_mainWindow->windowAgent()->setSystemButton(QWK::WindowAgentBase::Maximize, maxButton);
-    m_mainWindow->windowAgent()->setSystemButton(QWK::WindowAgentBase::Close, closeButton);
+    m_widgetWindowAgent->setSystemButton(QWK::WindowAgentBase::WindowIcon, iconButton);
+    m_widgetWindowAgent->setSystemButton(QWK::WindowAgentBase::Minimize, minButton);
+    m_widgetWindowAgent->setSystemButton(QWK::WindowAgentBase::Maximize, maxButton);
+    m_widgetWindowAgent->setSystemButton(QWK::WindowAgentBase::Close, closeButton);
 #endif
-    m_mainWindow->windowAgent()->setHitTestVisible(menuBar, true);
+    m_widgetWindowAgent->setHitTestVisible(menuBar, true);
 
 #ifdef Q_OS_MAC
     windowAgent->setSystemButtonAreaCallback([](const QSize &size) {
@@ -277,16 +355,16 @@ TitleBar::TitleBar(MainWindow *parent)
     });
 #endif
 
-    m_mainWindow->setMenuWidget(windowBar);
+    setMenuWidget(windowBar);
 
 
 #ifndef Q_OS_MAC
-    connect(windowBar, &QWK::WindowBar::minimizeRequested, m_mainWindow, &QWidget::showMinimized);
-    connect(windowBar, &QWK::WindowBar::maximizeRequested, m_mainWindow, [this, maxButton](bool max) {
+    connect(windowBar, &QWK::WindowBar::minimizeRequested, this, &QWidget::showMinimized);
+    connect(windowBar, &QWK::WindowBar::maximizeRequested, this, [this, maxButton](bool max) {
         if (max) {
-            m_mainWindow->showMaximized();
+            showMaximized();
         } else {
-            m_mainWindow->showNormal();
+            showNormal();
         }
 
         // It's a Qt issue that if a QAbstractButton::clicked triggers a window's maximization,
@@ -298,82 +376,6 @@ TitleBar::TitleBar(MainWindow *parent)
 #endif
 }
 
+QWK::WidgetWindowAgent *MainWindow::windowAgent()
+{ return m_widgetWindowAgent; }
 
-// /// @brief Destructor for the WindowFrame class.
-// TitleBar::~TitleBar()
-// {
-//     delete ui;
-// }
-
-
-// /// @brief Function for initialization frame icons.
-// void TitleBar::initIcons()
-// {
-//     QPixmap pixmap(appIcon);
-//     ui->icon->setPixmap(pixmap);
-//     ui->icon->setScaledContents(true);
-//     ui->icon->setAlignment(Qt::AlignCenter);
-//     ui->icon->resize(24, 24);
-
-//     ui->close->setIcon(QIcon(closeIcon));
-//     ui->maximum->setIcon(QIcon(defaultSizeIcon));
-//     ui->minimum->setIcon(QIcon(minimizeIcon));
-// }
-
-// /// @brief Show header menu.
-// /// @param pos position mouse click.
-// void TitleBar::showHeaderContextMenu(const QPoint &pos)
-// {
-//     QMenu contextMenu(this);
-
-//     QAction *exitAction = contextMenu.addAction(tr("&Exit"));
-//     connect(exitAction, &QAction::triggered, this, &TitleBar::close);
-
-//     contextMenu.addAction(exitAction);
-//     contextMenu.exec(mapToGlobal(pos));
-// }
-
-
-// /// @brief Handler for the "Close" button click signal.
-// void TitleBar::onCloseClicked()
-// {
-//     emit onCloseClickedSignal();
-// }
-
-// /// @brief Handler for the "Maximize/Restore" button click signal.
-// void TitleBar::onMaximumClicked()
-// {
-//     m_MaximizedFlag = !m_MaximizedFlag;
-//     emit onMaximumClickedSignal();
-
-//     if (m_MaximizedFlag)
-//     {
-//         ui->maximum->setIcon(QIcon(defaultSizeIcon));
-//         ui->header->setStyleSheet(headerMaximizeStyle);
-//     }
-//     else
-//     {
-//         ui->maximum->setIcon(QIcon(maximizeIcon));
-//         mIsCollapse ? ui->header->setStyleSheet(headerCollapseStyle) : ui->header->setStyleSheet(headerDefaultStyle);
-//     }
-// }
-
-/// @brief Handler for the "Minimize" button click signal.
-// void TitleBar::onMinimumClicked()
-// {
-//     emit onMinimumClickedSignal();
-// }
-
-/// @brief Handler for the mouse double-click event within the window.
-/// @param event Pointer to the mouse double-click event object (QMouseEvent).
-// void TitleBar::mouseDoubleClickEvent(QMouseEvent * event)
-// {
-//     if (event->buttons() == Qt::LeftButton)
-//     {
-//         QWidget* widget = childAt(event->pos().x(), event->pos().y());
-//         if (widget == ui->LHeader)
-//         {
-//             emit onMaximumClickedSignal();
-//         }
-//     }
-// }

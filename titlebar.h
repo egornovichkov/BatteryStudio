@@ -3,49 +3,51 @@
 
 #include <QFrame>
 
-class AppWidget;
+class MainWindow;
 
 namespace Ui
 {
 class TitleBar;
 }
 
-class TitleBar : public QFrame
+class TitleBar : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit TitleBar(QWidget *parent = nullptr);
+    explicit TitleBar(MainWindow *parent = nullptr);
     /// Function for initialization frame icons.
-    void initIcons();
+    // void initIcons();
     /// Function for showing header menu.
-    void showHeaderContextMenu(const QPoint &pos);
+    // void showHeaderContextMenu(const QPoint &pos);
 
-    ~TitleBar();
+    // ~TitleBar();
 
 protected:
     /// Handler for the mouse double-click event within the window.
-    void mouseDoubleClickEvent(QMouseEvent *event) override;
+    // void mouseDoubleClickEvent(QMouseEvent *event) override;
 
 signals:
     /// Signal of "Close" button click.
-    void onCloseClickedSignal();
+    // void onCloseClickedSignal();
     /// Signal of "Maximize/Restore" button click.
-    void onMaximumClickedSignal();
+    // void onMaximumClickedSignal();
     /// Signal of "Minimize" button click.
-    void onMinimumClickedSignal();
+    // void onMinimumClickedSignal();
 
 private slots:
     /// Handler for the "Close" button click signal.
-    void onCloseClicked();
+    // void onCloseClicked();
     /// Handler for the "Maximize/Restore" button click signal.
-    void onMaximumClicked();
+    // void onMaximumClicked();
     /// Handler for the "Minimize" button click signal.
-    void onMinimumClicked();
-
-private:
+    // void onMinimumClicked();
+public:
     /// Pointer to the user interface object.
-    Ui::TitleBar *ui;
+    // Ui::TitleBar *ui;
+    /// Pointer to main window
+    MainWindow *m_mainWindow;
+private:
     /// Size of the window borders for resize.
     int mBorderSize;
     /// Collapse flag.

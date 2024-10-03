@@ -1,6 +1,6 @@
 #include "appwidget.h"
 #include <QBoxLayout>
-#include "mainwindow.h"
+#include "MainWindow/mainwindow.h"
 #include "qevent.h"
 #include "titlebar.h"
 #include <QMainWindow>
@@ -10,9 +10,6 @@
 AppWidget::AppWidget(QWidget *parent)
     : QWidget{parent}
 {
-
-    auto agent = new QWK::WidgetWindowAgent(this);
-    agent->setup(this);
 
     // m_mainWindow = new MainWindow();
     // m_titleBar = new TitleBar(this);
