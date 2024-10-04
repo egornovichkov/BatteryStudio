@@ -469,6 +469,7 @@ border-bottom: 1px solid rgb(180, 180, 190);
 border-left: 1px solid rgb(180, 180, 190);
 }</string>
         </property>
+        <layout class="QVBoxLayout" name="VoltCellsLayout"/>
        </widget>
        <widget class="QWidget" name="TempCellsWidget" native="true">
         <property name="sizePolicy">

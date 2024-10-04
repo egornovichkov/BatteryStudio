@@ -10,6 +10,8 @@ CONFIG += c++17
 
 SOURCES += \
     src/main.cpp \
+    src/Models/CellsDataModel/cellsdatamodel.cpp \
+    src/Views/CellDataView/cellstableviewwidget.cpp \
     src/BatChargeImg/batchargeimg.cpp \
     src/Flag/flag.cpp \
     src/Flag/ledimg.cpp \
@@ -17,13 +19,15 @@ SOURCES += \
     src/Warning/warning.cpp \
     src/Warning/warninggroup.cpp \
     src/WidgetFrame/src/windowbar.cpp \
-    src/WidgetFrame/src/windowbutton.cpp \
+    src/WidgetFrame/src/windowbutton.cpp
 
 HEADERS += \
     src/BatChargeImg/batchargeimg.h \
     src/Flag/flag.h \
     src/Flag/ledimg.h \
     src/MainWindow/mainwindow.h \
+    src/Models/CellsDataModel/cellsdatamodel.h \
+    src/Views/CellDataView/cellstableviewwidget.h \
     src/Warning/warning.h \
     src/Warning/warninggroup.h \
     src/WidgetFrame/src/windowbar.h \
@@ -40,7 +44,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    WidgetFrame/resources/shared.qrc \
     images/CloseIcon.png \
     images/defaultsizeicon.png \
     images/maximizeicon.png \
