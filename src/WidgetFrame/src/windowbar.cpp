@@ -13,7 +13,7 @@ namespace QWK {
 
     WindowBarPrivate::WindowBarPrivate() {
         w = nullptr;
-        autoTitle = true;
+        autoTitle = false;
         autoIcon = false;
     }
 

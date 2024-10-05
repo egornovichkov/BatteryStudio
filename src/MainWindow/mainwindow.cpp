@@ -177,16 +177,6 @@ void MainWindow::installWindowAgent() {
         edit->addAction(new QAction(tr("Undo(&U)"), menuBar));
         edit->addAction(new QAction(tr("Redo(&R)"), menuBar));
 
-        // Theme action
-        // auto darkAction = new QAction(tr("Enable dark theme"), menuBar);
-        // darkAction->setCheckable(true);
-        // connect(darkAction, &QAction::triggered, this, [this](bool checked) {
-        //     loadStyleSheet(checked ? Dark : Light); //
-        // });
-        // connect(this, &MainWindow::themeChanged, darkAction, [this, darkAction]() {
-        //     darkAction->setChecked(currentTheme == Dark); //
-        // });
-
 #ifdef Q_OS_WIN
         auto noneAction = new QAction(tr("None"), menuBar);
         noneAction->setData(QStringLiteral("none"));
@@ -301,7 +291,7 @@ void MainWindow::installWindowAgent() {
     }();
     menuBar->setObjectName(QStringLiteral("win-menu-bar"));
 
-    auto titleLabel = new QLabel();
+    auto titleLabel = new QLabel("Battery Studio");
     titleLabel->setAlignment(Qt::AlignCenter);
     titleLabel->setObjectName(QStringLiteral("win-title-label"));
 
