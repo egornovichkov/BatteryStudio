@@ -7,8 +7,10 @@ class CellsDataModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
+    /// Enumeration for cell parameters names.
     enum CellParams
     {
+        // Params must be equal to int numbers from 0 to parameters count in order
         Number = 0,
         Voltage = 1,
         CELLPARAMSCOUNT // Do not insert any params after this
@@ -23,9 +25,10 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
     // Qt::ItemFlags flags(const QModelIndex& index) const override;
 
-private:
-
+private:    
+    /// QHash holds cell parameter name as a key and parameter value as value.
     typedef QHash<CellParams, QVariant> cellValues;
+    /// List holds cell data for all cells.
     typedef QList<cellValues> cellsData;
     cellsData m_cellsData;
 };
