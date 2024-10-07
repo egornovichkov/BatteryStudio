@@ -12,7 +12,6 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
-#include <QtCore/QTime>
 #include <QtCore/QTimer>
 #include <QtGui/QPainter>
 #include <QtGui/QWindow>
@@ -34,10 +33,6 @@ MainWindow::MainWindow(QMainWindow *parent)
     setAttribute(Qt::WA_DontCreateNativeAncestors);
     installWindowAgent();
     ui->setupUi(this);
-    // m_widgetWindowAgent = new QWK::WidgetWindowAgent(this);
-    // m_widgetWindowAgent->setup(this);
-    // m_titleBar = new TitleBar(this);
-    // ui->CentralLayout->insertWidget(0, m_titleBar);
     setTitleBarStyleSheet();
 
     // Flags demo
@@ -129,8 +124,6 @@ static inline void emulateLeaveEvent(QWidget *widget) {
         }
     });
 }
-
-MainWindow::~MainWindow() = default;
 
 bool MainWindow::event(QEvent *event) {
     switch (event->type()) {

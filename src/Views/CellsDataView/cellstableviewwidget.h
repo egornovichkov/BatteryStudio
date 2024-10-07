@@ -3,27 +3,28 @@
 
 #include <QTableWidget>
 
-class CellsTableViewWidget : public QTableWidget
+
+class CellsTableViewWidget : public QTableView
 {
     Q_OBJECT
 public:
-    CellsTableViewWidget(QWidget *parent = nullptr);
+    CellsTableViewWidget(QAbstractTableModel *model, QWidget *parent = nullptr);
 
     void paintEvent(QPaintEvent *e) override;
 
 public slots:
     /// Setter of minimum voltage.
-    void setMinVoltage(float val);
+    // void setMinVoltage(float val);
     /// Setter of maximum voltage.
-    void setMaxVoltage(float val);
+    // void setMaxVoltage(float val);
     /// Setter of cells per row.
-    void setCellsPerRow(int count);
+    // void setCellsPerRow(int count);
 
 private:
     /// Function matches color of cell background to voltage value.
     QColor valToColor(float val);
     /// Function macthes relative height of voltage bar to voltage value.
-    float valToHeight(float val);
+    // float valToHeight(float val);
 
     /// Max count of cells in a row (default = 10).
     int m_cellsPerRow = 10;
@@ -32,6 +33,9 @@ private:
     float m_minVoltage = 0;
     /// Maximum voltage.
     float m_maxVoltage;
+
+    /// Pointer to data model.
+    QAbstractTableModel *m_model;
 };
 
 #endif // CELLSTABLEVIEWWIDGET_H

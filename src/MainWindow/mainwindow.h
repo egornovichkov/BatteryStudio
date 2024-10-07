@@ -23,8 +23,6 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QMainWindow *parent = nullptr);
-    ~MainWindow();
-
 
 protected:
     bool event(QEvent *event) override;
