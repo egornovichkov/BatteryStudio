@@ -8,7 +8,7 @@ CellsTableViewWidget::CellsTableViewWidget(QAbstractTableModel *model, QWidget *
     m_model = model;
     setModel(m_model);
 
-    // setItemDelegate(new CellsViewDelegate());
+    setItemDelegate(new CellsViewDelegate());
     for (int row = 0; row < model->rowCount(); ++row)
     {
         this->setRowHeight(row, rowHeight);

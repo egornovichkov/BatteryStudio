@@ -26,6 +26,8 @@ public:
     QVariant data(const QModelIndex& index, int role) const override;
     bool setData(const QModelIndex& index, const QVariant& value, int role) override;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+
+    void appendCell(int, float, float, float);
     // Qt::ItemFlags flags(const QModelIndex& index) const override;
 
     float maxVoltage(void) const;

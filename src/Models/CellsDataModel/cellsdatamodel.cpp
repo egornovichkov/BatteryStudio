@@ -1,5 +1,6 @@
 #include "cellsdatamodel.h"
 #include <QFont>
+#include <iostream>
 
 CellsDataModel::CellsDataModel(QObject *parent)
     : QAbstractTableModel{parent}
@@ -81,4 +82,19 @@ bool CellsDataModel::setData(const QModelIndex& index, const QVariant& value, in
     emit dataChanged(index, index);
 
     return true;
+}
+
+void CellsDataModel::appendCell(int number, float voltage, float minvoltage, float maxvoltage)
+{
+    std::cout << "lol";
+    cellValues cellVal;
+    cellVal = {{CellParams::Number, number},
+               {CellParams::Voltage, voltage},
+               {CellParams::Minimum, minvoltage},
+               {CellParams::Maximum, maxvoltage}};
+    int row = m_cellsData.count();
+
+    beginInsertRows(QModelIndex(), row, row);
+    m_cellsData.append(cellVal);
+    endInsertRows();
 }
