@@ -10,6 +10,9 @@
 #include <QMouseEvent>
 #include <QWKWidgets/widgetwindowagent.h>
 
+#include "../Models/CellsDataModel/cellsdatamodel.h"
+#include "../Views/CellsDataView/cellstableviewwidget.h"
+
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QTimer>
@@ -34,6 +37,15 @@ MainWindow::MainWindow(QMainWindow *parent)
     installWindowAgent();
     ui->setupUi(this);
     setTitleBarStyleSheet();
+
+    CellsDataModel cellsData = CellsDataModel();
+    cellsData.setData(cellsData.index(0, 0), 1, Qt::EditRole);
+    cellsData.setData(cellsData.index(0, 1), 3.3, Qt::EditRole);
+    cellsData.setData(cellsData.index(0, 2), 0, Qt::EditRole);
+    cellsData.setData(cellsData.index(0, 3), 5, Qt::EditRole);
+
+    CellsTableViewWidget *cellsTableView = new CellsTableViewWidget(&cellsData, ui->VoltCellsWidget);
+    cellsTableView->show();
 
     // Flags demo
     ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);

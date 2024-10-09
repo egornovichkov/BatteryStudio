@@ -1,8 +1,19 @@
 #include "cellsdatamodel.h"
+#include <QFont>
 
 CellsDataModel::CellsDataModel(QObject *parent)
     : QAbstractTableModel{parent}
 {}
+
+float CellsDataModel::maxVoltage(void) const
+{
+    return m_maxVoltage;
+}
+
+float CellsDataModel::minVoltage(void) const
+{
+    return m_minVoltage;
+}
 
 int CellsDataModel::rowCount(const QModelIndex& parent) const
 {
@@ -42,16 +53,21 @@ QVariant CellsDataModel::headerData(int section, Qt::Orientation orientation, in
 
 QVariant CellsDataModel::data(const QModelIndex& index, int role) const
 {
-    if (
-        !index.isValid() ||
-        m_cellsData.count() <= index.row() ||
-        (role != Qt::DisplayRole && role != Qt::EditRole)
-    )
-    {
-        return QVariant();
-    }
+    QVariant value = m_cellsData[index.row()][CellParams(index.column())];
 
-    return m_cellsData[index.row()][CellParams(index.column())];
+    switch (role)
+    {
+        case Qt::TextAlignmentRole:
+            return int(Qt::AlignCenter);
+        case Qt::FontRole:
+        {
+            QFont font = QFont("Segoe UI", 6, QFont::Normal);
+            return QVariant(font);
+        }
+        case Qt::BackgroundRole:
+            return QVariant();
+    }
+    return value;
 }
 
 bool CellsDataModel::setData(const QModelIndex& index, const QVariant& value, int role)

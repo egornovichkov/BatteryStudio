@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     src/Views/CellsDataView/cellstableviewwidget.cpp \
+    src/Views/CellsDataView/cellsviewdelegate.cpp \
     src/main.cpp \
     src/Models/CellsDataModel/cellsdatamodel.cpp \
     src/BatChargeImg/batchargeimg.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     src/MainWindow/mainwindow.h \
     src/Models/CellsDataModel/cellsdatamodel.h \
     src/Views/CellsDataView/cellstableviewwidget.h \
+    src/Views/CellsDataView/cellsviewdelegate.h \
     src/Warning/warning.h \
     src/Warning/warninggroup.h \
     src/WidgetFrame/src/windowbar.h \
