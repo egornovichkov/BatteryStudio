@@ -8,7 +8,7 @@ void CellsViewDelegate::paint(QPainter *painter,
 {
     const QAbstractItemModel *model = index.model();
     float relativeBarHeight;
-    QColor color = QColor(0, 0, 0);
+    QColor color = QColor(255, 0, 0);
 
     float range = (model->data(index.siblingAtColumn(3))).toFloat() - (model->data(index.siblingAtColumn(2))).toFloat();
     relativeBarHeight = (model->data(index.siblingAtColumn(1))).toFloat() / range;

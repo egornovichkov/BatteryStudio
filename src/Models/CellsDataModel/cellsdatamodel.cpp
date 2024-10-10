@@ -1,6 +1,5 @@
 #include "cellsdatamodel.h"
 #include <QFont>
-#include <iostream>
 
 CellsDataModel::CellsDataModel(QObject *parent)
     : QAbstractTableModel{parent}
@@ -59,7 +58,7 @@ QVariant CellsDataModel::data(const QModelIndex& index, int role) const
     switch (role)
     {
         case Qt::TextAlignmentRole:
-            return int(Qt::AlignCenter);
+            return Qt::AlignCenter;
         case Qt::FontRole:
         {
             QFont font = QFont("Segoe UI", 6, QFont::Normal);
@@ -86,7 +85,6 @@ bool CellsDataModel::setData(const QModelIndex& index, const QVariant& value, in
 
 void CellsDataModel::appendCell(int number, float voltage, float minvoltage, float maxvoltage)
 {
-    std::cout << "lol";
     cellValues cellVal;
     cellVal = {{CellParams::Number, number},
                {CellParams::Voltage, voltage},

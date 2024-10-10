@@ -4,9 +4,7 @@
 CellsTableViewWidget::CellsTableViewWidget(QAbstractTableModel *model, QWidget *parent)
 {
     int rowHeight = 10;
-    int colWidth = 20;
-    m_model = model;
-    setModel(m_model);
+    int colWidth = 200;
 
     setItemDelegate(new CellsViewDelegate());
     for (int row = 0; row < model->rowCount(); ++row)

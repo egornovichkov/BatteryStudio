@@ -38,11 +38,12 @@ MainWindow::MainWindow(QMainWindow *parent)
     ui->setupUi(this);
     setTitleBarStyleSheet();
 
-    CellsDataModel cellsData = CellsDataModel();
-    cellsData.appendCell(0, 3.3, 0, 5.0);
+    CellsDataModel *cellsData = new CellsDataModel();
+    cellsData->appendCell(0, 3.3, 0, 5.0);
 
-    CellsTableViewWidget *cellsTableView = new CellsTableViewWidget(&cellsData, ui->VoltCellsWidget);
+    CellsTableViewWidget *cellsTableView = new CellsTableViewWidget(cellsData, ui->VoltCellsWidget);
     ui->VoltCellsLayout->addWidget(cellsTableView);
+    cellsTableView->setModel(cellsData);
 
     // Flags demo
     ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);
