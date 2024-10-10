@@ -12,7 +12,6 @@ void CellsViewDelegate::paint(QPainter *painter,
 
     float range = (model->data(index.siblingAtColumn(3))).toFloat() - (model->data(index.siblingAtColumn(2))).toFloat();
     relativeBarHeight = (model->data(index.siblingAtColumn(1))).toFloat() / range;
-
     QRect cellRect = option.rect;
     cellRect.setHeight(cellRect.height() * relativeBarHeight);
     painter->fillRect(cellRect, color);

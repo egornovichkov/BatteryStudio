@@ -65,7 +65,10 @@ QVariant CellsDataModel::data(const QModelIndex& index, int role) const
             return QVariant(font);
         }
         case Qt::BackgroundRole:
+            // return bg color
             return QVariant();
+        case Qt::UserRole:
+            // return relative bar height
     }
     return value;
 }
