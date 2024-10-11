@@ -8,7 +8,7 @@ class CellsTableViewWidget : public QTableView
 {
     Q_OBJECT
 public:
-    CellsTableViewWidget(QAbstractTableModel *model, QWidget *parent = nullptr);
+    CellsTableViewWidget(QWidget *parent = nullptr);
 
     void paintEvent(QPaintEvent *e) override;
 

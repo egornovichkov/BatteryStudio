@@ -41,11 +41,12 @@ MainWindow::MainWindow(QMainWindow *parent)
 
     CellsDataModel *cellsData = new CellsDataModel();
     cellsData->appendCell(0, 3.3, 0, 5.0);
-    CellsTableProxyModel cellsProxyModel
+    CellsTableProxyModel *cellsProxyModel = new CellsTableProxyModel();
+    cellsProxyModel->setSourceModel(cellsData);
 
-    CellsTableViewWidget *cellsTableView = new CellsTableViewWidget(cellsData, ui->VoltCellsWidget);
+    CellsTableViewWidget *cellsTableView = new CellsTableViewWidget(ui->VoltCellsWidget);
     ui->VoltCellsLayout->addWidget(cellsTableView);
-    cellsTableView->setModel(cellsData);
+    cellsTableView->setModel(cellsProxyModel);
 
     // Flags demo
     ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);

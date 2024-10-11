@@ -1,21 +1,21 @@
 #include "cellstableviewwidget.h"
 #include "cellsviewdelegate.h"
 
-CellsTableViewWidget::CellsTableViewWidget(QAbstractTableModel *model, QWidget *parent)
+CellsTableViewWidget::CellsTableViewWidget(QWidget *parent)
 {
     int rowHeight = 10;
     int colWidth = 200;
 
     setItemDelegate(new CellsViewDelegate());
-    for (int row = 0; row < model->rowCount(); ++row)
-    {
-        this->setRowHeight(row, rowHeight);
-        for (int col = 0; col < model->columnCount(); ++col)
-        {
-            if (row == 0)
-                this->setColumnWidth(col, colWidth);
-        }
-    }
+    // for (int row = 0; row < model()->rowCount(); ++row)
+    // {
+    //     this->setRowHeight(row, rowHeight);
+    //     for (int col = 0; col < model()->columnCount(); ++col)
+    //     {
+    //         if (row == 0)
+    //             this->setColumnWidth(col, colWidth);
+    //     }
+    // }
 }
 
 void CellsTableViewWidget::paintEvent(QPaintEvent *e)
