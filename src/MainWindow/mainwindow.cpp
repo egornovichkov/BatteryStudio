@@ -39,14 +39,21 @@ MainWindow::MainWindow(QMainWindow *parent)
     ui->setupUi(this);
     setTitleBarStyleSheet();
 
+    // Cells data model
     CellsDataModel *cellsData = new CellsDataModel();
-    cellsData->appendCell(0, 3.3, 0, 5.0);
+
+    // Cells proxy model
     CellsTableProxyModel *cellsProxyModel = new CellsTableProxyModel();
     cellsProxyModel->setSourceModel(cellsData);
 
+
+
+    // Cells table view
     CellsTableViewWidget *cellsTableView = new CellsTableViewWidget(ui->VoltCellsWidget);
     ui->VoltCellsLayout->addWidget(cellsTableView);
     cellsTableView->setModel(cellsProxyModel);
+
+    cellsData->appendCell(0, 3.3, 0, 5.0);
 
     // Flags demo
     ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);

@@ -1,6 +1,7 @@
 #include "cellsdatamodel.h"
 #include <QColor>
 #include <QFont>
+#include <iostream>
 
 CellsDataModel::CellsDataModel(QObject *parent)
     : QAbstractTableModel{parent}
@@ -55,7 +56,6 @@ QVariant CellsDataModel::headerData(int section, Qt::Orientation orientation, in
 QVariant CellsDataModel::data(const QModelIndex& index, int role) const
 {
     QVariant value = m_cellsData[index.row()][BSTU::CellParams(index.column())];
-
     if (role == Qt::DisplayRole)
         return value;
     return QVariant();
@@ -78,6 +78,7 @@ QVariant CellsDataModel::data(const QModelIndex& index, int role) const
             return relativeBarHeight;
         }
     }
+    return QVariant();
 }
 
 bool CellsDataModel::setData(const QModelIndex& index, const QVariant& value, int role)
