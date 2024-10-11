@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/Models/CellsDataModel/cellstableproxymodel.cpp \
     src/Views/CellsDataView/cellstableviewwidget.cpp \
     src/Views/CellsDataView/cellsviewdelegate.cpp \
     src/main.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     src/Flag/ledimg.h \
     src/MainWindow/mainwindow.h \
     src/Models/CellsDataModel/cellsdatamodel.h \
+    src/Models/CellsDataModel/cellstableproxymodel.h \
     src/Views/CellsDataView/cellstableviewwidget.h \
     src/Views/CellsDataView/cellsviewdelegate.h \
     src/Warning/warning.h \
