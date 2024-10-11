@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "../Flag/flag.h"
+#include "src/Models/CellsDataModel/cellstableproxymodel.h"
 #include "ui_mainwindow.h"
 #include "../Warning/warning.h"
 #include "../Warning/warninggroup.h"
@@ -40,6 +41,7 @@ MainWindow::MainWindow(QMainWindow *parent)
 
     CellsDataModel *cellsData = new CellsDataModel();
     cellsData->appendCell(0, 3.3, 0, 5.0);
+    CellsTableProxyModel cellsProxyModel
 
     CellsTableViewWidget *cellsTableView = new CellsTableViewWidget(cellsData, ui->VoltCellsWidget);
     ui->VoltCellsLayout->addWidget(cellsTableView);

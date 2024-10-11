@@ -26,11 +26,3 @@ void CellsTableViewWidget::paintEvent(QPaintEvent *e)
     // Calling parent's paintEvent to draw default QTableWidget
     QTableView::paintEvent(e);
 }
-
-QColor CellsTableViewWidget::valToColor(float val)
-{
-    if (val > 2)
-        return QColor(Qt::green);
-    return QColor(Qt::red);
-}
-

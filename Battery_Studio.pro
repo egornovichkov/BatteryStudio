@@ -37,7 +37,8 @@ HEADERS += \
     src/WidgetFrame/src/windowbar.h \
     src/WidgetFrame/src/windowbar_p.h \
     src/WidgetFrame/src/windowbutton.h \
-    src/WidgetFrame/src/windowbutton_p.h
+    src/WidgetFrame/src/windowbutton_p.h \
+    src/bstunamespace.h
 
 FORMS += \
     src/MainWindow/mainwindow.ui

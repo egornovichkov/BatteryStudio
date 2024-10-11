@@ -1,4 +1,5 @@
 #include "cellsdatamodel.h"
+#include <QColor>
 #include <QFont>
 
 CellsDataModel::CellsDataModel(QObject *parent)
@@ -24,7 +25,7 @@ int CellsDataModel::rowCount(const QModelIndex& parent) const
 int CellsDataModel::columnCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent)
-    return CELLPARAMSCOUNT;
+    return BSTU::CELLPARAMSCOUNT;
 }
 
 QVariant CellsDataModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -41,9 +42,9 @@ QVariant CellsDataModel::headerData(int section, Qt::Orientation orientation, in
 
     switch (section)
     {
-        case Number:
+        case BSTU::Number:
             return QString::fromUtf8("Number");
-        case Voltage:
+        case BSTU::Voltage:
             return QString::fromUtf8("Voltage");
 
     }
@@ -53,8 +54,11 @@ QVariant CellsDataModel::headerData(int section, Qt::Orientation orientation, in
 
 QVariant CellsDataModel::data(const QModelIndex& index, int role) const
 {
-    QVariant value = m_cellsData[index.row()][CellParams(index.column())];
+    QVariant value = m_cellsData[index.row()][BSTU::CellParams(index.column())];
 
+    if (role == Qt::DisplayRole)
+        return value;
+    return QVariant();
     switch (role)
     {
         case Qt::TextAlignmentRole:
@@ -62,15 +66,18 @@ QVariant CellsDataModel::data(const QModelIndex& index, int role) const
         case Qt::FontRole:
         {
             QFont font = QFont("Segoe UI", 6, QFont::Normal);
-            return QVariant(font);
+            return font;
         }
         case Qt::BackgroundRole:
-            // return bg color
-            return QVariant();
+            return valToColor((m_cellsData[index.row()][BSTU::CellParams(index.column())]).toFloat());
         case Qt::UserRole:
-            // return relative bar height
+        {
+            float range = (m_cellsData[index.row()][BSTU::CellParams(index.column())]).toFloat() -
+                (m_cellsData[index.row()][BSTU::CellParams(index.column())]).toFloat();
+            float relativeBarHeight = (m_cellsData[index.row()][BSTU::CellParams(index.column())]).toFloat() / range;
+            return relativeBarHeight;
+        }
     }
-    return value;
 }
 
 bool CellsDataModel::setData(const QModelIndex& index, const QVariant& value, int role)
@@ -80,7 +87,7 @@ bool CellsDataModel::setData(const QModelIndex& index, const QVariant& value, in
         return false;
     }
 
-    m_cellsData[index.row()][CellParams(index.column())] = value;
+    m_cellsData[index.row()][BSTU::CellParams(index.column())] = value;
     emit dataChanged(index, index);
 
     return true;
@@ -89,13 +96,19 @@ bool CellsDataModel::setData(const QModelIndex& index, const QVariant& value, in
 void CellsDataModel::appendCell(int number, float voltage, float minvoltage, float maxvoltage)
 {
     cellValues cellVal;
-    cellVal = {{CellParams::Number, number},
-               {CellParams::Voltage, voltage},
-               {CellParams::Minimum, minvoltage},
-               {CellParams::Maximum, maxvoltage}};
+    cellVal = {{BSTU::CellParams::Number, number},
+        {BSTU::CellParams::Voltage, voltage},
+        {BSTU::CellParams::Minimum, minvoltage},
+        {BSTU::CellParams::Maximum, maxvoltage}
+    };
     int row = m_cellsData.count();
 
     beginInsertRows(QModelIndex(), row, row);
     m_cellsData.append(cellVal);
     endInsertRows();
+}
+
+QColor CellsDataModel::valToColor(float value) const
+{
+    return Qt::red;
 }

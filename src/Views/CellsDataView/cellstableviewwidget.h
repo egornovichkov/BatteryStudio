@@ -21,11 +21,6 @@ public slots:
     // void setCellsPerRow(int count);
 
 private:
-    /// Function matches color of cell background to voltage value.
-    QColor valToColor(float val);
-    /// Function macthes relative height of voltage bar to voltage value.
-    // float valToHeight(float val);
-
     /// Max count of cells in a row (default = 10).
     int m_cellsPerRow = 10;
     /// Min/Max voltages are for correct display of voltage bar and color of cell backrgound.
