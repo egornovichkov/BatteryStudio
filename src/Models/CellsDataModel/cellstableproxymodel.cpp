@@ -7,43 +7,80 @@
 
 CellsTableProxyModel::CellsTableProxyModel(QObject* parent) {}
 
-QModelIndex CellsTableProxyModel::mapToSource(const QModelIndex &proxyIndex) const
-{
-    int cellNumber = m_cellsPerRow * proxyIndex.row() + proxyIndex.column();
-    QPersistentModelIndex ind = sourceModel()->index(cellNumber, 0);
-    return ind;
-}
-
 QModelIndex CellsTableProxyModel::mapFromSource(const QModelIndex &sourceIndex) const
 {
+    std::cout << "mapFromSource" << " " << sourceIndex.row() << " " << sourceIndex.column();
+    if (!sourceIndex.isValid())
+    {
+        // root
+        return QModelIndex();
+    }
+
     int cellNumber = sourceIndex.row();
     int row = cellNumber / m_cellsPerRow;
     int col = cellNumber - row * m_cellsPerRow;
-    QPersistentModelIndex ind = createIndex(row, col);
-    return ind;
+    std::cout << " " << row << " " << col << "\n";
+
+    return index(row, col);
 }
+
+// Pay attention (!)
+QModelIndex CellsTableProxyModel::mapToSource(const QModelIndex &proxyIndex) const
+{
+    if (!proxyIndex.isValid())
+    {
+        return QModelIndex();
+    }
+
+    int cellNumber = mapFromSource(proxyIndex).row();
+    std::cout << "cellNumber" << " " << cellNumber << "\n";
+
+    if (sourceModel())
+    {
+        QModelIndex ind = sourceModel()->index(cellNumber, 0);
+        std::cout << "sourceIndexResult" << " " << ind.row() << " " << ind.column() << "\n";
+        return ind;
+    }
+    else
+        return QModelIndex();
+}
+
 
 QModelIndex CellsTableProxyModel::parent(const QModelIndex &child) const
 {
+    Q_ASSERT(child.isValid() ? child.model() == this : true);
     return QModelIndex();
 }
 
 QModelIndex CellsTableProxyModel::index(int row, int column, const QModelIndex &parent) const
 {
+    // Q_ASSERT(hasChildren(parent));
+    // Q_ASSERT(row >= 0 && row < rowCount(parent));
+    // Q_ASSERT(column >= 0 && column < columnCount(parent));
+    // std::cout << "index" << " " << row << " " << column << " " << parent.row() << " " << parent.column() <<  "\n";
+    std::cout << "index" << "\n";
+    if (parent.model() == this)
+        std::cout << "lol";
     if (parent.isValid())
     {
-        return createIndex(row, column);
+        std::cout << "parent.isvalid == true" << "\n";
+        return QModelIndex();
     }
-    return QModelIndex();
+    QModelIndex ind = createIndex(row, column);
+    std::cout << "createIndex" << " " << row << " " << column << "\n";
+    return ind;
+
 }
 
 int CellsTableProxyModel::rowCount(const QModelIndex& parent) const
 {
+    std::cout << "rowCount" << "\n";
     return std::ceil(static_cast<float>(sourceModel()->rowCount()) / m_cellsPerRow);
 }
 
 int CellsTableProxyModel::columnCount(const QModelIndex& parent) const
 {
+    std::cout << "columnCount" << "\n";
     return m_cellsPerRow;
 }
 
@@ -78,91 +115,13 @@ QVariant CellsTableProxyModel::data(const QModelIndex& index, int role) const
 
 QColor CellsTableProxyModel::valToColor(float value) const
 {
+    std::cout << "valToColor" << "\n";
     return Qt::red;
 }
 
 void CellsTableProxyModel::setCellsPerRow(int value)
 {
+    std::cout << "setCellsPerRow" << "\n";
     m_cellsPerRow = value;
     // Update logic
-}
-
-void CellsTableProxyModel::modelAboutToBeResetInSourceModel()
-{
-    beginResetModel();
-}
-
-void CellsTableProxyModel::modelResetInSourceModel()
-{
-    endResetModel();
-}
-
-void CellsTableProxyModel::rowsAboutToBeInsertedInSourceModel(const QModelIndex &parent, int start, int end)
-{
-    if (parent.isValid())
-    {
-        // Added rows not below the root
-        return;
-    }
-
-    beginInsertRows(QModelIndex(), start, end);
-}
-
-void CellsTableProxyModel::rowsInsertedInSourceModel(const QModelIndex &parent, int start, int end)
-{
-    {
-        Q_UNUSED(start);
-        Q_UNUSED(end);
-
-        if (parent.isValid())
-        {
-            // Added rows not below the root
-            return;
-        }
-
-        endInsertRows();
-    }
-}
-
-void CellsTableProxyModel::rowsAboutToBeRemovedInSourceModel(const QModelIndex &parent, int first, int last)
-{
-    if (parent.isValid())
-    {
-        // Removed rows not below the root
-        return;
-    }
-
-    beginRemoveRows(QModelIndex(), first, last);
-}
-
-void CellsTableProxyModel::rowsRemovedInSourceModel(const QModelIndex &parent, int first, int last)
-{
-    Q_UNUSED(first);
-    Q_UNUSED(last);
-
-    if (parent.isValid())
-    {
-        // Removed rows not below the root
-        return;
-    }
-
-    endRemoveRows();
-}
-
-void CellsTableProxyModel::dataChangedInSourceModel(const QModelIndex &topLeft, const QModelIndex &bottomRight,
-                              const QVector<int> &roles)
-{
-    Q_ASSERT(topLeft.parent() == bottomRight.parent());
-    if (topLeft.parent().isValid())
-    {
-        // Non-top level items changed, we don't display those
-        return;
-    }
-
-    const int firstColumn = topLeft.column();
-    const int lastColumn = bottomRight.column();
-
-    const int firstRow = topLeft.row();
-    const int lastRow = bottomRight.row();
-    Q_EMIT dataChanged(index(firstRow, 0), index(lastRow, 0));
 }

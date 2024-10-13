@@ -58,7 +58,6 @@ QVariant CellsDataModel::data(const QModelIndex& index, int role) const
     QVariant value = m_cellsData[index.row()][BSTU::CellParams(index.column())];
     if (role == Qt::DisplayRole)
         return value;
-    return QVariant();
     switch (role)
     {
         case Qt::TextAlignmentRole:

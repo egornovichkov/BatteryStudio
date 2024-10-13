@@ -31,6 +31,8 @@
 #include "../WidgetFrame/src/windowbar.h"
 #include "../WidgetFrame/src/windowbutton.h"
 
+#include <QAbstractItemModelTester>
+
 MainWindow::MainWindow(QMainWindow *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -42,17 +44,18 @@ MainWindow::MainWindow(QMainWindow *parent)
     // Cells data model
     CellsDataModel *cellsData = new CellsDataModel();
 
+
     // Cells proxy model
     CellsTableProxyModel *cellsProxyModel = new CellsTableProxyModel();
     cellsProxyModel->setSourceModel(cellsData);
-
-
+    new QAbstractItemModelTester(cellsProxyModel, QAbstractItemModelTester::FailureReportingMode::Warning, this);
 
     // Cells table view
     CellsTableViewWidget *cellsTableView = new CellsTableViewWidget(ui->VoltCellsWidget);
     ui->VoltCellsLayout->addWidget(cellsTableView);
     cellsTableView->setModel(cellsProxyModel);
 
+    // Adding data
     cellsData->appendCell(0, 3.3, 0, 5.0);
 
     // Flags demo
