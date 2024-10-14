@@ -11,14 +11,20 @@ void CellsViewDelegate::paint(QPainter *painter,
     const QAbstractItemModel *model = index.model();
     QColor color = qvariant_cast<QColor>(model->data(index, Qt::BackgroundRole));
     float relativeBarHeight = (model->data(index, Qt::UserRole)).toFloat();
-    float barHeight = option.rect.height() * relativeBarHeight;
-    if (barHeight > 0)
+    if (relativeBarHeight > 0)
     {
-        QRect cellRect = option.rect;
+        float barHeight = option.rect.height() * relativeBarHeight;
+        QRectF cellRect = option.rect;
+
+        // Height according to value
         cellRect.setHeight(barHeight);
-        cellRect.moveBottom(option.rect.height() - barHeight + 1);
-        std::cout << cellRect.topLeft().x() << " " << cellRect.topLeft().y() << "\n";
+        // Move to cell bottom
+        cellRect.moveBottom(option.rect.height());
+
+        // Translate coordinate system to cell bottom
+        painter->translate(0, index.row() * option.rect.height() + 1);
         painter->fillRect(cellRect, color);
-        painter->drawRect(option.rect);
+        // Back to native coordinate system
+        painter->translate(0, -index.row() * option.rect.height() - 1);
     }
 }
