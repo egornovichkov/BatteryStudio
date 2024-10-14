@@ -9,66 +9,39 @@ CellsTableProxyModel::CellsTableProxyModel(QObject* parent) {}
 
 QModelIndex CellsTableProxyModel::mapFromSource(const QModelIndex &sourceIndex) const
 {
-    std::cout << "mapFromSource" << " " << sourceIndex.row() << " " << sourceIndex.column();
     if (!sourceIndex.isValid())
-    {
-        // root
         return QModelIndex();
-    }
 
-    int cellNumber = sourceIndex.row();
-    int row = cellNumber / m_cellsPerRow;
-    int col = cellNumber - row * m_cellsPerRow;
-    std::cout << " " << row << " " << col << "\n";
-
+    int cellsCount = sourceIndex.model()->rowCount();
+    int row = cellsCount / m_cellsPerRow ;
+    int col = cellsCount % m_cellsPerRow;
+    std::cout << "mapFromSource" << " " << row << " " << col << "\n";
     return index(row, col);
 }
 
-// Pay attention (!)
 QModelIndex CellsTableProxyModel::mapToSource(const QModelIndex &proxyIndex) const
 {
     if (!proxyIndex.isValid())
-    {
         return QModelIndex();
-    }
 
-    int cellNumber = mapFromSource(proxyIndex).row();
-    std::cout << "cellNumber" << " " << cellNumber << "\n";
-
-    if (sourceModel())
-    {
-        QModelIndex ind = sourceModel()->index(cellNumber, 0);
-        std::cout << "sourceIndexResult" << " " << ind.row() << " " << ind.column() << "\n";
-        return ind;
-    }
-    else
+    int cellNumber = proxyIndex.row() * m_cellsPerRow + proxyIndex.column();
+    if (cellNumber > sourceModel()->rowCount() - 1)
         return QModelIndex();
+    std::cout << "maptosrc proxyIndex row/col" << " " << proxyIndex.row() << " " << proxyIndex.column() << "\n";
+    std::cout << "mapToSource" << " " << cellNumber << " 0" << "\n";
+    return sourceModel()->index(cellNumber, 0);
 }
 
 
 QModelIndex CellsTableProxyModel::parent(const QModelIndex &child) const
 {
-    Q_ASSERT(child.isValid() ? child.model() == this : true);
     return QModelIndex();
 }
 
 QModelIndex CellsTableProxyModel::index(int row, int column, const QModelIndex &parent) const
 {
-    // Q_ASSERT(hasChildren(parent));
-    // Q_ASSERT(row >= 0 && row < rowCount(parent));
-    // Q_ASSERT(column >= 0 && column < columnCount(parent));
-    // std::cout << "index" << " " << row << " " << column << " " << parent.row() << " " << parent.column() <<  "\n";
-    std::cout << "index" << "\n";
-    if (parent.model() == this)
-        std::cout << "lol";
-    if (parent.isValid())
-    {
-        std::cout << "parent.isvalid == true" << "\n";
-        return QModelIndex();
-    }
-    QModelIndex ind = createIndex(row, column);
-    std::cout << "createIndex" << " " << row << " " << column << "\n";
-    return ind;
+    std::cout << "index() " << row << " " << column << "\n";
+    return hasIndex(row, column, parent) ? createIndex(row, column) : QModelIndex();
 
 }
 
@@ -90,7 +63,7 @@ QVariant CellsTableProxyModel::data(const QModelIndex& index, int role) const
     switch (role)
     {
         case Qt::DisplayRole:
-            return sourceModel()->data(QModelIndex().siblingAtRow(BSTU::Voltage));
+            return sourceModel()->data(mapToSource(index));
         case Qt::TextAlignmentRole:
             return Qt::AlignCenter;
         case Qt::FontRole:
@@ -102,15 +75,15 @@ QVariant CellsTableProxyModel::data(const QModelIndex& index, int role) const
             return valToColor(sourceModel()->data(QModelIndex().siblingAtRow(BSTU::Voltage)).toFloat());
         case Qt::UserRole:
         {
-            float range = (sourceModel()->data(QModelIndex().siblingAtRow(BSTU::Maximum)).toFloat()) -
-                (sourceModel()->data(QModelIndex().siblingAtRow(BSTU::Minimum)).toFloat());
-            float relativeBarHeight = range * (sourceModel()->data(QModelIndex().siblingAtRow(BSTU::Voltage)).toFloat());
-            return relativeBarHeight;
+            // float range = (sourceModel()->data(QModelIndex().siblingAtRow(BSTU::Maximum)).toFloat()) -
+            //     (sourceModel()->data(QModelIndex().siblingAtRow(BSTU::Minimum)).toFloat());
+            // float relativeBarHeight = range * (sourceModel()->data(QModelIndex().siblingAtRow(BSTU::Voltage)).toFloat());
+            // return relativeBarHeight;
         }
         default:
             break;
     }
-    return mapToSource(index).data(role);
+        return QVariant();
 }
 
 QColor CellsTableProxyModel::valToColor(float value) const

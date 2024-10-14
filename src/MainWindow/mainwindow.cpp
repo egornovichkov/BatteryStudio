@@ -48,7 +48,6 @@ MainWindow::MainWindow(QMainWindow *parent)
     // Cells proxy model
     CellsTableProxyModel *cellsProxyModel = new CellsTableProxyModel();
     cellsProxyModel->setSourceModel(cellsData);
-    new QAbstractItemModelTester(cellsProxyModel, QAbstractItemModelTester::FailureReportingMode::Warning, this);
 
     // Cells table view
     CellsTableViewWidget *cellsTableView = new CellsTableViewWidget(ui->VoltCellsWidget);
@@ -57,6 +56,11 @@ MainWindow::MainWindow(QMainWindow *parent)
 
     // Adding data
     cellsData->appendCell(0, 3.3, 0, 5.0);
+    cellsData->appendCell(1, 3.3, 0, 5.0);
+    cellsData->appendCell(2, 3.3, 0, 5.0);
+    cellsData->appendCell(3, 3.3, 0, 5.0);
+    cellsData->appendCell(4, 3.3, 0, 5.0);
+    cellsData->appendCell(5, 3.3, 0, 5.0);
 
     // Flags demo
     ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);

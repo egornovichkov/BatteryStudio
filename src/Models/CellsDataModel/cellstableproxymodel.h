@@ -39,7 +39,7 @@ private:
     //                               const QVector<int> &roles);
 
     QAbstractTableModel *m_model;
-    int m_cellsPerRow = 10;
+    int m_cellsPerRow = 5;
     int m_cellsCount;
 };
 
