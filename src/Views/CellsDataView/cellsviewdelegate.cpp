@@ -1,20 +1,24 @@
 #include "cellsviewdelegate.h"
 #include <QPainter>
+#include <iostream>
 
 CellsViewDelegate::CellsViewDelegate() {}
 
 void CellsViewDelegate::paint(QPainter *painter,
     const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    // const QAbstractItemModel *model = index.model();
-    // float relativeBarHeight;
-    // QColor color = QColor(255, 0, 0);
-
-    // float range = (model->data(index.siblingAtColumn(3))).toFloat() - (model->data(index.siblingAtColumn(2))).toFloat();
-    // relativeBarHeight = (model->data(index.siblingAtColumn(1))).toFloat() / range;
-    // QRect cellRect = option.rect;
-    // cellRect.setHeight(cellRect.height() * relativeBarHeight);
-    // painter->fillRect(cellRect, color);
-
-    return QStyledItemDelegate::paint(painter, option, index);
+    painter->setRenderHint(QPainter::Antialiasing);
+    const QAbstractItemModel *model = index.model();
+    QColor color = qvariant_cast<QColor>(model->data(index, Qt::BackgroundRole));
+    float relativeBarHeight = (model->data(index, Qt::UserRole)).toFloat();
+    float barHeight = option.rect.height() * relativeBarHeight;
+    if (barHeight > 0)
+    {
+        QRect cellRect = option.rect;
+        cellRect.setHeight(barHeight);
+        cellRect.moveBottom(option.rect.height() - barHeight + 1);
+        std::cout << cellRect.topLeft().x() << " " << cellRect.topLeft().y() << "\n";
+        painter->fillRect(cellRect, color);
+        painter->drawRect(option.rect);
+    }
 }

@@ -55,12 +55,13 @@ MainWindow::MainWindow(QMainWindow *parent)
     cellsTableView->setModel(cellsProxyModel);
 
     // Adding data
-    cellsData->appendCell(0, 3.3, 0, 5.0);
-    cellsData->appendCell(1, 3.3, 0, 5.0);
-    cellsData->appendCell(2, 3.3, 0, 5.0);
-    cellsData->appendCell(3, 3.3, 0, 5.0);
-    cellsData->appendCell(4, 3.3, 0, 5.0);
-    cellsData->appendCell(5, 3.3, 0, 5.0);
+    cellsData->appendCell(0, 3.3);
+    cellsData->appendCell(1, 0.2);
+    cellsData->appendCell(2, 0.9);
+    cellsData->appendCell(3, 3.9);
+    cellsData->appendCell(4, 3.5);
+    cellsData->appendCell(5, 3.3);
+    cellsData->appendCell(6, 5);
 
     // Flags demo
     ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);

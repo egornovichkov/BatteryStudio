@@ -12,14 +12,6 @@ public:
 
     void paintEvent(QPaintEvent *e) override;
 
-public slots:
-    /// Setter of minimum voltage.
-    // void setMinVoltage(float val);
-    /// Setter of maximum voltage.
-    // void setMaxVoltage(float val);
-    /// Setter of cells per row.
-    // void setCellsPerRow(int count);
-
 private:
     /// Max count of cells in a row (default = 10).
     int m_cellsPerRow = 10;
