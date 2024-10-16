@@ -1,7 +1,6 @@
 #include "cellsdatamodel.h"
 #include <QColor>
 #include <QFont>
-#include <iostream>
 
 
 CellsDataModel::CellsDataModel(BSTU::CellsModel modelType, QObject *parent)
@@ -25,18 +24,21 @@ QModelIndex CellsDataModel::index(int row, int column, const QModelIndex &parent
 
 int CellsDataModel::rowCount(const QModelIndex& parent) const
 {
-    Q_UNUSED(parent)
+    Q_UNUSED(parent);
     return m_cellsData.count();
 }
 
 int CellsDataModel::columnCount(const QModelIndex& parent) const
 {
-    Q_UNUSED(parent)
+    Q_UNUSED(parent);
     return BSTU::CELLPARAMSCOUNT;
 }
 
 QVariant CellsDataModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
+    Q_UNUSED(section);
+    Q_UNUSED(orientation);
+    Q_UNUSED(role);
     return QVariant();
 }
 

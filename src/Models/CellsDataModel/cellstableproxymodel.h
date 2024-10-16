@@ -7,13 +7,13 @@ class CellsTableProxyModel : public QAbstractProxyModel
 {
     Q_OBJECT
 public:
-    CellsTableProxyModel(QObject* parent = nullptr);
+    CellsTableProxyModel(QAbstractProxyModel* parent = nullptr);
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
     QModelIndex parent(const QModelIndex &child) const override;
-    int rowCount(const QModelIndex& parent) const override;
-    int columnCount(const QModelIndex& parent) const override;
-    QVariant data(const QModelIndex& index, int role) const override;
+    int rowCount(const QModelIndex &parent) const override;
+    int columnCount(const QModelIndex &parent) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
     // bool setData(const QModelIndex& index, const QVariant& value, int role) override;
     QModelIndex mapToSource(const QModelIndex &proxyIndex) const override;
     QModelIndex mapFromSource(const QModelIndex &sourceIndex) const override;

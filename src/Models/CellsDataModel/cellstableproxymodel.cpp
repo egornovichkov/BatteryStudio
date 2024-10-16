@@ -4,7 +4,9 @@
 #include <QAbstractTableModel>
 #include <QFont>
 
-CellsTableProxyModel::CellsTableProxyModel(QObject* parent) {}
+CellsTableProxyModel::CellsTableProxyModel(QAbstractProxyModel* parent)
+    : QAbstractProxyModel{parent}
+{}
 
 QModelIndex CellsTableProxyModel::mapFromSource(const QModelIndex &sourceIndex) const
 {
@@ -31,6 +33,7 @@ QModelIndex CellsTableProxyModel::mapToSource(const QModelIndex &proxyIndex) con
 
 QModelIndex CellsTableProxyModel::parent(const QModelIndex &child) const
 {
+    Q_UNUSED(child);
     return QModelIndex();
 }
 
@@ -40,13 +43,15 @@ QModelIndex CellsTableProxyModel::index(int row, int column, const QModelIndex &
 
 }
 
-int CellsTableProxyModel::rowCount(const QModelIndex& parent) const
+int CellsTableProxyModel::rowCount(const QModelIndex &parent) const
 {
+    Q_UNUSED(parent);
     return std::ceil(static_cast<float>(sourceModel()->rowCount()) / m_cellsPerRow);
 }
 
-int CellsTableProxyModel::columnCount(const QModelIndex& parent) const
+int CellsTableProxyModel::columnCount(const QModelIndex &parent) const
 {
+    Q_UNUSED(parent);
     return m_cellsPerRow;
 }
 
@@ -66,12 +71,12 @@ QVariant CellsTableProxyModel::data(const QModelIndex& index, int role) const
         case BSTU::TempRangeRole:
             return sourceModel()->data(mapToSource(index), role);
         case BSTU::RelativeBarHeightRole:
-            {
+        {
             if (data(index, BSTU::ModelTypeRole).toInt() == BSTU::VoltageType)
                 return data(index, BSTU::VoltRole).toFloat() / data(index, BSTU::VoltRangeRole).toFloat();
             else
                 return data(index, BSTU::TempRole).toFloat() / data(index, BSTU::TempRangeRole).toFloat();
-            }
+        }
         case Qt::TextAlignmentRole:
             return Qt::AlignCenter;
         case Qt::FontRole:

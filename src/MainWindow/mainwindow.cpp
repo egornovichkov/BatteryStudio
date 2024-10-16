@@ -11,6 +11,7 @@
 #include <QMouseEvent>
 #include <QWKWidgets/widgetwindowagent.h>
 
+#include <QTableView>
 #include "../Models/CellsDataModel/cellsdatamodel.h"
 #include "../Views/CellsDataView/cellstableviewwidget.h"
 
@@ -46,8 +47,6 @@ MainWindow::MainWindow(QMainWindow *parent)
     cellsData->setMinVal(0);
     cellsData->setMaxVal(5);
 
-
-
     // Cells proxy model
     CellsTableProxyModel *cellsProxyModel = new CellsTableProxyModel();
     cellsProxyModel->setSourceModel(cellsData);
@@ -68,11 +67,12 @@ MainWindow::MainWindow(QMainWindow *parent)
         cellsData->appendCell(3.3);
         cellsData->appendCell(5);
     }
-    for (int i = 0; i < 30; i++)
-    {
-        cellsTableView->setColumnWidth(i, 40);
-        cellsTableView->setRowHeight(i, 50);
-    }
+    // for (int i = 0; i < 30; i++)
+    // {
+    //     cellsTableView->setRowHeight(i, 20);
+    //     cellsTableView->setColumnWidth(i, 20);
+    // }
+    cellsTableView->setSizeToContents();
 
     // Flags demo
     ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);
