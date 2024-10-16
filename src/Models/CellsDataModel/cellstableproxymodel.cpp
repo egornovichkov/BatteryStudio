@@ -71,6 +71,8 @@ QVariant CellsTableProxyModel::data(const QModelIndex& index, int role) const
             float relativeBarHeight = (sourceModel()->data(mapToSource(index)).toFloat()) / range;
             return relativeBarHeight;
         }
+        case Qt::UserRole + 1:
+            return sourceModel()->data(mapToSource(index).siblingAtRow(0));
         default:
             break;
     }

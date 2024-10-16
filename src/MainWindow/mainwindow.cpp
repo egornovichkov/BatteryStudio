@@ -62,6 +62,10 @@ MainWindow::MainWindow(QMainWindow *parent)
     cellsData->appendCell(4, 3.5);
     cellsData->appendCell(5, 3.3);
     cellsData->appendCell(6, 5);
+    for (int col=0; col<20; col++)
+    {
+        cellsTableView->setColumnWidth(col,30);
+    }
 
     // Flags demo
     ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);

@@ -22,7 +22,7 @@ private:
     float m_maxVoltage;
 
     /// Pointer to data model.
-    QAbstractTableModel *m_model;
+    QAbstractItemModel *m_model;
 };
 
 #endif // CELLSTABLEVIEWWIDGET_H
