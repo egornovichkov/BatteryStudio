@@ -26,7 +26,7 @@ private:
     QColor valToColor(float val) const;
 
     QAbstractTableModel *m_model;
-    int m_cellsPerRow = 4;
+    int m_cellsPerRow = 25;
     int m_cellsCount;
 };
 

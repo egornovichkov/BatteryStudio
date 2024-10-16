@@ -1,4 +1,5 @@
 #include "cellsviewdelegate.h"
+#include "src/bstunamespace.h"
 #include <QPainter>
 #include <charconv>
 
@@ -10,9 +11,12 @@ void CellsViewDelegate::paint(QPainter *painter,
 
     painter->setRenderHint(QPainter::Antialiasing);
     const QAbstractItemModel *model = index.model();
-    float voltage = model->data(index).toFloat();
+    BSTU::CellsModel modelType = BSTU::CellsModel((model->data(index, BSTU::ModelTypeRole)).toInt());
+    float value = (modelType == BSTU::VoltageType)
+        ? model->data(index, BSTU::VoltRole).toFloat()
+        : model->data(index, BSTU::TempRole).toFloat();
     QColor color = qvariant_cast<QColor>(model->data(index, Qt::BackgroundRole));
-    float relativeBarHeight = model->data(index, Qt::UserRole).toFloat();
+    float relativeBarHeight = model->data(index, BSTU::RelativeBarHeightRole).toFloat();
     if (relativeBarHeight > 0)
     {
         float barHeight = option.rect.height() * relativeBarHeight;
@@ -29,7 +33,7 @@ void CellsViewDelegate::paint(QPainter *painter,
         // Back to native coordinate system
         painter->translate(0, -index.row() * option.rect.height() - 1);
         QString caption;
-        caption = QString::number(voltage) + "V" + "\n" + "Cell ";
+        caption = QString::number(value) + "V" + "\n" + "Cell ";
         painter->drawText(option.rect, Qt::AlignCenter, caption);
     }
 }

@@ -8,7 +8,7 @@ class CellsDataModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    explicit CellsDataModel(QObject *parent = nullptr);
+    explicit CellsDataModel(BSTU::CellsModel modelType, QObject *parent = nullptr);
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
     QModelIndex parent(const QModelIndex &child) const override;
@@ -19,11 +19,16 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
 
-    void appendCell(int, float);
+    void appendCell(float);
     // Qt::ItemFlags flags(const QModelIndex& index) const override;
 
-    float maxVoltage(void) const;
-    float minVoltage(void) const;
+    void setMinVal(float);
+    void setMaxVal(float);
+
+    float maxVal(void) const;
+    float minVal(void) const;
+
+    float range(void) const;
 
 private:
     /// Function matches color of cell background to voltage value.
@@ -34,13 +39,14 @@ private:
     /// List holds cell data for all cells.
     typedef QList<cellValues> cellsData;
 
+    BSTU::CellsModel m_modelType;
     cellsData m_cellsData;
 
     /// Min/Max voltages are for correct display of voltage bar and color of cell backrgound.
     /// Minimum voltage (default = 0).
-    float m_minVoltage = 0;
+    float m_minVal = 0;
     /// Maximum voltage.
-    float m_maxVoltage;
+    float m_maxVal;
 };
 
 #endif // CELLSDATAMODEL_H

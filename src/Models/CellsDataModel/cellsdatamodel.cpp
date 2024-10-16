@@ -4,8 +4,8 @@
 #include <iostream>
 
 
-CellsDataModel::CellsDataModel(QObject *parent)
-    : QAbstractTableModel{parent}
+CellsDataModel::CellsDataModel(BSTU::CellsModel modelType, QObject *parent)
+    : QAbstractTableModel{parent}, m_modelType(modelType)
 {}
 
 QModelIndex CellsDataModel::parent(const QModelIndex &child) const
@@ -22,15 +22,6 @@ QModelIndex CellsDataModel::index(int row, int column, const QModelIndex &parent
     return ind;
 }
 
-float CellsDataModel::maxVoltage(void) const
-{
-    return m_maxVoltage;
-}
-
-float CellsDataModel::minVoltage(void) const
-{
-    return m_minVoltage;
-}
 
 int CellsDataModel::rowCount(const QModelIndex& parent) const
 {
@@ -53,11 +44,32 @@ QVariant CellsDataModel::data(const QModelIndex& index, int role) const
 {
     if (index.row() <= this->rowCount(index) && index.column() <= this->columnCount(index) && index.isValid())
     {
-        QVariant value = m_cellsData[index.row()][BSTU::CellParams(BSTU::Voltage)];
         switch (role)
         {
-            case Qt::DisplayRole:
-                return value;
+            case BSTU::NumRole:
+                return m_cellsData[index.row()][BSTU::CellParams(BSTU::Number)];
+            case BSTU::VoltRole:
+                return (m_modelType == BSTU::VoltageType)
+                    ? m_cellsData[index.row()][BSTU::CellParams(BSTU::Voltage)]
+                    : QVariant();
+            case BSTU::TempRole:
+                return (m_modelType == BSTU::TemperatureType)
+                    ? m_cellsData[index.row()][BSTU::CellParams(BSTU::Temperature)]
+                    : QVariant();
+            case BSTU::MinVoltRole:
+                return (m_modelType == BSTU::VoltageType) ? m_minVal : QVariant();
+            case BSTU::MaxVoltRole:
+                return (m_modelType == BSTU::VoltageType) ? m_maxVal : QVariant();
+            case BSTU::MinTempRole:
+                return (m_modelType == BSTU::TemperatureType) ? m_minVal : QVariant();
+            case BSTU::MaxTempRole:
+                return (m_modelType == BSTU::TemperatureType) ? m_maxVal : QVariant();
+            case BSTU::VoltRangeRole:
+                return (m_modelType == BSTU::VoltageType) ? range() : QVariant();
+            case BSTU::TempRangeRole:
+                return (m_modelType == BSTU::TemperatureType) ? range() : QVariant();
+            case BSTU::ModelTypeRole:
+                return m_modelType;
         }
     }
     return QVariant();
@@ -76,13 +88,41 @@ bool CellsDataModel::setData(const QModelIndex& index, const QVariant& value, in
     return true;
 }
 
-void CellsDataModel::appendCell(int number, float voltage)
+float CellsDataModel::maxVal() const
+{
+    return m_maxVal;
+}
+
+float CellsDataModel::minVal() const
+{
+    return m_minVal;
+}
+
+void CellsDataModel::setMinVal(float val)
+{
+    m_minVal = val;
+}
+void CellsDataModel::setMaxVal(float val)
+{
+    m_maxVal = val;
+}
+
+float CellsDataModel::range() const
+{
+    float range = m_maxVal - m_minVal;
+    Q_ASSERT(range > 0);
+    return range;
+
+}
+
+void CellsDataModel::appendCell(float val)
 {
     cellValues cellVal;
-    cellVal = {{BSTU::CellParams::Number, number},
-        {BSTU::CellParams::Voltage, voltage},
-    };
     int row = m_cellsData.count();
+    if (m_modelType == BSTU::VoltageType)
+        cellVal = {{BSTU::CellParams::Number, row + 1}, {BSTU::CellParams::Voltage, val}};
+    else
+        cellVal = {{BSTU::CellParams::Number, row + 1}, {BSTU::CellParams::Temperature, val}};
 
     beginInsertRows(QModelIndex(), row, row);
     m_cellsData.append(cellVal);

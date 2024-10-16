@@ -55,7 +55,23 @@ QVariant CellsTableProxyModel::data(const QModelIndex& index, int role) const
     switch (role)
     {
         case Qt::DisplayRole:
-            return sourceModel()->data(mapToSource(index));
+        case BSTU::NumRole:
+        case BSTU::VoltRole:
+        case BSTU::TempRole:
+        case BSTU::MinVoltRole:
+        case BSTU::MaxVoltRole:
+        case BSTU::MinTempRole:
+        case BSTU::MaxTempRole:
+        case BSTU::VoltRangeRole:
+        case BSTU::TempRangeRole:
+            return sourceModel()->data(mapToSource(index), role);
+        case BSTU::RelativeBarHeightRole:
+            {
+            if (data(index, BSTU::ModelTypeRole).toInt() == BSTU::VoltageType)
+                return data(index, BSTU::VoltRole).toFloat() / data(index, BSTU::VoltRangeRole).toFloat();
+            else
+                return data(index, BSTU::TempRole).toFloat() / data(index, BSTU::TempRangeRole).toFloat();
+            }
         case Qt::TextAlignmentRole:
             return Qt::AlignCenter;
         case Qt::FontRole:
@@ -64,19 +80,14 @@ QVariant CellsTableProxyModel::data(const QModelIndex& index, int role) const
             return font;
         }
         case Qt::BackgroundRole:
-            return valToColor((sourceModel()->data(mapToSource(index)).toFloat()));
-        case Qt::UserRole:
         {
-            float range = 5;
-            float relativeBarHeight = (sourceModel()->data(mapToSource(index)).toFloat()) / range;
-            return relativeBarHeight;
+            if (data(index, BSTU::ModelTypeRole).toInt() == BSTU::VoltageType)
+                return valToColor(data(index, BSTU::VoltRole).toFloat());
+            else
+                return valToColor(data(index, BSTU::TempRole).toFloat());
         }
-        case Qt::UserRole + 1:
-            return sourceModel()->data(mapToSource(index).siblingAtRow(0));
-        default:
-            break;
     }
-        return QVariant();
+    return QVariant();
 }
 
 QColor CellsTableProxyModel::valToColor(float value) const
