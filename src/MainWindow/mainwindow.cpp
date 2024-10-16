@@ -23,9 +23,9 @@
 #include <QtWidgets/QStyle>
 #include <QtWidgets/QPushButton>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-#  include <QtGui/QActionGroup>
+    #include <QtGui/QActionGroup>
 #else
-#  include <QtWidgets/QActionGroup>
+    #include <QtWidgets/QActionGroup>
 #endif
 
 #include "../WidgetFrame/src/windowbar.h"
@@ -42,7 +42,10 @@ MainWindow::MainWindow(QMainWindow *parent)
     setTitleBarStyleSheet();
 
     // Cells data model
-    CellsDataModel *cellsData = new CellsDataModel();
+    CellsDataModel *cellsData = new CellsDataModel(BSTU::VoltageType);
+    cellsData->setMinVal(0);
+    cellsData->setMaxVal(5);
+
 
 
     // Cells proxy model
@@ -55,16 +58,20 @@ MainWindow::MainWindow(QMainWindow *parent)
     cellsTableView->setModel(cellsProxyModel);
 
     // Adding data
-    cellsData->appendCell(0, 3.3);
-    cellsData->appendCell(1, 0.2);
-    cellsData->appendCell(2, 0.9);
-    cellsData->appendCell(3, 3.9);
-    cellsData->appendCell(4, 3.5);
-    cellsData->appendCell(5, 3.3);
-    cellsData->appendCell(6, 5);
-    for (int col=0; col<20; col++)
+    for (int i = 0; i < 40; ++i)
     {
-        cellsTableView->setColumnWidth(col,30);
+        cellsData->appendCell(3.3);
+        cellsData->appendCell(0.2);
+        cellsData->appendCell(0.9);
+        cellsData->appendCell(3.9);
+        cellsData->appendCell(3.5);
+        cellsData->appendCell(3.3);
+        cellsData->appendCell(5);
+    }
+    for (int i = 0; i < 30; i++)
+    {
+        cellsTableView->setColumnWidth(i, 40);
+        cellsTableView->setRowHeight(i, 50);
     }
 
     // Flags demo
@@ -121,21 +128,26 @@ MainWindow::MainWindow(QMainWindow *parent)
     f.setHintingPreference(QFont::HintingPreference::PreferFullHinting);
 }
 
-static inline void emulateLeaveEvent(QWidget *widget) {
+static inline void emulateLeaveEvent(QWidget *widget)
+{
     Q_ASSERT(widget);
-    if (!widget) {
+    if (!widget)
+    {
         return;
     }
-    QTimer::singleShot(0, widget, [widget]() {
+    QTimer::singleShot(0, widget, [widget]()
+    {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
         const QScreen *screen = widget->screen();
 #else
         const QScreen *screen = widget->windowHandle()->screen();
 #endif
         const QPoint globalPos = QCursor::pos(screen);
-        if (!QRect(widget->mapToGlobal(QPoint{0, 0}), widget->size()).contains(globalPos)) {
+        if (!QRect(widget->mapToGlobal(QPoint{0, 0}), widget->size()).contains(globalPos))
+        {
             QCoreApplication::postEvent(widget, new QEvent(QEvent::Leave));
-            if (widget->testAttribute(Qt::WA_Hover)) {
+            if (widget->testAttribute(Qt::WA_Hover))
+            {
                 const QPoint localPos = widget->mapFromGlobal(globalPos);
                 const QPoint scenePos = widget->window()->mapFromGlobal(globalPos);
                 static constexpr const auto oldPos = QPoint{};
@@ -157,39 +169,47 @@ static inline void emulateLeaveEvent(QWidget *widget) {
     });
 }
 
-bool MainWindow::event(QEvent *event) {
-    switch (event->type()) {
-    case QEvent::WindowActivate: {
-        auto menu = menuWidget();
-        if (menu) {
-            menu->setProperty("bar-active", true);
-            style()->polish(menu);
+bool MainWindow::event(QEvent *event)
+{
+    switch (event->type())
+    {
+        case QEvent::WindowActivate:
+        {
+            auto menu = menuWidget();
+            if (menu)
+            {
+                menu->setProperty("bar-active", true);
+                style()->polish(menu);
+            }
+            break;
         }
-        break;
-    }
 
-    case QEvent::WindowDeactivate: {
-        auto menu = menuWidget();
-        if (menu) {
-            menu->setProperty("bar-active", false);
-            style()->polish(menu);
+        case QEvent::WindowDeactivate:
+        {
+            auto menu = menuWidget();
+            if (menu)
+            {
+                menu->setProperty("bar-active", false);
+                style()->polish(menu);
+            }
+            break;
         }
-        break;
-    }
 
-    default:
-        break;
+        default:
+            break;
     }
     return QMainWindow::event(event);
 }
 
-void MainWindow::installWindowAgent() {
+void MainWindow::installWindowAgent()
+{
     // 1. Setup window agent
     m_widgetWindowAgent = new QWK::WidgetWindowAgent(this);
     m_widgetWindowAgent->setup(this);
 
     // 2. Construct your title bar
-    auto menuBar = [this]() {
+    auto menuBar = [this]()
+    {
         auto menuBar = new QMenuBar(this);
 
         // Virtual menu
@@ -230,19 +250,25 @@ void MainWindow::installWindowAgent() {
         winStyleGroup->addAction(acrylicAction);
         winStyleGroup->addAction(micaAction);
         winStyleGroup->addAction(micaAltAction);
-        connect(winStyleGroup, &QActionGroup::triggered, this, [this, winStyleGroup](QAction *action) {
+        connect(winStyleGroup, &QActionGroup::triggered, this, [this, winStyleGroup](QAction * action)
+        {
             // Unset all custom style attributes first, otherwise the style will not display correctly
-            for (const QAction* _act : winStyleGroup->actions()) {
+            for (const QAction * _act : winStyleGroup->actions())
+            {
                 const QString data = _act->data().toString();
-                if (data.isEmpty() || data == QStringLiteral("none")) {
+                if (data.isEmpty() || data == QStringLiteral("none"))
+                {
                     continue;
                 }
                 m_widgetWindowAgent->setWindowAttribute(data, false);
             }
             const QString data = action->data().toString();
-            if (data == QStringLiteral("none")) {
+            if (data == QStringLiteral("none"))
+            {
                 setProperty("custom-style", false);
-            } else if (!data.isEmpty()) {
+            }
+            else if (!data.isEmpty())
+            {
                 m_widgetWindowAgent->setWindowAttribute(data, true);
                 setProperty("custom-style", true);
             }
@@ -252,11 +278,14 @@ void MainWindow::installWindowAgent() {
 #elif defined(Q_OS_MAC)
         auto darkBlurAction = new QAction(tr("Dark blur"), menuBar);
         darkBlurAction->setCheckable(true);
-        connect(darkBlurAction, &QAction::toggled, this, [this](bool checked) {
-            if (!windowAgent->setWindowAttribute(QStringLiteral("blur-effect"), "dark")) {
+        connect(darkBlurAction, &QAction::toggled, this, [this](bool checked)
+        {
+            if (!windowAgent->setWindowAttribute(QStringLiteral("blur-effect"), "dark"))
+            {
                 return;
             }
-            if (checked) {
+            if (checked)
+            {
                 setProperty("custom-style", true);
                 style()->polish(this);
             }
@@ -264,11 +293,14 @@ void MainWindow::installWindowAgent() {
 
         auto lightBlurAction = new QAction(tr("Light blur"), menuBar);
         lightBlurAction->setCheckable(true);
-        connect(lightBlurAction, &QAction::toggled, this, [this](bool checked) {
-            if (!windowAgent->setWindowAttribute(QStringLiteral("blur-effect"), "light")) {
+        connect(lightBlurAction, &QAction::toggled, this, [this](bool checked)
+        {
+            if (!windowAgent->setWindowAttribute(QStringLiteral("blur-effect"), "light"))
+            {
                 return;
             }
-            if (checked) {
+            if (checked)
+            {
                 setProperty("custom-style", true);
                 style()->polish(this);
             }
@@ -276,11 +308,14 @@ void MainWindow::installWindowAgent() {
 
         auto noBlurAction = new QAction(tr("No blur"), menuBar);
         noBlurAction->setCheckable(true);
-        connect(noBlurAction, &QAction::toggled, this, [this](bool checked) {
-            if (!windowAgent->setWindowAttribute(QStringLiteral("blur-effect"), "none")) {
+        connect(noBlurAction, &QAction::toggled, this, [this](bool checked)
+        {
+            if (!windowAgent->setWindowAttribute(QStringLiteral("blur-effect"), "none"))
+            {
                 return;
             }
-            if (checked) {
+            if (checked)
+            {
                 setProperty("custom-style", false);
                 style()->polish(this);
             }
@@ -363,7 +398,8 @@ void MainWindow::installWindowAgent() {
     m_widgetWindowAgent->setHitTestVisible(menuBar, true);
 
 #ifdef Q_OS_MAC
-    windowAgent->setSystemButtonAreaCallback([](const QSize &size) {
+    windowAgent->setSystemButtonAreaCallback([](const QSize & size)
+    {
         static constexpr const int width = 75;
         return QRect(QPoint(size.width() - width, 0), QSize(width, size.height())); //
     });
@@ -374,10 +410,14 @@ void MainWindow::installWindowAgent() {
 
 #ifndef Q_OS_MAC
     connect(windowBar, &QWK::WindowBar::minimizeRequested, this, &QWidget::showMinimized);
-    connect(windowBar, &QWK::WindowBar::maximizeRequested, this, [this, maxButton](bool max) {
-        if (max) {
+    connect(windowBar, &QWK::WindowBar::maximizeRequested, this, [this, maxButton](bool max)
+    {
+        if (max)
+        {
             showMaximized();
-        } else {
+        }
+        else
+        {
             showNormal();
         }
 
@@ -393,7 +433,8 @@ void MainWindow::installWindowAgent() {
 void MainWindow::setTitleBarStyleSheet()
 {
     if (QFile qss(QStringLiteral(":/TitleBar.qss"));
-        qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qss.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
         setStyleSheet(QString::fromUtf8(qss.readAll()));
     }
 }
