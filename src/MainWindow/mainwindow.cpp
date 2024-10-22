@@ -56,6 +56,7 @@ MainWindow::MainWindow(QMainWindow *parent)
     ui->VoltCellsLayout->addWidget(cellsTableView);
     cellsTableView->setModel(cellsProxyModel);
 
+
     // Adding data
     for (int i = 0; i < 40; ++i)
     {
@@ -72,7 +73,6 @@ MainWindow::MainWindow(QMainWindow *parent)
     //     cellsTableView->setRowHeight(i, 20);
     //     cellsTableView->setColumnWidth(i, 20);
     // }
-    cellsTableView->setSizeToContents();
 
     // Flags demo
     ui->FlagsWidget->setContentsMargins(5, 0, 0, 0);
