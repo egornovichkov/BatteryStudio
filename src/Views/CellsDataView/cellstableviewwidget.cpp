@@ -19,16 +19,16 @@ CellsTableViewWidget::CellsTableViewWidget(QWidget *parent)
 
 void CellsTableViewWidget::paintEvent(QPaintEvent *e)
 {
-    QPainter painter(this);
+    // QPainter painter(this);
 
     QTableView::paintEvent(e);
 
-    int lastCellCol = model()->data(QModelIndex(), BSTU::LastCellIndexRole).toInt();
-    int lastCellRow = model()->rowCount();
-    int x = columnViewportPosition(lastCellCol);
-    int y = rowViewportPosition(lastCellRow);
-    painter.setBrush(Qt::gray);
-    painter.drawRect(x, y, 20, 20);
+    // int lastCellCol = model()->data(QModelIndex(), BSTU::LastCellIndexRole).toInt();
+    // int lastCellRow = model()->rowCount();
+    // int x = columnViewportPosition(lastCellCol);
+    // int y = rowViewportPosition(lastCellRow);
+    // painter.setBrush(Qt::gray);
+    // painter.drawRect(x, y, 20, 20);
     // Hiding unused cells
     // ...................
 
