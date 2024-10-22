@@ -12,7 +12,7 @@ public:
 
     void paintEvent(QPaintEvent *e) override;
 
-    void setSizeToContents();
+    void setWidgetSizeToContents();
 
 private:
     /// Max count of cells in a row (default = 10).
@@ -23,8 +23,6 @@ private:
     /// Maximum voltage.
     float m_maxVoltage;
 
-    /// Pointer to data model.
-    QAbstractItemModel *m_model;
 };
 
 #endif // CELLSTABLEVIEWWIDGET_H

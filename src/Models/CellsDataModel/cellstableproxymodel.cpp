@@ -77,6 +77,11 @@ QVariant CellsTableProxyModel::data(const QModelIndex& index, int role) const
             else
                 return data(index, BSTU::TempRole).toFloat() / data(index, BSTU::TempRangeRole).toFloat();
         }
+        case BSTU::LastCellIndexRole:
+        {
+            int cellsCount = sourceModel()->rowCount();
+            return cellsCount % m_cellsPerRow;
+        }
         case Qt::TextAlignmentRole:
             return Qt::AlignCenter;
         case Qt::FontRole:

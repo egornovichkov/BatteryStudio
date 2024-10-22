@@ -1,14 +1,16 @@
 #include "cellsviewdelegate.h"
 #include "src/bstunamespace.h"
 #include <QPainter>
+#include <QTableView>
+#include <iostream>
 
-CellsViewDelegate::CellsViewDelegate() {}
+CellsViewDelegate::CellsViewDelegate(QTableView* view) : m_view(view) {}
 
 void CellsViewDelegate::paint(QPainter *painter,
     const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 
-    painter->setRenderHint(QPainter::Antialiasing);
+    // painter->setRenderHint(QPainter::Antialiasing);
     const QAbstractItemModel *model = index.model();
     BSTU::CellsModel modelType = BSTU::CellsModel((model->data(index, BSTU::ModelTypeRole)).toInt());
 
@@ -28,11 +30,11 @@ void CellsViewDelegate::paint(QPainter *painter,
         // Move to cell bottom
         cellRect.moveBottom(option.rect.height());
 
-        // Translate coordinate system to cell bottom (+index.row() is for grid line width)
-        painter->translate(0, index.row() * option.rect.height() + index.row());
+        // Translate coordinate system to current row
+        painter->translate(0, m_view->rowViewportPosition(index.row()));
         painter->fillRect(cellRect, color);
         // Back to native coordinate system
-        painter->translate(0, -index.row() * option.rect.height() - index.row());
+        painter->translate(0, -m_view->rowViewportPosition(index.row()));
     }
     QString caption;
     if (modelType == BSTU::VoltageType)
@@ -40,9 +42,4 @@ void CellsViewDelegate::paint(QPainter *painter,
     else
         caption = QString::number(value) + "°C\nCell " + QString::number(model->data(index, BSTU::NumRole).toInt());
     painter->drawText(option.rect, Qt::AlignCenter, caption);
-}
-
-QSize CellsViewDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-    return QSize(20, 20);
 }
