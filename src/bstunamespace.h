@@ -34,7 +34,8 @@ namespace BSTU
         MaxTempRole,
         VoltRangeRole,
         TempRangeRole,
-        ModelTypeRole
+        ModelTypeRole,
+        LastCellIndexRole
     };
 
     enum CellsTableRoles
