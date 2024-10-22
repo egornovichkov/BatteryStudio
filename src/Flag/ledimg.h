@@ -15,7 +15,7 @@ public:
 
 protected:
     /// paintEvent override for LED image.
-    virtual void paintEvent(QPaintEvent*) override;
+    void paintEvent(QPaintEvent*) override;
 
 public slots:
     /// Handler for LED mode switch.
