@@ -24,7 +24,7 @@ void CellsTableViewWidget::paintEvent(QPaintEvent *e)
 
     QPainter painter(viewport());
 
-
+    // Hiding unused cells by simply drawing a rectangle above them.
     if (model())
     {
         int lastCellCol = model()->data(QModelIndex(), BSTU::LastCellIndexRole).toInt();
