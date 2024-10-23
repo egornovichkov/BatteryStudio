@@ -9,7 +9,7 @@ void CellsViewDelegate::paint(QPainter *painter,
     const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 
-    // painter->setRenderHint(QPainter::Antialiasing);
+    painter->setRenderHint(QPainter::Antialiasing);
     const QAbstractItemModel *model = index.model();
     BSTU::CellsModel modelType = BSTU::CellsModel((model->data(index, BSTU::ModelTypeRole)).toInt());
 
