@@ -2,7 +2,6 @@
 #include "src/bstunamespace.h"
 #include <QPainter>
 #include <QTableView>
-#include <iostream>
 
 CellsViewDelegate::CellsViewDelegate(QTableView* view) : m_view(view) {}
 

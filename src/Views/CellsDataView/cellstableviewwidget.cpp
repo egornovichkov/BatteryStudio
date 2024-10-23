@@ -1,12 +1,11 @@
 #include "cellstableviewwidget.h"
 #include "cellsviewdelegate.h"
-#include "src/bstunamespace.h"
 #include <QPainter>
 #include <QHeaderView>
-#include <iostream>
 
 CellsTableViewWidget::CellsTableViewWidget(QWidget *parent)
 {
+    Q_UNUSED(parent);
     CellsViewDelegate *delegate = new CellsViewDelegate(this);
     setItemDelegate(delegate);
     horizontalHeader()->hide();

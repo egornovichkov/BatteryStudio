@@ -12,8 +12,6 @@ public:
 
     void paintEvent(QPaintEvent *e) override;
 
-    void setWidgetSizeToContents();
-
 private:
     /// Max count of cells in a row (default = 10).
     int m_cellsPerRow = 10;
